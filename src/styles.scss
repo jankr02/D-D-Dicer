@@ -31,6 +31,36 @@
   --transition: all 0.3s ease;
 }
 
+// === Dark Mode Theme Variables ===
+:root[data-theme="dark"] {
+  // === Dark Wood Tones (Nächtliche Taverne) ===
+  --tavern-wood-dark: #1a0f0a;      // Sehr dunkles Braun (fast schwarz)
+  --tavern-wood-medium: #2d1810;    // Dunkles Braun
+  --tavern-wood-light: #4a2f20;     // Medium-dunkles Braun
+
+  // === Dark Parchment (Gedämpftes Pergament) ===
+  --parchment-light: #2d2520;       // Dunkles Pergament (Haupthintergrund)
+  --parchment-medium: #3e342a;      // Medium-dunkles Pergament
+  --parchment-dark: #1f1915;        // Sehr dunkles Pergament (Borders)
+
+  // === Brass & Bronze (bleiben gleich, funktioniert in beiden Themes) ===
+  --brass-primary: #b8860b;
+  --brass-hover: #daa520;
+  --bronze-dark: #8b6914;
+
+  // === Borders ===
+  --border-primary: #5a4a42;        // Dunkler Border
+  --border-hover: #6d5d55;          // Hellerer Border für Hover
+
+  // === Text Colors (Invertiert für Lesbarkeit) ===
+  --text-primary: #e8d7b8;          // Heller Text (ehemals parchment-medium)
+  --text-secondary: #c5b5a0;        // Sekundärer heller Text
+  --text-light: #f4e8d0;            // Sehr heller Text (für Header)
+
+  // === Box Shadows (subtiler im Dark Mode) ===
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
 // === Global Reset ===
 * {
   margin: 0;
@@ -40,7 +70,7 @@
 
 body {
   font-family: var(--font-body);
-  background: linear-gradient(135deg, #3e2723 0%, #5d4037 100%);
+  background: linear-gradient(135deg, var(--tavern-wood-dark) 0%, var(--tavern-wood-medium) 50%, var(--tavern-wood-dark) 100%);
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
@@ -89,5 +119,27 @@ input, select {
 
   &:focus {
     outline: none;
+  }
+}
+
+// === Smooth Transitions für Theme-Wechsel ===
+*,
+*::before,
+*::after {
+  transition:
+    background-color 0.3s ease,
+    background 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+// === Respect prefers-reduced-motion ===
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

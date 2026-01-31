@@ -15,7 +15,8 @@
       "Bash(npm start)",
       "Bash(timeout 15 tail:*)",
       "Bash(npx ng:*)",
-      "Bash(cd c:ProjectsD&D-Dicer)"
+      "Bash(cd c:ProjectsD&D-Dicer)",
+      "Bash(npm run dev:*)"
     ]
   }
 }

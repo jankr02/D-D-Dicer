@@ -1,0 +1,9 @@
+<button
+  class="theme-toggle"
+  (click)="toggleTheme()"
+  [attr.aria-label]="getThemeLabel((theme$ | async) || 'light')"
+  [title]="'Toggle theme (Ctrl+Shift+D)'"
+>
+  <span class="icon">{{ getThemeIcon((theme$ | async) || 'light') }}</span>
+  <span class="label">{{ getThemeLabel((theme$ | async) || 'light') }}</span>
+</button>
