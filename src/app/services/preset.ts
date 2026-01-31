@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Preset as PresetModel } from '../models';
+import { PresetCategory, CategoryFilter, ALL_CATEGORIES, UNCATEGORIZED } from '../types/preset-category.type';
 
 /**
  * PresetService - Manages saved dice roll configurations.
@@ -13,6 +15,9 @@ import { Preset as PresetModel } from '../models';
 })
 export class Preset {
   private readonly STORAGE_KEY = 'dnd_dicer_presets';
+  private readonly STORAGE_VERSION_KEY = 'dnd_dicer_presets_version';
+  private readonly CURRENT_VERSION = 2;
+
   private presetsSubject = new BehaviorSubject<PresetModel[]>([]);
   public presets$ = this.presetsSubject.asObservable();
 
@@ -24,23 +29,47 @@ export class Preset {
   /**
    * Loads presets from localStorage and updates the BehaviorSubject.
    * Called automatically on service initialization.
+   * Includes migration support for older preset formats.
    */
   loadPresets(): void {
     try {
       const storedData = localStorage.getItem(this.STORAGE_KEY);
+      const version = parseInt(localStorage.getItem(this.STORAGE_VERSION_KEY) || '1', 10);
 
       if (storedData) {
-        const presets: PresetModel[] = JSON.parse(storedData);
+        let presets: PresetModel[] = JSON.parse(storedData);
+
+        // Migrate old presets to new format if needed
+        if (version < this.CURRENT_VERSION) {
+          presets = this.migratePresets(presets);
+          // Save migrated data
+          localStorage.setItem(this.STORAGE_KEY, JSON.stringify(presets));
+          localStorage.setItem(this.STORAGE_VERSION_KEY, this.CURRENT_VERSION.toString());
+        }
+
         this.presetsSubject.next(presets);
       } else {
         // No presets stored yet - initialize with empty array
         this.presetsSubject.next([]);
+        localStorage.setItem(this.STORAGE_VERSION_KEY, this.CURRENT_VERSION.toString());
       }
     } catch (error) {
       console.error('Failed to load presets from localStorage:', error);
       // On error, initialize with empty array
       this.presetsSubject.next([]);
     }
+  }
+
+  /**
+   * Migrates presets from older versions to current format.
+   * Ensures all presets have the categories field (even if empty/undefined).
+   */
+  private migratePresets(presets: PresetModel[]): PresetModel[] {
+    return presets.map(preset => ({
+      ...preset,
+      // Keep existing categories if present, otherwise undefined (uncategorized)
+      categories: preset.categories || undefined
+    }));
   }
 
   /**
@@ -102,5 +131,45 @@ export class Preset {
    */
   getPresets(): PresetModel[] {
     return this.presetsSubject.value;
+  }
+
+  /**
+   * Gets an observable of presets filtered by category.
+   *
+   * @param categoryFilter The category to filter by, or 'All Categories'/'Uncategorized'
+   * @returns Observable of filtered presets
+   */
+  getPresetsByCategory(categoryFilter: CategoryFilter): Observable<PresetModel[]> {
+    return this.presets$.pipe(
+      map(presets => {
+        if (categoryFilter === ALL_CATEGORIES) {
+          return presets;
+        }
+
+        if (categoryFilter === UNCATEGORIZED) {
+          return presets.filter(preset =>
+            !preset.categories || preset.categories.length === 0
+          );
+        }
+
+        // Filter by specific category
+        return presets.filter(preset =>
+          preset.categories?.includes(categoryFilter as PresetCategory)
+        );
+      })
+    );
+  }
+
+  /**
+   * Checks if there are any uncategorized presets.
+   *
+   * @returns Observable of boolean indicating if uncategorized presets exist
+   */
+  hasUncategorizedPresets(): Observable<boolean> {
+    return this.presets$.pipe(
+      map(presets =>
+        presets.some(preset => !preset.categories || preset.categories.length === 0)
+      )
+    );
   }
 }

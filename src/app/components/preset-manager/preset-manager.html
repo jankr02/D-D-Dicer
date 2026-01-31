@@ -6,6 +6,24 @@
     </button>
   </div>
 
+  <!-- Category Filter Dropdown -->
+  <div class="category-filter">
+    <label for="category-select">Filter by Category:</label>
+    <select
+      id="category-select"
+      class="category-select"
+      [(ngModel)]="selectedFilter"
+      (ngModelChange)="onFilterChange($event)">
+      <option [value]="ALL_CATEGORIES">{{ ALL_CATEGORIES }}</option>
+      @for (category of allCategories; track category) {
+        <option [value]="category">{{ category }}</option>
+      }
+      @if (hasUncategorized$ | async) {
+        <option [value]="UNCATEGORIZED">{{ UNCATEGORIZED }}</option>
+      }
+    </select>
+  </div>
+
   @if (showSaveForm) {
     <div class="save-form">
       <input
@@ -15,6 +33,26 @@
         class="preset-name-input"
         (keyup.enter)="onSaveCurrentAsPreset()"
       />
+
+      <!-- Category Selection (Multi-select checkboxes) -->
+      <div class="category-selection">
+        <label class="category-label">Categories (optional):</label>
+        <div class="category-chips">
+          @for (category of allCategories; track category) {
+            <button
+              type="button"
+              class="category-chip"
+              [class.selected]="isCategorySelected(category)"
+              (click)="toggleCategory(category)">
+              {{ category }}
+              @if (isCategorySelected(category)) {
+                <span class="check-mark">✓</span>
+              }
+            </button>
+          }
+        </div>
+      </div>
+
       <button
         class="confirm-save-button"
         (click)="onSaveCurrentAsPreset()"
@@ -24,13 +62,23 @@
     </div>
   }
 
-  @if (presets$ | async; as presets) {
+  @if (filteredPresets$ | async; as presets) {
     @if (presets.length > 0) {
       <div class="preset-list">
         @for (preset of presets; track preset.id) {
           <div class="preset-item">
             <div class="preset-info">
               <div class="preset-name">{{ preset.name }}</div>
+
+              <!-- Category Badges -->
+              @if (getCategoryBadges(preset).length > 0) {
+                <div class="category-badges">
+                  @for (category of getCategoryBadges(preset); track category) {
+                    <span class="category-badge">{{ category }}</span>
+                  }
+                </div>
+              }
+
               <div class="preset-notation">{{ preset.expression | diceNotation }}</div>
             </div>
             <div class="preset-actions">
@@ -46,7 +94,13 @@
       </div>
     } @else {
       <div class="empty-state">
-        <p>No presets saved yet. Save your favorite dice configurations!</p>
+        <p>
+          @if (selectedFilter === ALL_CATEGORIES) {
+            No presets saved yet. Save your favorite dice configurations!
+          } @else {
+            No presets in "{{ selectedFilter }}" category.
+          }
+        </p>
       </div>
     }
   }

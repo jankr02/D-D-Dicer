@@ -1,7 +1,5 @@
 **Quick Wins aus der Analyse**
-Toast-Notifications (1.5h) - Statt alert()
 Copy-to-Clipboard (1h) - Roll-Ergebnisse teilen
-Repeat Last Roll (1h) - Schnell-Wiederholung
 
 **Advanced Features**
 Custom Dice Types (5h) - d37, d73, etc.

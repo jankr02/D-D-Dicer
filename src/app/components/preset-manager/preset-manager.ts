@@ -7,6 +7,13 @@ import { Preset as PresetModel, DiceExpression } from '../../models';
 import { generateUUID } from '../../utils/uuid.util';
 import { DiceNotationPipe } from '../../pipes/dice-notation.pipe';
 import { ToastService } from '../../services/toast.service';
+import {
+  PresetCategory,
+  CategoryFilter,
+  PRESET_CATEGORIES,
+  ALL_CATEGORIES,
+  UNCATEGORIZED
+} from '../../types/preset-category.type';
 
 /**
  * PresetManagerComponent - Manages saved dice roll configurations.
@@ -27,9 +34,22 @@ export class PresetManager implements OnInit {
   @Output() loadPreset = new EventEmitter<DiceExpression>();
   @Output() requestSave = new EventEmitter<string>();
 
-  presets$!: Observable<PresetModel[]>;
+  // Preset data
+  filteredPresets$!: Observable<PresetModel[]>;
+  hasUncategorized$!: Observable<boolean>;
+
+  // Form state
   newPresetName = '';
+  selectedCategories: PresetCategory[] = [];
   showSaveForm = false;
+
+  // Filter state
+  selectedFilter: CategoryFilter = ALL_CATEGORIES;
+
+  // Constants for template
+  readonly allCategories = PRESET_CATEGORIES;
+  readonly ALL_CATEGORIES = ALL_CATEGORIES;
+  readonly UNCATEGORIZED = UNCATEGORIZED;
 
   constructor(
     private presetService: Preset,
@@ -37,7 +57,9 @@ export class PresetManager implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.presets$ = this.presetService.presets$;
+    // Initialize filtered presets based on selected filter
+    this.filteredPresets$ = this.presetService.getPresetsByCategory(this.selectedFilter);
+    this.hasUncategorized$ = this.presetService.hasUncategorizedPresets();
   }
 
   /**
@@ -47,6 +69,7 @@ export class PresetManager implements OnInit {
     this.showSaveForm = !this.showSaveForm;
     if (!this.showSaveForm) {
       this.newPresetName = '';
+      this.selectedCategories = [];
     }
   }
 
@@ -62,8 +85,7 @@ export class PresetManager implements OnInit {
     }
 
     this.requestSave.emit(this.newPresetName.trim());
-    this.newPresetName = '';
-    this.showSaveForm = false;
+    // Note: Form state will be reset after successful save via savePreset()
   }
 
   /**
@@ -74,11 +96,17 @@ export class PresetManager implements OnInit {
     const preset: PresetModel = {
       id: generateUUID(),
       name: name,
-      expression: expression
+      expression: expression,
+      categories: this.selectedCategories.length > 0 ? [...this.selectedCategories] : undefined
     };
 
     this.presetService.savePreset(preset);
     this.toastService.success(`Preset "${name}" saved successfully!`);
+
+    // Reset form state
+    this.newPresetName = '';
+    this.selectedCategories = [];
+    this.showSaveForm = false;
   }
 
   /**
@@ -97,5 +125,39 @@ export class PresetManager implements OnInit {
       this.presetService.deletePreset(preset.id);
       this.toastService.success(`Preset "${preset.name}" deleted`);
     }
+  }
+
+  /**
+   * Updates the category filter and refreshes the preset list.
+   */
+  onFilterChange(filter: CategoryFilter): void {
+    this.selectedFilter = filter;
+    this.filteredPresets$ = this.presetService.getPresetsByCategory(filter);
+  }
+
+  /**
+   * Toggles category selection when saving a preset.
+   */
+  toggleCategory(category: PresetCategory): void {
+    const index = this.selectedCategories.indexOf(category);
+    if (index >= 0) {
+      this.selectedCategories.splice(index, 1);
+    } else {
+      this.selectedCategories.push(category);
+    }
+  }
+
+  /**
+   * Checks if a category is currently selected.
+   */
+  isCategorySelected(category: PresetCategory): boolean {
+    return this.selectedCategories.includes(category);
+  }
+
+  /**
+   * Gets a display-friendly category badge list for a preset.
+   */
+  getCategoryBadges(preset: PresetModel): PresetCategory[] {
+    return preset.categories || [];
   }
 }
