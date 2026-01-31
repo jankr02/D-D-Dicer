@@ -6,7 +6,10 @@
   <main class="content">
     <div class="left-panel">
       <app-dice-roller></app-dice-roller>
-      <app-preset-manager></app-preset-manager>
+      <app-preset-manager
+        (loadPreset)="onLoadPreset($event)"
+        (requestSave)="onSavePreset($event)">
+      </app-preset-manager>
     </div>
 
     <div class="right-panel">

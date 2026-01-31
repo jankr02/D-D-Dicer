@@ -23,6 +23,7 @@ import { generateUUID } from '../../utils/uuid.util';
 })
 export class PresetManager implements OnInit {
   @Output() loadPreset = new EventEmitter<DiceExpression>();
+  @Output() requestSave = new EventEmitter<string>();
 
   presets$!: Observable<PresetModel[]>;
   newPresetName = '';
@@ -45,25 +46,33 @@ export class PresetManager implements OnInit {
   }
 
   /**
-   * Saves the current configuration as a new preset.
-   * Note: This is a placeholder - actual implementation needs
-   * to receive DiceExpression from parent component.
+   * Requests to save the current dice configuration as a new preset.
+   * Emits the preset name to the parent component, which will
+   * retrieve the current expression and complete the save.
    */
-  saveCurrentAsPreset(expression: DiceExpression): void {
+  onSaveCurrentAsPreset(): void {
     if (!this.newPresetName.trim()) {
       alert('Please enter a preset name');
       return;
     }
 
+    this.requestSave.emit(this.newPresetName.trim());
+    this.newPresetName = '';
+    this.showSaveForm = false;
+  }
+
+  /**
+   * Internal method to save a preset directly.
+   * Used when the parent component provides the complete preset.
+   */
+  savePreset(name: string, expression: DiceExpression): void {
     const preset: PresetModel = {
       id: generateUUID(),
-      name: this.newPresetName.trim(),
+      name: name,
       expression: expression
     };
 
     this.presetService.savePreset(preset);
-    this.newPresetName = '';
-    this.showSaveForm = false;
   }
 
   /**

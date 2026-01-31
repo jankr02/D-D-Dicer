@@ -111,4 +111,51 @@ export class DiceRoller implements OnInit {
     const firstGroup = this.groups.at(0).value;
     return firstGroup.type === DiceType.D20;
   }
+
+  /**
+   * Loads a preset into the dice roller form.
+   */
+  loadPreset(expression: DiceExpression): void {
+    // Clear existing groups
+    while (this.groups.length > 0) {
+      this.groups.removeAt(0);
+    }
+
+    // Add groups from preset
+    expression.groups.forEach(group => {
+      const formGroup = this.fb.group({
+        count: [group.count, [Validators.required, Validators.min(1), Validators.max(20)]],
+        type: [group.type, Validators.required],
+        keepDrop: [group.keepDrop]
+      });
+      this.groups.push(formGroup);
+    });
+
+    // Set modifier and advantage
+    this.diceForm.patchValue({
+      modifier: expression.modifier,
+      advantage: expression.advantage || AdvantageType.NONE
+    });
+  }
+
+  /**
+   * Gets the current dice expression from the form.
+   */
+  getCurrentExpression(): DiceExpression | null {
+    if (this.diceForm.invalid) {
+      return null;
+    }
+
+    const formValue = this.diceForm.value;
+
+    return {
+      groups: formValue.groups.map((g: DiceGroup) => ({
+        count: g.count,
+        type: g.type,
+        keepDrop: g.keepDrop
+      })),
+      modifier: formValue.modifier || 0,
+      advantage: formValue.advantage
+    };
+  }
 }

@@ -13,8 +13,14 @@
         [(ngModel)]="newPresetName"
         placeholder="Enter preset name..."
         class="preset-name-input"
+        (keyup.enter)="onSaveCurrentAsPreset()"
       />
-      <p class="note">Note: Saving from here is not yet implemented. Use the integration with DiceRoller.</p>
+      <button
+        class="confirm-save-button"
+        (click)="onSaveCurrentAsPreset()"
+        [disabled]="!newPresetName.trim()">
+        Save Preset
+      </button>
     </div>
   }
 
