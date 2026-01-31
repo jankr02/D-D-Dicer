@@ -52,5 +52,12 @@
     <button type="submit" class="roll-button" [disabled]="diceForm.invalid">
       Roll Dice
     </button>
+
+    <button type="button"
+            class="repeat-button"
+            (click)="repeatLastRoll()"
+            [disabled]="!hasLastRoll()">
+      🔄 Repeat Last Roll
+    </button>
   </form>
 </div>

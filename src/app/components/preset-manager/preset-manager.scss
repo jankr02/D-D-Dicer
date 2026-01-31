@@ -316,3 +316,43 @@
     }
   }
 }
+
+// === Dark Mode Anpassungen ===
+:root[data-theme="dark"] {
+  .preset-manager {
+    .save-form {
+      background: rgba(45, 37, 32, 0.7);
+
+      .preset-name-input {
+        background: var(--parchment-dark);
+        color: var(--text-light);
+        border-color: var(--border-primary);
+
+        &:focus {
+          border-color: var(--brass-primary);
+          box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.3);
+        }
+
+        &::placeholder {
+          color: var(--text-secondary);
+        }
+      }
+    }
+
+    .preset-list {
+      .preset-item {
+        &:hover {
+          background: var(--parchment-medium);
+        }
+
+        .preset-info {
+          .preset-notation {
+            color: var(--brass-hover);
+            background: rgba(0, 0, 0, 0.3);
+            border-color: rgba(184, 134, 11, 0.3);
+          }
+        }
+      }
+    }
+  }
+}

@@ -16,7 +16,8 @@
       "Bash(timeout 15 tail:*)",
       "Bash(npx ng:*)",
       "Bash(cd c:ProjectsD&D-Dicer)",
-      "Bash(npm run dev:*)"
+      "Bash(npm run dev:*)",
+      "Bash(node node_modules/@angular/cli/bin/ng.js serve:*)"
     ]
   }
 }

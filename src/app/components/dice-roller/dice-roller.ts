@@ -158,4 +158,38 @@ export class DiceRoller implements OnInit {
       advantage: formValue.advantage
     };
   }
+
+  /**
+   * Checks if there is a last roll available to repeat.
+   */
+  hasLastRoll(): boolean {
+    const history = this.historieService.getAllHistory();
+    return history.length > 0 && history[0].expression !== undefined;
+  }
+
+  /**
+   * Repeats the last roll by loading its expression and executing it again.
+   * This creates a NEW entry in history and statistics.
+   */
+  repeatLastRoll(): void {
+    const history = this.historieService.getAllHistory();
+
+    if (history.length === 0) {
+      return;
+    }
+
+    const lastRoll = history[0];
+
+    // Edge case: Old rolls without expression
+    if (!lastRoll.expression) {
+      console.warn('Last roll does not have expression data');
+      return;
+    }
+
+    // Load the expression into the form (reuses existing loadPreset logic)
+    this.loadPreset(lastRoll.expression);
+
+    // Execute the roll immediately
+    this.rollDice();
+  }
 }

@@ -106,3 +106,37 @@
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 }
+
+// === Dark Mode Anpassungen ===
+:root[data-theme="dark"] {
+  .dice-group-form {
+    .form-row {
+      .form-field {
+        input,
+        select {
+          background: var(--parchment-dark);
+          color: var(--text-light);
+          border-color: var(--border-primary);
+
+          &:focus {
+            border-color: var(--brass-primary);
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.3);
+          }
+
+          &:hover {
+            border-color: var(--brass-hover);
+          }
+        }
+
+        input::placeholder {
+          color: var(--text-secondary);
+        }
+      }
+    }
+
+    .keep-drop-section {
+      background: rgba(0, 0, 0, 0.3);
+      border-color: var(--brass-primary);
+    }
+  }
+}

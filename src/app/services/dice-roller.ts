@@ -189,6 +189,7 @@ export class DiceRoller {
       total,
       timestamp: new Date(),
       notation,
+      expression: expression,
     };
   }
 
