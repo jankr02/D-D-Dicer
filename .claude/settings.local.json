@@ -10,7 +10,12 @@
       "Bash(timeout 15 ng serve:*)",
       "Bash(dir:*)",
       "Bash(find:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm start)",
+      "Bash(timeout 15 tail:*)",
+      "Bash(npx ng:*)",
+      "Bash(cd c:ProjectsD&D-Dicer)"
     ]
   }
 }

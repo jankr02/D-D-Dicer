@@ -1,0 +1,127 @@
+<div class="statistics-dashboard">
+  @if (stats$ | async; as stats) {
+    @if (stats && stats.basic.totalRolls > 0) {
+
+      <!-- Time Filter Controls -->
+      <div class="filter-controls">
+        <button
+          class="filter-button"
+          [class.active]="selectedTimeFilter === 'today'"
+          (click)="setTimeFilter('today')">
+          Heute
+        </button>
+        <button
+          class="filter-button"
+          [class.active]="selectedTimeFilter === 'session'"
+          (click)="setTimeFilter('session')">
+          Session
+        </button>
+        <button
+          class="filter-button"
+          [class.active]="selectedTimeFilter === 'all'"
+          (click)="setTimeFilter('all')">
+          Alle
+        </button>
+        <button class="new-session-button" (click)="newSession()">
+          Neue Session
+        </button>
+      </div>
+
+      <!-- Basic Metrics Grid -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-label">Total Rolls</div>
+          <div class="metric-value">{{ stats.basic.totalRolls }}</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Durchschnitt</div>
+          <div class="metric-value">{{ stats.basic.averageResult }}</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Minimum</div>
+          <div class="metric-value">{{ stats.basic.minResult }}</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-label">Maximum</div>
+          <div class="metric-value">{{ stats.basic.maxResult }}</div>
+        </div>
+      </div>
+
+      <!-- Critical Stats (only if d20 rolls exist) -->
+      @if (stats.critical.totalD20Rolls > 0) {
+        <div class="critical-section">
+          <h3>Critical Rolls (d20)</h3>
+          <div class="critical-stats">
+            <div class="critical-card success">
+              <div class="critical-icon">⚔️</div>
+              <div class="critical-label">Nat 20</div>
+              <div class="critical-count">{{ stats.critical.nat20Count }}</div>
+              <div class="critical-percentage">
+                {{ stats.critical.nat20Percentage }}%
+              </div>
+            </div>
+            <div class="critical-card failure">
+              <div class="critical-icon">💀</div>
+              <div class="critical-label">Nat 1</div>
+              <div class="critical-count">{{ stats.critical.nat1Count }}</div>
+              <div class="critical-percentage">
+                {{ stats.critical.nat1Percentage }}%
+              </div>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Distribution Chart -->
+      <div class="distribution-section">
+        <h3>Ergebnis-Verteilung</h3>
+        <div class="distribution-chart">
+          @for (entry of stats.distribution; track entry.value) {
+            <div class="chart-bar">
+              <div class="bar-label">{{ entry.value }}</div>
+              <div class="bar-container">
+                <div
+                  class="bar-fill"
+                  [style.width.%]="entry.percentage"
+                  [title]="entry.count + ' rolls (' + entry.percentage + '%)'">
+                </div>
+              </div>
+              <div class="bar-count">{{ entry.count }}</div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Dice Type Analysis -->
+      <div class="dice-types-section">
+        <h3>Würfeltyp-Analyse</h3>
+        <div class="dice-types-list">
+          @for (diceType of stats.diceTypes; track diceType.diceType) {
+            <div class="dice-type-card">
+              <div class="dice-type-name">{{ diceType.diceType }}</div>
+              <div class="dice-type-stats">
+                <span class="usage-count">{{ diceType.count }}x verwendet</span>
+                <span class="average">⌀ {{ diceType.averageResult }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Export Buttons -->
+      <div class="export-controls">
+        <button class="export-button json" (click)="exportJSON()">
+          Export JSON
+        </button>
+        <button class="export-button csv" (click)="exportCSV()">
+          Export CSV
+        </button>
+      </div>
+
+    } @else {
+      <div class="empty-state">
+        <p>Keine Statistiken verfügbar. Würfle ein paar Mal!</p>
+      </div>
+    }
+  }
+</div>

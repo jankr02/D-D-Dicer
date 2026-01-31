@@ -1,20 +1,38 @@
 <div class="roll-history">
   <div class="history-header">
-    <h2>Roll History</h2>
+    <div class="tab-navigation">
+      <button
+        class="tab-button"
+        [class.active]="activeTab === 'history'"
+        (click)="switchTab('history')">
+        Roll History
+      </button>
+      <button
+        class="tab-button"
+        [class.active]="activeTab === 'statistics'"
+        (click)="switchTab('statistics')">
+        Statistics
+      </button>
+    </div>
+
     <button class="clear-button" (click)="clearHistory()">Clear History</button>
   </div>
 
-  @if (history$ | async; as history) {
-    @if (history.length > 0) {
-      <div class="history-list">
-        @for (result of history; track result.timestamp) {
-          <app-roll-result-detail [result]="result"></app-roll-result-detail>
-        }
-      </div>
-    } @else {
-      <div class="empty-state">
-        <p>No rolls yet. Start rolling some dice!</p>
-      </div>
+  @if (activeTab === 'history') {
+    @if (history$ | async; as history) {
+      @if (history.length > 0) {
+        <div class="history-list">
+          @for (result of history; track result.timestamp) {
+            <app-roll-result-detail [result]="result"></app-roll-result-detail>
+          }
+        </div>
+      } @else {
+        <div class="empty-state">
+          <p>No rolls yet. Start rolling some dice!</p>
+        </div>
+      }
     }
+  } @else {
+    <app-statistics-dashboard></app-statistics-dashboard>
   }
 </div>

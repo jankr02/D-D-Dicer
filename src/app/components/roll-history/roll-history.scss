@@ -15,13 +15,41 @@
     padding: 1rem 1.5rem;
     background: linear-gradient(180deg, #3e2723 0%, #5d4037 100%);
     border-bottom: 2px solid var(--tavern-wood-dark);
+    gap: 1rem;
 
-    h2 {
-      margin: 0;
-      font-size: 1.75rem;
-      color: var(--text-light);
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-      letter-spacing: 1px;
+    .tab-navigation {
+      display: flex;
+      gap: 0.5rem;
+      flex: 1;
+
+      .tab-button {
+        padding: 0.7rem 1.4rem;
+        background: linear-gradient(180deg, #5d4037 0%, #3e2723 100%);
+        color: var(--text-light);
+        border: 2px solid var(--border-primary);
+        border-radius: 4px 4px 0 0;
+        font-weight: 600;
+        font-size: 1rem;
+        font-family: var(--font-heading);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        transition: all 0.2s ease;
+        cursor: pointer;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+
+        &:hover {
+          background: linear-gradient(180deg, #6d4c41 0%, #4e342e 100%);
+          border-color: var(--brass-hover);
+        }
+
+        &.active {
+          background: var(--parchment-light);
+          color: var(--text-primary);
+          border-bottom-color: var(--parchment-light);
+          box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+          text-shadow: none;
+        }
+      }
     }
 
     .clear-button {
