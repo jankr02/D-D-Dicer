@@ -20,7 +20,8 @@
       "Bash(node node_modules/@angular/cli/bin/ng.js serve:*)",
       "Bash(grep:*)",
       "Bash(cd:*)",
-      "Bash(./node_modules/.bin/ng build:*)"
+      "Bash(./node_modules/.bin/ng build:*)",
+      "Bash(head:*)"
     ]
   }
 }
