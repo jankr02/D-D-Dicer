@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { DiceRoller as DiceRollerService } from '../../services/dice-roller';
 import { Historie } from '../../services/historie';
+import { ProbabilityCalculator } from '../../services/probability-calculator';
+import { DiceExpressionState } from '../../services/dice-expression-state';
 import { DiceExpression, DiceGroup } from '../../models';
 import { DiceType, AdvantageType } from '../../types/dice-types';
 import { DiceGroupForm } from './dice-group-form/dice-group-form';
@@ -15,21 +19,30 @@ import { DiceGroupForm } from './dice-group-form/dice-group-form';
  * - Global modifier
  * - Advantage/Disadvantage for d20 rolls
  * - Roll execution and history integration
+ * - Live probability preview
  */
 @Component({
   selector: 'app-dice-roller',
-  imports: [CommonModule, ReactiveFormsModule, DiceGroupForm],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, DiceGroupForm],
   templateUrl: './dice-roller.html',
   styleUrl: './dice-roller.scss',
 })
-export class DiceRoller implements OnInit {
+export class DiceRoller implements OnInit, OnDestroy {
   diceForm!: FormGroup;
   advantageTypes = Object.values(AdvantageType);
+
+  // Live probability preview
+  targetDC: number = 15;
+  liveSuccessProbability: number | null = null;
+
+  private destroy$ = new Subject<void>();
 
   constructor(
     private fb: FormBuilder,
     private diceRollerService: DiceRollerService,
-    private historieService: Historie
+    private historieService: Historie,
+    private probabilityCalculator: ProbabilityCalculator,
+    private diceExpressionState: DiceExpressionState
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +51,24 @@ export class DiceRoller implements OnInit {
       modifier: [0],
       advantage: [AdvantageType.NONE]
     });
+
+    // Subscribe to form changes for live probability preview
+    this.diceForm.valueChanges
+      .pipe(
+        debounceTime(300),
+        takeUntil(this.destroy$)
+      )
+      .subscribe(() => {
+        this.updateLiveProbability();
+      });
+
+    // Initial calculation
+    this.updateLiveProbability();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   /**
@@ -191,5 +222,49 @@ export class DiceRoller implements OnInit {
 
     // Execute the roll immediately
     this.rollDice();
+  }
+
+  /**
+   * Updates the live probability preview.
+   * Called when form changes or DC changes.
+   */
+  private updateLiveProbability(): void {
+    const expression = this.getCurrentExpression();
+
+    // Update shared state for probability panel
+    this.diceExpressionState.setExpression(expression);
+
+    // Calculate live success probability
+    if (expression && this.targetDC > 0) {
+      try {
+        const result = this.probabilityCalculator.getSuccessProbability(
+          expression,
+          this.targetDC
+        );
+        this.liveSuccessProbability = Math.round(result.percentage);
+      } catch (error) {
+        console.error('Error calculating live probability:', error);
+        this.liveSuccessProbability = null;
+      }
+    } else {
+      this.liveSuccessProbability = null;
+    }
+  }
+
+  /**
+   * Called when target DC changes.
+   */
+  onDCChange(): void {
+    this.updateLiveProbability();
+  }
+
+  /**
+   * Gets CSS class for success indicator based on probability.
+   */
+  getSuccessIndicatorClass(): string {
+    if (!this.liveSuccessProbability) return '';
+    if (this.liveSuccessProbability >= 70) return 'high';
+    if (this.liveSuccessProbability >= 40) return 'medium';
+    return 'low';
   }
 }

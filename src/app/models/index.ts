@@ -6,3 +6,4 @@ export * from './preset.model';
 export * from './statistics.model';
 export * from './toast.model';
 export * from './modal.model';
+export * from './probability.model';

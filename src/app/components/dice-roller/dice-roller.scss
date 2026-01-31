@@ -167,6 +167,103 @@
       }
     }
 
+    // === DC Quick Check (Live Probability Preview) ===
+    .dc-quick-check {
+      margin-bottom: 1.5rem;
+      padding: 1.25rem;
+      background: linear-gradient(135deg, #f4e8d0 0%, #e8d7b8 100%);
+      border: 3px solid var(--parchment-dark);
+      border-radius: 6px;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+
+      label {
+        display: block;
+        margin-bottom: 0.6rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        font-size: 1rem;
+        font-family: var(--font-heading);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .dc-input {
+        width: 100%;
+        padding: 0.8rem;
+        font-size: 1.1rem;
+        font-family: var(--font-body);
+        font-weight: 600;
+        border: 2px solid var(--tavern-wood-dark);
+        border-radius: 4px;
+        background: white;
+        color: var(--text-primary);
+        transition: all 0.2s ease;
+        margin-bottom: 1rem;
+
+        &:focus {
+          outline: none;
+          border-color: var(--brass-primary);
+          box-shadow: 0 0 0 3px rgba(191, 149, 63, 0.2);
+        }
+      }
+
+      .success-indicator {
+        padding: 1.2rem;
+        border: 3px solid;
+        border-radius: 6px;
+        text-align: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+
+        &.high {
+          border-color: #2e7d32;
+          background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+
+          .success-value {
+            color: #2e7d32;
+          }
+        }
+
+        &.medium {
+          border-color: #f57c00;
+          background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+
+          .success-value {
+            color: #f57c00;
+          }
+        }
+
+        &.low {
+          border-color: #c62828;
+          background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+
+          .success-value {
+            color: #c62828;
+          }
+        }
+
+        .success-label {
+          display: block;
+          font-family: var(--font-heading);
+          font-size: 0.95rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+          margin-bottom: 0.5rem;
+          color: var(--text-primary);
+        }
+
+        .success-value {
+          display: block;
+          font-family: var(--font-heading);
+          font-size: 2.5rem;
+          font-weight: 700;
+          line-height: 1;
+          text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+      }
+    }
+
     // === Roll Button (Main Action) ===
     .roll-button {
       width: 100%;
@@ -338,6 +435,64 @@
 
           input::placeholder {
             color: var(--text-secondary);
+          }
+        }
+      }
+
+      .dc-quick-check {
+        background: linear-gradient(135deg, #3e2723 0%, #2c1810 100%);
+        border-color: var(--brass-primary);
+
+        label {
+          color: var(--text-light);
+        }
+
+        .dc-input {
+          background: var(--parchment-dark);
+          color: var(--text-light);
+          border-color: var(--border-primary);
+
+          &:focus {
+            border-color: var(--brass-primary);
+            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.3);
+          }
+        }
+
+        .success-indicator {
+          &.high {
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 100%);
+
+            .success-label {
+              color: #c8e6c9;
+            }
+
+            .success-value {
+              color: #a5d6a7;
+            }
+          }
+
+          &.medium {
+            background: linear-gradient(135deg, #e65100 0%, #f57c00 100%);
+
+            .success-label {
+              color: #ffe0b2;
+            }
+
+            .success-value {
+              color: #ffcc80;
+            }
+          }
+
+          &.low {
+            background: linear-gradient(135deg, #b71c1c 0%, #c62828 100%);
+
+            .success-label {
+              color: #ffcdd2;
+            }
+
+            .success-value {
+              color: #ef9a9a;
+            }
           }
         }
       }

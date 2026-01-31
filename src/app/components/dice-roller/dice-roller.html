@@ -7,15 +7,11 @@
     <div class="dice-groups-container">
       @for (group of groups.controls; track $index) {
         <div class="group-wrapper">
-          <app-dice-group-form
-            [groupForm]="$any(group)"
-            [groupIndex]="$index">
+          <app-dice-group-form [groupForm]="$any(group)" [groupIndex]="$index">
           </app-dice-group-form>
 
           @if (groups.length > 1) {
-            <button type="button"
-                    class="remove-group-button"
-                    (click)="removeGroup($index)">
+            <button type="button" class="remove-group-button" (click)="removeGroup($index)">
               Remove Group
             </button>
           }
@@ -23,9 +19,7 @@
       }
     </div>
 
-    <button type="button" class="add-group-button" (click)="addGroup()">
-      + Add Dice Group
-    </button>
+    <button type="button" class="add-group-button" (click)="addGroup()">Add Dice Group</button>
 
     <div class="global-options">
       <div class="form-field">
@@ -39,9 +33,13 @@
           <select formControlName="advantage">
             @for (advantageType of advantageTypes; track advantageType) {
               <option [value]="advantageType">
-                @if (advantageType === 'none') { None }
-                @else if (advantageType === 'advantage') { Advantage }
-                @else if (advantageType === 'disadvantage') { Disadvantage }
+                @if (advantageType === 'none') {
+                  None
+                } @else if (advantageType === 'advantage') {
+                  Advantage
+                } @else if (advantageType === 'disadvantage') {
+                  Disadvantage
+                }
               </option>
             }
           </select>
@@ -49,14 +47,35 @@
       }
     </div>
 
-    <button type="submit" class="roll-button" [disabled]="diceForm.invalid">
-      Roll Dice
-    </button>
+    <!-- Live Probability Preview -->
+    <div class="dc-quick-check">
+      <label for="targetDC">Target DC</label>
+      <input
+        type="number"
+        id="targetDC"
+        [(ngModel)]="targetDC"
+        [ngModelOptions]="{ standalone: true }"
+        (ngModelChange)="onDCChange()"
+        min="1"
+        max="50"
+        class="dc-input" />
 
-    <button type="button"
-            class="repeat-button"
-            (click)="repeatLastRoll()"
-            [disabled]="!hasLastRoll()">
+      @if (liveSuccessProbability !== null) {
+        <div class="success-indicator" [ngClass]="getSuccessIndicatorClass()">
+          <span class="success-label">Success Probability:</span>
+          <span class="success-value">{{ liveSuccessProbability }}%</span>
+        </div>
+      }
+    </div>
+
+    <button type="submit" class="roll-button" [disabled]="diceForm.invalid">Roll Dice</button>
+
+    <button
+      type="button"
+      class="repeat-button"
+      (click)="repeatLastRoll()"
+      [disabled]="!hasLastRoll()"
+    >
       🔄 Repeat Last Roll
     </button>
   </form>

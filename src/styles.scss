@@ -15,8 +15,8 @@
   --brass-primary: #b8860b;
   --brass-hover: #daa520;
   --bronze-dark: #8b6914;
-  --border-primary: #8d6e63;  // Mittelbraun für Borders
-  --border-hover: #a1887f;    // Helleres Braun für Hover-Effekte
+  --border-primary: #8d6e63; // Mittelbraun für Borders
+  --border-hover: #a1887f; // Helleres Braun für Hover-Effekte
   --text-primary: #2c1810;
   --text-secondary: #5a4a42;
   --text-light: #f5f5dc;
@@ -32,16 +32,16 @@
 }
 
 // === Dark Mode Theme Variables ===
-:root[data-theme="dark"] {
+:root[data-theme='dark'] {
   // === Dark Wood Tones (Nächtliche Taverne) ===
-  --tavern-wood-dark: #1a0f0a;      // Sehr dunkles Braun (fast schwarz)
-  --tavern-wood-medium: #2d1810;    // Dunkles Braun
-  --tavern-wood-light: #4a2f20;     // Medium-dunkles Braun
+  --tavern-wood-dark: #1a0f0a; // Sehr dunkles Braun (fast schwarz)
+  --tavern-wood-medium: #2d1810; // Dunkles Braun
+  --tavern-wood-light: #4a2f20; // Medium-dunkles Braun
 
   // === Dark Parchment (Gedämpftes Pergament) ===
-  --parchment-light: #2d2520;       // Dunkles Pergament (Haupthintergrund)
-  --parchment-medium: #3e342a;      // Medium-dunkles Pergament
-  --parchment-dark: #1f1915;        // Sehr dunkles Pergament (Borders)
+  --parchment-light: #2d2520; // Dunkles Pergament (Haupthintergrund)
+  --parchment-medium: #3e342a; // Medium-dunkles Pergament
+  --parchment-dark: #1f1915; // Sehr dunkles Pergament (Borders)
 
   // === Brass & Bronze (bleiben gleich, funktioniert in beiden Themes) ===
   --brass-primary: #b8860b;
@@ -49,13 +49,13 @@
   --bronze-dark: #8b6914;
 
   // === Borders ===
-  --border-primary: #5a4a42;        // Dunkler Border
-  --border-hover: #6d5d55;          // Hellerer Border für Hover
+  --border-primary: #5a4a42; // Dunkler Border
+  --border-hover: #6d5d55; // Hellerer Border für Hover
 
   // === Text Colors (Invertiert für Lesbarkeit) ===
-  --text-primary: #e8d7b8;          // Heller Text (ehemals parchment-medium)
-  --text-secondary: #c5b5a0;        // Sekundärer heller Text
-  --text-light: #f4e8d0;            // Sehr heller Text (für Header)
+  --text-primary: #2c1810; // Heller Text (ehemals parchment-medium)
+  --text-secondary: #c5b5a0; // Sekundärer heller Text
+  --text-light: #f4e8d0; // Sehr heller Text (für Header)
 
   // === Box Shadows (subtiler im Dark Mode) ===
   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
@@ -70,7 +70,12 @@
 
 body {
   font-family: var(--font-body);
-  background: linear-gradient(135deg, var(--tavern-wood-dark) 0%, var(--tavern-wood-medium) 50%, var(--tavern-wood-dark) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--tavern-wood-dark) 0%,
+    var(--tavern-wood-medium) 50%,
+    var(--tavern-wood-dark) 100%
+  );
   color: var(--text-primary);
   min-height: 100vh;
   overflow-x: hidden;
@@ -95,7 +100,12 @@ body {
 }
 
 // === Headings ===
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading);
   font-weight: 600;
 }
@@ -114,7 +124,8 @@ button {
 }
 
 // === Input & Select Styles ===
-input, select {
+input,
+select {
   font-family: var(--font-body);
 
   &:focus {

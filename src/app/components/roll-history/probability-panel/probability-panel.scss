@@ -1,0 +1,441 @@
+.probability-panel {
+  height: 100%;
+  overflow-y: auto;
+  padding: 1.5rem;
+  background: var(--parchment-light);
+
+  // DC Input Section
+  .dc-input-section {
+    margin-bottom: 1.5rem;
+    padding: 1.2rem;
+    background: linear-gradient(135deg, #f4e8d0 0%, #e8d7b8 100%);
+    border: 3px solid var(--parchment-dark);
+    border-radius: 6px;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+
+    label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .dc-input {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1.1rem;
+      font-family: var(--font-body);
+      font-weight: 600;
+      border: 2px solid var(--tavern-wood-dark);
+      border-radius: 4px;
+      background: white;
+      color: var(--text-primary);
+      transition: all 0.2s ease;
+
+      &:focus {
+        outline: none;
+        border-color: var(--brass-primary);
+        box-shadow: 0 0 0 3px rgba(191, 149, 63, 0.2);
+      }
+    }
+  }
+
+  // Success Probability Card
+  .success-card {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    border: 4px solid;
+    border-radius: 8px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    }
+
+    &.high {
+      border-color: #2e7d32;
+      background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+
+      .success-percentage {
+        color: #2e7d32;
+      }
+    }
+
+    &.medium {
+      border-color: #f57c00;
+      background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+
+      .success-percentage {
+        color: #f57c00;
+      }
+    }
+
+    &.low {
+      border-color: #c62828;
+      background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+
+      .success-percentage {
+        color: #c62828;
+      }
+    }
+
+    .success-label {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-primary);
+    }
+
+    .success-percentage {
+      font-family: var(--font-heading);
+      font-size: 4rem;
+      font-weight: 700;
+      line-height: 1;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  // Stats Grid
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+
+    .stat-card {
+      background: linear-gradient(135deg, #f4e8d0 0%, #e8d7b8 100%);
+      border: 3px solid var(--parchment-dark);
+      border-radius: 6px;
+      padding: 1.2rem;
+      text-align: center;
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 12px rgba(0, 0, 0, 0.4);
+      }
+
+      .stat-label {
+        font-family: var(--font-heading);
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      .stat-value {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        color: var(--brass-primary);
+        font-weight: 700;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+
+  // Critical Probabilities Section
+  .critical-section {
+    margin-bottom: 2rem;
+
+    h3 {
+      font-family: var(--font-heading);
+      color: var(--tavern-wood-dark);
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .critical-probs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+
+      .crit-card {
+        border: 3px solid;
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+        transition: all 0.2s ease;
+
+        &:hover {
+          transform: translateY(-2px);
+        }
+
+        &.success {
+          border-color: #2e7d32;
+          background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+
+          .crit-icon {
+            color: #2e7d32;
+          }
+
+          &:hover {
+            box-shadow: 0 5px 15px rgba(46, 125, 50, 0.3);
+          }
+        }
+
+        &.failure {
+          border-color: #c62828;
+          background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+
+          .crit-icon {
+            color: #c62828;
+          }
+
+          &:hover {
+            box-shadow: 0 5px 15px rgba(198, 40, 40, 0.3);
+          }
+        }
+
+        .crit-icon {
+          font-size: 3rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .crit-label {
+          font-family: var(--font-heading);
+          font-size: 1.1rem;
+          font-weight: 600;
+          margin-bottom: 0.5rem;
+          text-transform: uppercase;
+          letter-spacing: 1px;
+        }
+
+        .crit-percentage {
+          font-size: 2rem;
+          font-weight: 700;
+          font-family: var(--font-heading);
+        }
+      }
+    }
+  }
+
+  // Distribution Chart Section
+  .distribution-section {
+    margin-bottom: 2rem;
+
+    h3 {
+      font-family: var(--font-heading);
+      color: var(--tavern-wood-dark);
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .distribution-chart {
+      background: rgba(255, 255, 255, 0.3);
+      border: 2px solid var(--parchment-dark);
+      border-radius: 6px;
+      padding: 1rem;
+      max-height: 400px;
+      overflow-y: auto;
+
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--brass-primary);
+        border-radius: 4px;
+
+        &:hover {
+          background: var(--brass-hover);
+        }
+      }
+
+      .chart-bar {
+        display: grid;
+        grid-template-columns: 50px 1fr 60px;
+        gap: 0.5rem;
+        align-items: center;
+        margin-bottom: 0.8rem;
+        transition: all 0.2s ease;
+
+        &.success-range {
+          .bar-fill {
+            background: linear-gradient(
+              90deg,
+              #2e7d32 0%,
+              #43a047 100%
+            ) !important;
+
+            &:hover {
+              background: linear-gradient(
+                90deg,
+                #43a047 0%,
+                #66bb6a 100%
+              ) !important;
+            }
+          }
+
+          .bar-label,
+          .bar-percentage {
+            color: #2e7d32;
+            font-weight: 700;
+          }
+        }
+
+        .bar-label {
+          font-weight: 600;
+          font-family: var(--font-heading);
+          color: var(--text-primary);
+          text-align: right;
+          font-size: 0.95rem;
+        }
+
+        .bar-container {
+          background: rgba(0, 0, 0, 0.1);
+          border-radius: 4px;
+          height: 28px;
+          position: relative;
+          overflow: hidden;
+
+          .bar-fill {
+            height: 100%;
+            background: linear-gradient(
+              90deg,
+              var(--brass-primary) 0%,
+              var(--brass-hover) 100%
+            );
+            border-radius: 4px;
+            transition: width 0.3s ease, background 0.2s ease;
+            cursor: pointer;
+
+            &:hover {
+              background: linear-gradient(90deg, #daa520 0%, #f4c430 100%);
+            }
+          }
+        }
+
+        .bar-percentage {
+          font-weight: 600;
+          color: var(--text-secondary);
+          text-align: center;
+          font-size: 0.95rem;
+        }
+      }
+    }
+  }
+
+  // Calculation Info
+  .calculation-info {
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 1rem;
+
+    small {
+      font-family: var(--font-body);
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-style: italic;
+    }
+  }
+
+  // Loading State
+  .loading-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 3rem 2rem;
+
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(191, 149, 63, 0.2);
+      border-top-color: var(--brass-primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 1rem;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      font-family: var(--font-body);
+      font-style: italic;
+    }
+  }
+
+  // Empty State
+  .empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 300px;
+    padding: 3rem 2rem;
+
+    p {
+      color: var(--text-secondary);
+      font-size: 1.2rem;
+      text-align: center;
+      font-style: italic;
+      line-height: 1.6;
+      font-family: var(--font-body);
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .critical-probs {
+      grid-template-columns: 1fr;
+    }
+
+    .success-card {
+      .success-percentage {
+        font-size: 3rem;
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .stats-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .distribution-chart .chart-bar {
+      grid-template-columns: 40px 1fr 50px;
+    }
+
+    .success-card {
+      .success-percentage {
+        font-size: 2.5rem;
+      }
+    }
+  }
+}

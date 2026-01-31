@@ -13,6 +13,12 @@
         (click)="switchTab('statistics')">
         Statistics
       </button>
+      <button
+        class="tab-button"
+        [class.active]="activeTab === 'probabilities'"
+        (click)="switchTab('probabilities')">
+        Probabilities
+      </button>
     </div>
 
     <button class="clear-button" (click)="clearHistory()">Clear History</button>
@@ -32,7 +38,9 @@
         </div>
       }
     }
-  } @else {
+  } @else if (activeTab === 'statistics') {
     <app-statistics-dashboard></app-statistics-dashboard>
+  } @else if (activeTab === 'probabilities') {
+    <app-probability-panel></app-probability-panel>
   }
 </div>
