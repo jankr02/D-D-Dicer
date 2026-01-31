@@ -1,1 +1,91 @@
-/* You can add global styles to this file, and also import other style files */
+/* === D&D Dice Roller - Tavern Theme Global Styles === */
+
+// === Google Fonts Import ===
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+// === CSS Variables (für dynamische Anpassungen) ===
+:root {
+  // Farben
+  --tavern-wood-dark: #3e2723;
+  --tavern-wood-medium: #5d4037;
+  --tavern-wood-light: #8d6e63;
+  --parchment-light: #f4e8d0;
+  --parchment-medium: #e8d7b8;
+  --parchment-dark: #d4c5a0;
+  --brass-primary: #b8860b;
+  --brass-hover: #daa520;
+  --bronze-dark: #8b6914;
+  --text-primary: #2c1810;
+  --text-secondary: #5a4a42;
+  --text-light: #f5f5dc;
+
+  // Schriftarten
+  --font-heading: 'Cinzel', serif;
+  --font-body: 'Crimson Text', serif;
+
+  // Abstände & Größen
+  --border-radius: 4px;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --transition: all 0.3s ease;
+}
+
+// === Global Reset ===
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-body);
+  background: linear-gradient(135deg, #3e2723 0%, #5d4037 100%);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+// === Scrollbar Styling ===
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--tavern-wood-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--brass-primary);
+  border-radius: 5px;
+
+  &:hover {
+    background: var(--brass-hover);
+  }
+}
+
+// === Headings ===
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+// === Common Button Styles ===
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: var(--transition);
+  border: none;
+  outline: none;
+
+  &:focus-visible {
+    box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.4);
+  }
+}
+
+// === Input & Select Styles ===
+input, select {
+  font-family: var(--font-body);
+
+  &:focus {
+    outline: none;
+  }
+}

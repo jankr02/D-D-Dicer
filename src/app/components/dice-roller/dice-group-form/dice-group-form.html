@@ -1,1 +1,53 @@
-<p>dice-group-form works!</p>
+<div class="dice-group-form" [formGroup]="groupForm">
+  <div class="form-header">
+    <h3>Dice Group {{ groupIndex + 1 }}</h3>
+  </div>
+
+  <div class="form-row">
+    <div class="form-field">
+      <label>Count</label>
+      <input type="number" formControlName="count" min="1" max="20" />
+    </div>
+
+    <div class="form-field">
+      <label>Dice Type</label>
+      <select formControlName="type">
+        @for (diceType of diceTypes; track diceType) {
+          <option [value]="diceType">{{ diceType }}</option>
+        }
+      </select>
+    </div>
+  </div>
+
+  <div class="keep-drop-toggle">
+    <label>
+      <input type="checkbox" [checked]="showKeepDrop" (change)="toggleKeepDrop()" />
+      Enable Keep/Drop
+    </label>
+  </div>
+
+  @if (showKeepDrop) {
+    <div class="keep-drop-section" formGroupName="keepDrop">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Type</label>
+          <select formControlName="type">
+            @for (keepDropType of keepDropTypes; track keepDropType) {
+              <option [value]="keepDropType">
+                @if (keepDropType === 'keep_highest') { Keep Highest }
+                @else if (keepDropType === 'keep_lowest') { Keep Lowest }
+                @else if (keepDropType === 'drop_highest') { Drop Highest }
+                @else if (keepDropType === 'drop_lowest') { Drop Lowest }
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label>Count</label>
+          <input type="number" formControlName="count" min="1" [max]="getMaxKeepDropCount()" />
+        </div>
+      </div>
+    </div>
+  }
+</div>

@@ -1,1 +1,47 @@
-<p>preset-manager works!</p>
+<div class="preset-manager">
+  <div class="preset-header">
+    <h2>Presets</h2>
+    <button class="save-button" (click)="toggleSaveForm()">
+      {{ showSaveForm ? 'Cancel' : 'Save Current' }}
+    </button>
+  </div>
+
+  @if (showSaveForm) {
+    <div class="save-form">
+      <input
+        type="text"
+        [(ngModel)]="newPresetName"
+        placeholder="Enter preset name..."
+        class="preset-name-input"
+      />
+      <p class="note">Note: Saving from here is not yet implemented. Use the integration with DiceRoller.</p>
+    </div>
+  }
+
+  @if (presets$ | async; as presets) {
+    @if (presets.length > 0) {
+      <div class="preset-list">
+        @for (preset of presets; track preset.id) {
+          <div class="preset-item">
+            <div class="preset-info">
+              <div class="preset-name">{{ preset.name }}</div>
+              <div class="preset-notation">{{ preset.expression | json }}</div>
+            </div>
+            <div class="preset-actions">
+              <button class="load-button" (click)="onLoadPreset(preset)">
+                Load
+              </button>
+              <button class="delete-button" (click)="deletePreset(preset)">
+                Delete
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>No presets saved yet. Save your favorite dice configurations!</p>
+      </div>
+    }
+  }
+</div>

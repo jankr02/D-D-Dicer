@@ -1,0 +1,108 @@
+.dice-group-form {
+  padding: 1.25rem;
+  background: var(--parchment-medium);
+  border: 2px solid var(--parchment-dark);
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+
+  // Decorative corner
+  &::before {
+    content: '⚄';
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 1.5rem;
+    opacity: 0.3;
+  }
+
+  .form-header {
+    h3 {
+      margin: 0 0 1rem 0;
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      font-family: var(--font-heading);
+      padding-bottom: 0.5rem;
+      border-bottom: 2px dotted var(--brass-primary);
+    }
+  }
+
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+
+    .form-field {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+
+      label {
+        margin-bottom: 0.4rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        font-size: 0.95rem;
+        font-family: var(--font-heading);
+      }
+
+      input,
+      select {
+        padding: 0.7rem;
+        border: 2px solid var(--parchment-dark);
+        border-radius: var(--border-radius);
+        font-size: 1rem;
+        background: white;
+        color: var(--text-primary);
+        transition: var(--transition);
+
+        &:focus {
+          border-color: var(--brass-primary);
+          box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2);
+        }
+
+        &:hover {
+          border-color: var(--brass-hover);
+        }
+      }
+
+      input[type="number"] {
+        max-width: 100px;
+      }
+    }
+  }
+
+  .keep-drop-toggle {
+    margin-bottom: 1rem;
+
+    label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: var(--transition);
+
+      &:hover {
+        color: var(--brass-primary);
+      }
+
+      input[type="checkbox"] {
+        margin-right: 0.6rem;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+        accent-color: var(--brass-primary);
+      }
+    }
+  }
+
+  .keep-drop-section {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--border-radius);
+    border: 2px dashed var(--bronze-dark);
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+}

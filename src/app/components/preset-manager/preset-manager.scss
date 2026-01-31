@@ -1,0 +1,175 @@
+.preset-manager {
+  background: var(--parchment-light);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--brass-primary);
+  overflow: hidden;
+
+  .preset-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(180deg, #8b6914 0%, #b8860b 100%);
+    border-bottom: 2px solid var(--bronze-dark);
+
+    h2 {
+      margin: 0;
+      font-size: 1.75rem;
+      color: var(--text-light);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      letter-spacing: 1px;
+    }
+
+    .save-button {
+      padding: 0.6rem 1.2rem;
+      background: linear-gradient(180deg, #558b2f 0%, #33691e 100%);
+      color: white;
+      border: 2px solid #1b5e20;
+      border-radius: var(--border-radius);
+      font-weight: 700;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+
+      &:hover {
+        background: linear-gradient(180deg, #689f38 0%, #558b2f 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .save-form {
+    padding: 1.25rem;
+    background: rgba(232, 215, 184, 0.7);
+    border-bottom: 2px solid var(--parchment-dark);
+
+    .preset-name-input {
+      width: 100%;
+      padding: 0.85rem;
+      border: 2px solid var(--brass-primary);
+      border-radius: var(--border-radius);
+      font-size: 1rem;
+      margin-bottom: 0.6rem;
+      background: white;
+      color: var(--text-primary);
+
+      &:focus {
+        border-color: var(--brass-hover);
+        box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.25);
+      }
+    }
+
+    .note {
+      margin: 0.6rem 0 0 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+  }
+
+  .preset-list {
+    padding: 1rem;
+    max-height: 450px;
+    overflow-y: auto;
+    background: var(--parchment-light);
+
+    .preset-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      margin-bottom: 0.75rem;
+      background: var(--parchment-medium);
+      border: 2px solid var(--parchment-dark);
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+
+      &:hover {
+        background: white;
+        border-color: var(--brass-primary);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+        transform: translateX(4px);
+      }
+
+      .preset-info {
+        flex: 1;
+        min-width: 0;
+
+        .preset-name {
+          font-weight: 700;
+          color: var(--text-primary);
+          margin-bottom: 0.35rem;
+          font-size: 1.1rem;
+          font-family: var(--font-heading);
+        }
+
+        .preset-notation {
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+          font-family: 'Courier New', monospace;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .preset-actions {
+        display: flex;
+        gap: 0.6rem;
+        margin-left: 1rem;
+
+        button {
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: var(--border-radius);
+          font-weight: 700;
+          font-size: 0.95rem;
+          box-shadow: var(--box-shadow);
+          transition: var(--transition);
+        }
+
+        .load-button {
+          background: linear-gradient(180deg, #1976d2 0%, #1565c0 100%);
+          color: white;
+          border: 2px solid #0d47a1;
+
+          &:hover {
+            background: linear-gradient(180deg, #2196f3 0%, #1976d2 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+          }
+        }
+
+        .delete-button {
+          background: linear-gradient(180deg, #c62828 0%, #b71c1c 100%);
+          color: white;
+          border: 2px solid #8b0000;
+
+          &:hover {
+            background: linear-gradient(180deg, #d32f2f 0%, #c62828 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+          }
+        }
+      }
+    }
+  }
+
+  .empty-state {
+    padding: 3rem 2rem;
+    text-align: center;
+
+    p {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      font-style: italic;
+      line-height: 1.6;
+    }
+  }
+}

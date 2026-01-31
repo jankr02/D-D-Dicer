@@ -1,1 +1,20 @@
-<p>roll-history works!</p>
+<div class="roll-history">
+  <div class="history-header">
+    <h2>Roll History</h2>
+    <button class="clear-button" (click)="clearHistory()">Clear History</button>
+  </div>
+
+  @if (history$ | async; as history) {
+    @if (history.length > 0) {
+      <div class="history-list">
+        @for (result of history; track result.timestamp) {
+          <app-roll-result-detail [result]="result"></app-roll-result-detail>
+        }
+      </div>
+    } @else {
+      <div class="empty-state">
+        <p>No rolls yet. Start rolling some dice!</p>
+      </div>
+    }
+  }
+</div>

@@ -1,1 +1,56 @@
-<p>dice-roller works!</p>
+<div class="dice-roller">
+  <div class="roller-header">
+    <h2>Dice Roller</h2>
+  </div>
+
+  <form [formGroup]="diceForm" (ngSubmit)="rollDice()">
+    <div class="dice-groups-container">
+      @for (group of groups.controls; track $index) {
+        <div class="group-wrapper">
+          <app-dice-group-form
+            [groupForm]="$any(group)"
+            [groupIndex]="$index">
+          </app-dice-group-form>
+
+          @if (groups.length > 1) {
+            <button type="button"
+                    class="remove-group-button"
+                    (click)="removeGroup($index)">
+              Remove Group
+            </button>
+          }
+        </div>
+      }
+    </div>
+
+    <button type="button" class="add-group-button" (click)="addGroup()">
+      + Add Dice Group
+    </button>
+
+    <div class="global-options">
+      <div class="form-field">
+        <label>Modifier</label>
+        <input type="number" formControlName="modifier" />
+      </div>
+
+      @if (isD20Roll()) {
+        <div class="form-field">
+          <label>Advantage/Disadvantage</label>
+          <select formControlName="advantage">
+            @for (advantageType of advantageTypes; track advantageType) {
+              <option [value]="advantageType">
+                @if (advantageType === 'none') { None }
+                @else if (advantageType === 'advantage') { Advantage }
+                @else if (advantageType === 'disadvantage') { Disadvantage }
+              </option>
+            }
+          </select>
+        </div>
+      }
+    </div>
+
+    <button type="submit" class="roll-button" [disabled]="diceForm.invalid">
+      Roll Dice
+    </button>
+  </form>
+</div>
