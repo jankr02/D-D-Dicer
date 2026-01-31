@@ -5,6 +5,7 @@ import { Historie } from '../../services/historie';
 import { RollResult } from '../../models';
 import { RollResultDetail } from './roll-result-detail/roll-result-detail';
 import { StatisticsDashboard } from './statistics-dashboard/statistics-dashboard';
+import { ModalService } from '../../services/modal.service';
 
 /**
  * RollHistoryComponent - Displays the history of dice rolls and statistics.
@@ -25,7 +26,10 @@ export class RollHistory implements OnInit {
   history$!: Observable<RollResult[]>;
   activeTab: 'history' | 'statistics' = 'history';
 
-  constructor(private historieService: Historie) {}
+  constructor(
+    private historieService: Historie,
+    private modalService: ModalService
+  ) {}
 
   ngOnInit(): void {
     this.history$ = this.historieService.history$;
@@ -43,8 +47,13 @@ export class RollHistory implements OnInit {
   /**
    * Clears all entries from the roll history.
    */
-  clearHistory(): void {
-    if (confirm('Are you sure you want to clear the roll history?')) {
+  async clearHistory(): Promise<void> {
+    const confirmed = await this.modalService.confirm(
+      'Clear Roll History',
+      'Are you sure you want to clear the entire roll history? This action cannot be undone.'
+    );
+
+    if (confirmed) {
       this.historieService.clearHistory();
     }
   }

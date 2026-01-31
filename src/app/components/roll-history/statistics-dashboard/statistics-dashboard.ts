@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Statistics } from '../../../services/statistics';
 import { Historie } from '../../../services/historie';
 import { StatisticsData, TimeFilter } from '../../../models';
+import { ModalService } from '../../../services/modal.service';
 
 /**
  * StatisticsDashboard Component - Displays comprehensive statistics from roll history.
@@ -28,7 +29,8 @@ export class StatisticsDashboard implements OnInit {
 
   constructor(
     private statisticsService: Statistics,
-    private historieService: Historie
+    private historieService: Historie,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -81,8 +83,13 @@ export class StatisticsDashboard implements OnInit {
   /**
    * Starts a new session, resetting the session timer.
    */
-  newSession(): void {
-    if (confirm('Start a new session? This will reset the session timer.')) {
+  async newSession(): Promise<void> {
+    const confirmed = await this.modalService.confirm(
+      'New Session',
+      'Start a new session? This will reset the session timer.'
+    );
+
+    if (confirmed) {
       this.historieService.resetSession();
     }
   }

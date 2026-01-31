@@ -1,0 +1,6 @@
+@for (modal of modals$ | async; track modal.id) {
+  <app-modal
+    [modal]="modal"
+    (close)="onClose($event)"
+  ></app-modal>
+}

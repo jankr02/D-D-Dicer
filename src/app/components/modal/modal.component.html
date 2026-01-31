@@ -1,0 +1,31 @@
+<div class="modal-backdrop" [@fadeIn] (click)="onBackdropClick($event)">
+  <div class="modal-dialog" [@slideIn] role="dialog" [attr.aria-labelledby]="'modal-title-' + modal.id" aria-modal="true">
+    <div class="modal-header">
+      <h2 class="modal-title" [id]="'modal-title-' + modal.id">{{ modal.title }}</h2>
+    </div>
+
+    <div class="modal-body">
+      <p class="modal-message">{{ modal.message }}</p>
+    </div>
+
+    <div class="modal-footer">
+      @if (modal.showCancel) {
+        <button
+          class="modal-btn modal-btn-cancel"
+          (click)="onCancel()"
+          type="button"
+        >
+          {{ modal.cancelText }}
+        </button>
+      }
+      <button
+        class="modal-btn modal-btn-confirm"
+        (click)="onConfirm()"
+        type="button"
+        [attr.autofocus]="true"
+      >
+        {{ modal.confirmText }}
+      </button>
+    </div>
+  </div>
+</div>

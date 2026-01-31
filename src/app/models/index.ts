@@ -4,3 +4,5 @@ export * from './dice-group-result.model';
 export * from './roll-result.model';
 export * from './preset.model';
 export * from './statistics.model';
+export * from './toast.model';
+export * from './modal.model';

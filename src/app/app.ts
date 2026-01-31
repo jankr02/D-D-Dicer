@@ -4,6 +4,7 @@ import { RollHistory } from './components/roll-history/roll-history';
 import { PresetManager } from './components/preset-manager/preset-manager';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { ToastContainerComponent } from './components/toast/toast-container.component';
+import { ModalContainerComponent } from './components/modal/modal-container.component';
 import { DiceExpression } from './models';
 import { Settings } from './services/settings';
 import { ToastService } from './services/toast.service';
@@ -15,7 +16,8 @@ import { ToastService } from './services/toast.service';
     RollHistory,
     PresetManager,
     ThemeToggleComponent,
-    ToastContainerComponent
+    ToastContainerComponent,
+    ModalContainerComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'

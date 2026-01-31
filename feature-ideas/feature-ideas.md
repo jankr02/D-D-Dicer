@@ -3,7 +3,6 @@ Copy-to-Clipboard (1h) - Roll-Ergebnisse teilen
 
 **Advanced Features**
 Custom Dice Types (5h) - d37, d73, etc.
-Preset Categories (6h) - Organisation bei vielen Presets
 Charakterbogen-Integration (10h) - Ability-Scores verknüpfen
 
 **Nice-to-Have**

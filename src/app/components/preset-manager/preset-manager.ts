@@ -7,6 +7,7 @@ import { Preset as PresetModel, DiceExpression } from '../../models';
 import { generateUUID } from '../../utils/uuid.util';
 import { DiceNotationPipe } from '../../pipes/dice-notation.pipe';
 import { ToastService } from '../../services/toast.service';
+import { ModalService } from '../../services/modal.service';
 import {
   PresetCategory,
   CategoryFilter,
@@ -53,7 +54,8 @@ export class PresetManager implements OnInit {
 
   constructor(
     private presetService: Preset,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private modalService: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -120,8 +122,13 @@ export class PresetManager implements OnInit {
   /**
    * Deletes a preset after confirmation.
    */
-  deletePreset(preset: PresetModel): void {
-    if (confirm(`Delete preset "${preset.name}"?`)) {
+  async deletePreset(preset: PresetModel): Promise<void> {
+    const confirmed = await this.modalService.confirm(
+      'Delete Preset',
+      `Are you sure you want to delete the preset "${preset.name}"? This action cannot be undone.`
+    );
+
+    if (confirmed) {
       this.presetService.deletePreset(preset.id);
       this.toastService.success(`Preset "${preset.name}" deleted`);
     }
