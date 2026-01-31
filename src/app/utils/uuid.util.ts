@@ -1,4 +1,9 @@
-// Wrapper für uuid-Library (wird später mit npm-Package implementiert)
+import { v4 as uuidv4 } from 'uuid';
+
+/**
+ * Generates a random UUID v4 string for unique identification.
+ * Used primarily for Preset IDs.
+ */
 export function generateUUID(): string {
-  return 'TODO';
+  return uuidv4();
 }
