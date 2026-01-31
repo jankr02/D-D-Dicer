@@ -9,7 +9,7 @@
     background: linear-gradient(180deg, #2c1810 0%, #3e2723 100%);
     padding: 1.5rem 2rem;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    border-bottom: 3px solid var(--brass-primary);
+    border-bottom: 3px solid var(--border-primary);
     position: relative;
 
     // Decorative top border
@@ -22,7 +22,7 @@
       height: 2px;
       background: linear-gradient(90deg,
         transparent 0%,
-        var(--brass-primary) 50%,
+        var(--border-primary) 50%,
         transparent 100%);
     }
 

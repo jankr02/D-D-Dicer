@@ -5,7 +5,7 @@
   background: var(--parchment-light);
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  border: 2px solid var(--brass-primary);
+  border: 2px solid var(--border-primary);
   overflow: hidden;
 
   .history-header {
@@ -13,8 +13,8 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem 1.5rem;
-    background: linear-gradient(180deg, #8b6914 0%, #b8860b 100%);
-    border-bottom: 2px solid var(--bronze-dark);
+    background: linear-gradient(180deg, #3e2723 0%, #5d4037 100%);
+    border-bottom: 2px solid var(--tavern-wood-dark);
 
     h2 {
       margin: 0;

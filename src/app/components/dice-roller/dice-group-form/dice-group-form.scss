@@ -24,7 +24,7 @@
       color: var(--text-primary);
       font-family: var(--font-heading);
       padding-bottom: 0.5rem;
-      border-bottom: 2px dotted var(--brass-primary);
+      border-bottom: 2px dotted var(--border-primary);
     }
   }
 
@@ -57,12 +57,12 @@
         transition: var(--transition);
 
         &:focus {
-          border-color: var(--brass-primary);
-          box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.2);
+          border-color: var(--border-hover);
+          box-shadow: 0 0 0 3px rgba(141, 110, 99, 0.2);
         }
 
         &:hover {
-          border-color: var(--brass-hover);
+          border-color: var(--border-hover);
         }
       }
 
