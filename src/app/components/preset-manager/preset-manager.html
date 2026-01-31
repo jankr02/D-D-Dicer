@@ -31,7 +31,7 @@
           <div class="preset-item">
             <div class="preset-info">
               <div class="preset-name">{{ preset.name }}</div>
-              <div class="preset-notation">{{ preset.expression | json }}</div>
+              <div class="preset-notation">{{ preset.expression | diceNotation }}</div>
             </div>
             <div class="preset-actions">
               <button class="load-button" (click)="onLoadPreset(preset)">

@@ -198,12 +198,18 @@
         }
 
         .preset-notation {
-          font-size: 0.9rem;
-          color: var(--text-secondary);
+          font-size: 0.95rem;
+          color: #5d4037;
           font-family: 'Courier New', monospace;
+          font-weight: 600;
           overflow: hidden;
           text-overflow: ellipsis;
           white-space: nowrap;
+          background: rgba(255, 255, 255, 0.4);
+          padding: 0.3rem 0.6rem;
+          border-radius: 4px;
+          margin-top: 0.4rem;
+          border: 1px solid rgba(93, 64, 55, 0.2);
         }
       }
 

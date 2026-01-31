@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Preset } from '../../services/preset';
 import { Preset as PresetModel, DiceExpression } from '../../models';
 import { generateUUID } from '../../utils/uuid.util';
+import { DiceNotationPipe } from '../../pipes/dice-notation.pipe';
 
 /**
  * PresetManagerComponent - Manages saved dice roll configurations.
@@ -17,7 +18,7 @@ import { generateUUID } from '../../utils/uuid.util';
  */
 @Component({
   selector: 'app-preset-manager',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, DiceNotationPipe],
   templateUrl: './preset-manager.html',
   styleUrl: './preset-manager.scss',
 })
