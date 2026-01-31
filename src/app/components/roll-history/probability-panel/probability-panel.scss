@@ -273,24 +273,16 @@
 
         &.success-range {
           .bar-fill {
-            background: linear-gradient(
-              90deg,
-              #2e7d32 0%,
-              #43a047 100%
-            ) !important;
+            background: linear-gradient(90deg, #2e7d32 0%, #43a047 100%) !important;
 
             &:hover {
-              background: linear-gradient(
-                90deg,
-                #43a047 0%,
-                #66bb6a 100%
-              ) !important;
+              background: linear-gradient(90deg, #43a047 0%, #66bb6a 100%) !important;
             }
           }
 
           .bar-label,
           .bar-percentage {
-            color: #2e7d32;
+            color: #31bb38;
             font-weight: 700;
           }
         }
@@ -312,13 +304,11 @@
 
           .bar-fill {
             height: 100%;
-            background: linear-gradient(
-              90deg,
-              var(--brass-primary) 0%,
-              var(--brass-hover) 100%
-            );
+            background: linear-gradient(90deg, var(--brass-primary) 0%, var(--brass-hover) 100%);
             border-radius: 4px;
-            transition: width 0.3s ease, background 0.2s ease;
+            transition:
+              width 0.3s ease,
+              background 0.2s ease;
             cursor: pointer;
 
             &:hover {
