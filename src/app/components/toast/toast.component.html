@@ -1,0 +1,25 @@
+<div
+  class="toast toast-{{ toast.type }}"
+  [@slideIn]
+  [attr.role]="getAriaRole(toast.type)"
+  [attr.aria-live]="toast.type === 'error' ? 'assertive' : 'polite'"
+>
+  <div class="toast-icon">
+    {{ getIcon(toast.type) }}
+  </div>
+
+  <div class="toast-content">
+    <p class="toast-message">{{ toast.message }}</p>
+  </div>
+
+  @if (toast.dismissible) {
+    <button
+      class="toast-close"
+      (click)="onClose()"
+      aria-label="Close notification"
+      type="button"
+    >
+      ✕
+    </button>
+  }
+</div>

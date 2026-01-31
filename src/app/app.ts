@@ -3,8 +3,10 @@ import { DiceRoller } from './components/dice-roller/dice-roller';
 import { RollHistory } from './components/roll-history/roll-history';
 import { PresetManager } from './components/preset-manager/preset-manager';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
+import { ToastContainerComponent } from './components/toast/toast-container.component';
 import { DiceExpression } from './models';
 import { Settings } from './services/settings';
+import { ToastService } from './services/toast.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,8 @@ import { Settings } from './services/settings';
     DiceRoller,
     RollHistory,
     PresetManager,
-    ThemeToggleComponent
+    ThemeToggleComponent,
+    ToastContainerComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
@@ -20,7 +23,10 @@ import { Settings } from './services/settings';
 export class App implements OnInit {
   title = 'D&D Dice Roller';
 
-  constructor(_settings: Settings) {
+  constructor(
+    _settings: Settings,
+    private toastService: ToastService
+  ) {
     // Settings service is injected and initializes automatically
     // No need to store the reference as it's a singleton service
   }
@@ -53,7 +59,7 @@ export class App implements OnInit {
     const expression = this.diceRoller.getCurrentExpression();
 
     if (!expression) {
-      alert('Please configure a valid dice expression first');
+      this.toastService.error('Please configure a valid dice expression first');
       return;
     }
 

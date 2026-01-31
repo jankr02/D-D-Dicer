@@ -1,0 +1,8 @@
+<div class="toast-container">
+  @for (toast of toasts$ | async; track toast.id) {
+    <app-toast
+      [toast]="toast"
+      (dismiss)="onDismiss($event)"
+    ></app-toast>
+  }
+</div>

@@ -6,6 +6,7 @@ import { Preset } from '../../services/preset';
 import { Preset as PresetModel, DiceExpression } from '../../models';
 import { generateUUID } from '../../utils/uuid.util';
 import { DiceNotationPipe } from '../../pipes/dice-notation.pipe';
+import { ToastService } from '../../services/toast.service';
 
 /**
  * PresetManagerComponent - Manages saved dice roll configurations.
@@ -30,7 +31,10 @@ export class PresetManager implements OnInit {
   newPresetName = '';
   showSaveForm = false;
 
-  constructor(private presetService: Preset) {}
+  constructor(
+    private presetService: Preset,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.presets$ = this.presetService.presets$;
@@ -53,7 +57,7 @@ export class PresetManager implements OnInit {
    */
   onSaveCurrentAsPreset(): void {
     if (!this.newPresetName.trim()) {
-      alert('Please enter a preset name');
+      this.toastService.error('Please enter a preset name');
       return;
     }
 
@@ -74,6 +78,7 @@ export class PresetManager implements OnInit {
     };
 
     this.presetService.savePreset(preset);
+    this.toastService.success(`Preset "${name}" saved successfully!`);
   }
 
   /**
@@ -81,6 +86,7 @@ export class PresetManager implements OnInit {
    */
   onLoadPreset(preset: PresetModel): void {
     this.loadPreset.emit(preset.expression);
+    this.toastService.info(`Loaded preset "${preset.name}"`);
   }
 
   /**
@@ -89,6 +95,7 @@ export class PresetManager implements OnInit {
   deletePreset(preset: PresetModel): void {
     if (confirm(`Delete preset "${preset.name}"?`)) {
       this.presetService.deletePreset(preset.id);
+      this.toastService.success(`Preset "${preset.name}" deleted`);
     }
   }
 }
