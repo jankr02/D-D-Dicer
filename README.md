@@ -858,6 +858,18 @@ Das System unterstützt Migrations-Logik für Breaking Changes:
 - Beim Laden: Prüfung der Zeitdifferenz
 - Bei Überschreitung: Session-Reset
 
+## Deployment
+
+Für Deployment-Anweisungen siehe [DEPLOYMENT.md](DEPLOYMENT.md).
+
+Die App ist für Vercel optimiert und enthält:
+
+- Automatische CI/CD via GitHub Actions
+- Security Headers (CSP, HSTS, X-Frame-Options)
+- Sentry Error-Tracking
+- Google Analytics Integration
+- Automatische Release-Erstellung bei Tags
+
 ## Installation und Entwicklung
 
 ### Voraussetzungen

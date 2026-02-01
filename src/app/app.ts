@@ -8,13 +8,17 @@ import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.com
 import { ToastContainerComponent } from './components/toast/toast-container.component';
 import { ModalContainerComponent } from './components/modal/modal-container.component';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher';
-import { BottomTabBarComponent, MobileTab } from './components/bottom-tab-bar/bottom-tab-bar.component';
+import {
+  BottomTabBarComponent,
+  MobileTab,
+} from './components/bottom-tab-bar/bottom-tab-bar.component';
 import { PwaInstallButtonComponent } from './components/pwa-install-button/pwa-install-button.component';
 import { DiceExpression } from './models';
 import { Settings } from './services/settings';
 import { ToastService } from './services/toast.service';
 import { PwaUpdateService } from './services/pwa-update.service';
 import { PwaInstallService } from './services/pwa-install.service';
+import { AnalyticsService } from './services/analytics.service';
 
 @Component({
   selector: 'app-root',
@@ -29,10 +33,10 @@ import { PwaInstallService } from './services/pwa-install.service';
     ModalContainerComponent,
     LanguageSwitcherComponent,
     BottomTabBarComponent,
-    PwaInstallButtonComponent
+    PwaInstallButtonComponent,
   ],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
 export class App implements OnInit {
   title = 'D&D Dice Roller';
@@ -46,13 +50,15 @@ export class App implements OnInit {
     _settings: Settings,
     private toastService: ToastService,
     _pwaUpdateService: PwaUpdateService,
-    _pwaInstallService: PwaInstallService
+    _pwaInstallService: PwaInstallService,
+    private analyticsService: AnalyticsService,
   ) {
     // Services are injected to initialize them as singletons
   }
 
   ngOnInit(): void {
     this.checkMobile();
+    this.analyticsService.trackPageView('/', 'D&D Dice Roller');
   }
 
   @HostListener('window:resize')
@@ -88,7 +94,9 @@ export class App implements OnInit {
     const expression = this.diceRoller.getCurrentExpression();
 
     if (!expression) {
-      this.toastService.error($localize`:@@error.invalidDiceExpression:Please configure a valid dice expression first`);
+      this.toastService.error(
+        $localize`:@@error.invalidDiceExpression:Please configure a valid dice expression first`,
+      );
       return;
     }
 
@@ -113,5 +121,6 @@ export class App implements OnInit {
     } else {
       this.activeTab = 'dice';
     }
+    this.analyticsService.trackPageView(`/${tab}`, `D&D Dice Roller - ${tab}`);
   }
 }

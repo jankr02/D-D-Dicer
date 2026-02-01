@@ -38,7 +38,8 @@
       "Bash(npx lint-staged:*)",
       "Bash(npm run test:ci:*)",
       "Bash(npm run test:coverage:*)",
-      "Bash(npx playwright install chromium)"
+      "Bash(npx playwright install chromium)",
+      "Bash(git -C \"c:\\\\Projects\\\\DnD-Dicer\" log --oneline -20)"
     ]
   }
 }

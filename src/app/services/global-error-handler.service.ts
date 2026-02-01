@@ -1,5 +1,7 @@
 import { ErrorHandler, Injectable, inject } from '@angular/core';
+import * as Sentry from '@sentry/angular';
 import { ToastService } from './toast.service';
+import { environment } from '../../environments/environment';
 
 interface ErrorLog {
   timestamp: Date;
@@ -12,6 +14,7 @@ interface ErrorLog {
 /**
  * Global error handler that catches unhandled errors and logs them.
  * Also shows user-friendly toast notifications for errors.
+ * In production, errors are also sent to Sentry.
  */
 @Injectable()
 export class GlobalErrorHandler implements ErrorHandler {
@@ -26,6 +29,11 @@ export class GlobalErrorHandler implements ErrorHandler {
 
     // Log to console in development
     console.error('Global Error Handler caught:', error);
+
+    // Send to Sentry in production
+    if (environment.production && environment.sentryDsn) {
+      Sentry.captureException(error);
+    }
 
     // Create error log entry
     const errorLog: ErrorLog = {

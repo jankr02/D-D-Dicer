@@ -6,7 +6,8 @@
     "start": "node node_modules/@angular/cli/bin/ng.js serve",
     "start:en": "node node_modules/@angular/cli/bin/ng.js serve --configuration=en",
     "start:de": "node node_modules/@angular/cli/bin/ng.js serve --configuration=de",
-    "build": "node node_modules/@angular/cli/bin/ng.js build",
+    "build": "node scripts/inject-env.js && node node_modules/@angular/cli/bin/ng.js build",
+    "build:dev": "node node_modules/@angular/cli/bin/ng.js build --configuration=development",
     "build:i18n": "node node_modules/@angular/cli/bin/ng.js build --localize",
     "watch": "node node_modules/@angular/cli/bin/ng.js build --watch --configuration development",
     "test": "node node_modules/@angular/cli/bin/ng.js test",
@@ -18,6 +19,7 @@
     "e2e": "npx playwright test",
     "e2e:ui": "npx playwright test --ui",
     "e2e:headed": "npx playwright test --headed",
+    "analyze": "node node_modules/@angular/cli/bin/ng.js build --source-map && npx source-map-explorer dist/d-and-d-dicer/browser/en/*.js",
     "prepare": "husky"
   },
   "prettier": {
@@ -42,6 +44,7 @@
   },
   "private": true,
   "dependencies": {
+    "@sentry/angular": "^9.29.0",
     "@angular/animations": "^20.3.16",
     "@angular/common": "^20.3.0",
     "@angular/compiler": "^20.3.0",
@@ -84,6 +87,7 @@
     "prettier": "^3.8.1",
     "sharp": "^0.34.5",
     "typescript": "~5.9.2",
-    "typescript-eslint": "^8.54.0"
+    "typescript-eslint": "^8.54.0",
+    "source-map-explorer": "^2.5.3"
   }
 }

@@ -67,6 +67,9 @@ jobs:
 
       - name: Build production (all locales)
         run: npm run build
+        env:
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          GA_MEASUREMENT_ID: ${{ secrets.GA_MEASUREMENT_ID }}
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
