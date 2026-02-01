@@ -4,24 +4,27 @@
       <button
         class="tab-button"
         [class.active]="activeTab === 'history'"
-        (click)="switchTab('history')">
+        (click)="switchTab('history')"
+        i18n="@@rollHistory.tab.history">
         Roll History
       </button>
       <button
         class="tab-button"
         [class.active]="activeTab === 'statistics'"
-        (click)="switchTab('statistics')">
+        (click)="switchTab('statistics')"
+        i18n="@@rollHistory.tab.statistics">
         Statistics
       </button>
       <button
         class="tab-button"
         [class.active]="activeTab === 'probabilities'"
-        (click)="switchTab('probabilities')">
+        (click)="switchTab('probabilities')"
+        i18n="@@rollHistory.tab.probabilities">
         Probabilities
       </button>
     </div>
 
-    <button class="clear-button" (click)="clearHistory()">Clear History</button>
+    <button class="clear-button" (click)="clearHistory()" i18n="@@rollHistory.button.clearHistory">Clear History</button>
   </div>
 
   @if (activeTab === 'history') {
@@ -34,7 +37,7 @@
         </div>
       } @else {
         <div class="empty-state">
-          <p>No rolls yet. Start rolling some dice!</p>
+          <p i18n="@@rollHistory.empty.noRolls">No rolls yet. Start rolling some dice!</p>
         </div>
       }
     }

@@ -7,22 +7,25 @@
         <button
           class="filter-button"
           [class.active]="selectedTimeFilter === 'today'"
-          (click)="setTimeFilter('today')">
+          (click)="setTimeFilter('today')"
+          i18n="@@statistics.filter.today">
           Today
         </button>
         <button
           class="filter-button"
           [class.active]="selectedTimeFilter === 'session'"
-          (click)="setTimeFilter('session')">
+          (click)="setTimeFilter('session')"
+          i18n="@@statistics.filter.session">
           Session
         </button>
         <button
           class="filter-button"
           [class.active]="selectedTimeFilter === 'all'"
-          (click)="setTimeFilter('all')">
+          (click)="setTimeFilter('all')"
+          i18n="@@statistics.filter.all">
           All
         </button>
-        <button class="new-session-button" (click)="newSession()">
+        <button class="new-session-button" (click)="newSession()" i18n="@@statistics.button.newSession">
           New Session
         </button>
       </div>
@@ -30,19 +33,19 @@
       <!-- Basic Metrics Grid -->
       <div class="metrics-grid">
         <div class="metric-card">
-          <div class="metric-label">Total Rolls</div>
+          <div class="metric-label" i18n="@@statistics.metric.totalRolls">Total Rolls</div>
           <div class="metric-value">{{ stats.basic.totalRolls }}</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Average</div>
+          <div class="metric-label" i18n="@@statistics.metric.average">Average</div>
           <div class="metric-value">{{ stats.basic.averageResult }}</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Minimum</div>
+          <div class="metric-label" i18n="@@statistics.metric.minimum">Minimum</div>
           <div class="metric-value">{{ stats.basic.minResult }}</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Maximum</div>
+          <div class="metric-label" i18n="@@statistics.metric.maximum">Maximum</div>
           <div class="metric-value">{{ stats.basic.maxResult }}</div>
         </div>
       </div>
@@ -50,11 +53,11 @@
       <!-- Critical Stats (only if d20 rolls exist) -->
       @if (stats.critical.totalD20Rolls > 0) {
         <div class="critical-section">
-          <h3>Critical Rolls (d20)</h3>
+          <h3 i18n="@@statistics.section.criticalRolls">Critical Rolls (d20)</h3>
           <div class="critical-stats">
             <div class="critical-card success">
               <div class="critical-icon">⚔️</div>
-              <div class="critical-label">Nat 20</div>
+              <div class="critical-label" i18n="@@statistics.critical.nat20">Nat 20</div>
               <div class="critical-count">{{ stats.critical.nat20Count }}</div>
               <div class="critical-percentage">
                 {{ stats.critical.nat20Percentage }}%
@@ -62,7 +65,7 @@
             </div>
             <div class="critical-card failure">
               <div class="critical-icon">💀</div>
-              <div class="critical-label">Nat 1</div>
+              <div class="critical-label" i18n="@@statistics.critical.nat1">Nat 1</div>
               <div class="critical-count">{{ stats.critical.nat1Count }}</div>
               <div class="critical-percentage">
                 {{ stats.critical.nat1Percentage }}%
@@ -74,7 +77,7 @@
 
       <!-- Distribution Chart -->
       <div class="distribution-section">
-        <h3>Result Distribution</h3>
+        <h3 i18n="@@statistics.section.resultDistribution">Result Distribution</h3>
         <div class="distribution-chart">
           @for (entry of stats.distribution; track entry.value) {
             <div class="chart-bar">
@@ -94,13 +97,13 @@
 
       <!-- Dice Type Analysis -->
       <div class="dice-types-section">
-        <h3>Dice Type Analysis</h3>
+        <h3 i18n="@@statistics.section.diceTypeAnalysis">Dice Type Analysis</h3>
         <div class="dice-types-list">
           @for (diceType of stats.diceTypes; track diceType.diceType) {
             <div class="dice-type-card">
               <div class="dice-type-name">{{ diceType.diceType }}</div>
               <div class="dice-type-stats">
-                <span class="usage-count">{{ diceType.count }}x used</span>
+                <span class="usage-count">{{ diceType.count }}x <ng-container i18n="@@statistics.diceType.used">used</ng-container></span>
                 <span class="average">⌀ {{ diceType.averageResult }}</span>
               </div>
             </div>
@@ -110,17 +113,17 @@
 
       <!-- Export Buttons -->
       <div class="export-controls">
-        <button class="export-button json" (click)="exportJSON()">
+        <button class="export-button json" (click)="exportJSON()" i18n="@@statistics.button.exportJSON">
           Export JSON
         </button>
-        <button class="export-button csv" (click)="exportCSV()">
+        <button class="export-button csv" (click)="exportCSV()" i18n="@@statistics.button.exportCSV">
           Export CSV
         </button>
       </div>
 
     } @else {
       <div class="empty-state">
-        <p>No statistics available. Roll some dice first!</p>
+        <p i18n="@@statistics.empty.noStats">No statistics available. Roll some dice first!</p>
       </div>
     }
   }

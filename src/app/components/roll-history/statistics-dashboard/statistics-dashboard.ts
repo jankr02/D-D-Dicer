@@ -85,8 +85,8 @@ export class StatisticsDashboard implements OnInit {
    */
   async newSession(): Promise<void> {
     const confirmed = await this.modalService.confirm(
-      'New Session',
-      'Start a new session? This will reset the session timer.'
+      $localize`:@@modal.newSession.title:New Session`,
+      $localize`:@@modal.newSession.message:Start a new session? This will reset the session timer.`
     );
 
     if (confirmed) {

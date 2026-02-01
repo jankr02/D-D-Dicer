@@ -51,8 +51,8 @@ export class RollHistory implements OnInit {
    */
   async clearHistory(): Promise<void> {
     const confirmed = await this.modalService.confirm(
-      'Clear Roll History',
-      'Are you sure you want to clear the entire roll history? This action cannot be undone.'
+      $localize`:@@modal.clearHistory.title:Clear Roll History`,
+      $localize`:@@modal.clearHistory.message:Are you sure you want to clear the entire roll history? This action cannot be undone.`
     );
 
     if (confirmed) {

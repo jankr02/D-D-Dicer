@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" target-language="de" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="app.tabs.diceRolling" datatype="html">
+        <source> Dice Rolling </source>
+        <target> Würfeln </target>
+      </trans-unit>
+      <trans-unit id="app.tabs.characterSheet" datatype="html">
+        <source> Character Sheet </source>
+        <target> Charakterbogen </target>
+      </trans-unit>
+      <trans-unit id="error.invalidDiceExpression" datatype="html">
+        <source>Please configure a valid dice expression first</source>
+        <target>Bitte konfiguriere zuerst einen gültigen Würfelausdruck</target>
+      </trans-unit>
+      <trans-unit id="character.title" datatype="html">
+        <source>Character Sheet</source>
+        <target>Charakterbogen</target>
+      </trans-unit>
+      <trans-unit id="character.label.name" datatype="html">
+        <source>Name</source>
+        <target>Name</target>
+      </trans-unit>
+      <trans-unit id="character.tooltip.name" datatype="html">
+        <source>Your character's name. Displayed in presets that use character values.</source>
+        <target>Der Name deines Charakters. Wird in Vorlagen angezeigt, die Charakterwerte verwenden.</target>
+      </trans-unit>
+      <trans-unit id="character.placeholder.name" datatype="html">
+        <source>Unnamed Hero</source>
+        <target>Namenloser Held</target>
+      </trans-unit>
+      <trans-unit id="character.label.level" datatype="html">
+        <source>Level</source>
+        <target>Stufe</target>
+      </trans-unit>
+      <trans-unit id="character.tooltip.level" datatype="html">
+        <source>Your character's level (1-20). Determines the Proficiency Bonus: Lvl 1-4: +2, Lvl 5-8: +3, Lvl 9-12: +4, Lvl 13-16: +5, Lvl 17-20: +6.</source>
+        <target>Die Stufe deines Charakters (1-20). Bestimmt den Übungsbonus: Stufe 1-4: +2, Stufe 5-8: +3, Stufe 9-12: +4, Stufe 13-16: +5, Stufe 17-20: +6.</target>
+      </trans-unit>
+      <trans-unit id="character.label.proficiencyBonus" datatype="html">
+        <source>Proficiency Bonus:</source>
+        <target>Übungsbonus:</target>
+      </trans-unit>
+      <trans-unit id="character.tooltip.proficiencyBonus" datatype="html">
+        <source>Automatically calculated from level and added to rolls where you are proficient (e.g., attacks, saving throws, skill checks).</source>
+        <target>Wird automatisch aus der Stufe berechnet und zu Würfen hinzugefügt, bei denen du geübt bist (z.B. Angriffe, Rettungswürfe, Fertigkeitsproben).</target>
+      </trans-unit>
+      <trans-unit id="character.section.abilityScores" datatype="html">
+        <source>Ability Scores</source>
+        <target>Attributswerte</target>
+      </trans-unit>
+      <trans-unit id="character.tooltip.abilityScores" datatype="html">
+        <source>Your character's six core attributes. The modifier is calculated from the score: (Score - 10) / 2, rounded down. E.g., 14 = +2, 8 = -1.</source>
+        <target>Die sechs Kernattribute deines Charakters. Der Modifikator wird aus dem Wert berechnet: (Wert - 10) / 2, abgerundet. Z.B. 14 = +2, 8 = -1.</target>
+      </trans-unit>
+      <trans-unit id="character.button.reset" datatype="html">
+        <source> Reset Character </source>
+        <target> Charakter zurücksetzen </target>
+      </trans-unit>
+      <trans-unit id="character.info.noCharacter" datatype="html">
+        <source> No character created yet. Fill out the fields and your data will be saved automatically. </source>
+        <target> Noch kein Charakter erstellt. Fülle die Felder aus und deine Daten werden automatisch gespeichert. </target>
+      </trans-unit>
+      <trans-unit id="modal.resetCharacter.title" datatype="html">
+        <source>Reset Character</source>
+        <target>Charakter zurücksetzen</target>
+      </trans-unit>
+      <trans-unit id="modal.resetCharacter.message" datatype="html">
+        <source>Are you sure you want to reset the current character? This action cannot be undone.</source>
+        <target>Möchtest du den aktuellen Charakter wirklich zurücksetzen? Diese Aktion kann nicht rückgängig gemacht werden.</target>
+      </trans-unit>
+      <trans-unit id="diceGroup.title" datatype="html">
+        <source>Dice Group <x id="INTERPOLATION" equiv-text="{{ groupIndex + 1 }}"/></source>
+        <target>Würfelgruppe <x id="INTERPOLATION" equiv-text="{{ groupIndex + 1 }}"/></target>
+      </trans-unit>
+      <trans-unit id="diceGroup.label.count" datatype="html">
+        <source>Count</source>
+        <target>Anzahl</target>
+      </trans-unit>
+      <trans-unit id="diceGroup.tooltip.count" datatype="html">
+        <source>Number of dice in this group to be rolled (e.g., 2 for 2d6).</source>
+        <target>Anzahl der Würfel in dieser Gruppe (z.B. 2 für 2W6).</target>
+      </trans-unit>
+      <trans-unit id="diceGroup.label.diceType" datatype="html">
+        <source>Dice Type</source>
+        <target>Würfelart</target>
+      </trans-unit>
+      <trans-unit id="diceGroup.tooltip.diceType" datatype="html">
+        <source>The type of die (d4, d6, d8, d10, d12, d20, d100). The number indicates the number of sides.</source>
+        <target>Die Art des Würfels (W4, W6, W8, W10, W12, W20, W100). Die Zahl gibt die Anzahl der Seiten an.</target>
+      </trans-unit>
+      <trans-unit id="diceGroup.label.enableKeepDrop" datatype="html">
+        <source>Enable Keep/Drop</source>
+        <target>Behalten/Verwerfen aktivieren</target>
+      </trans-unit>
+      <trans-unit id="diceGroup.tooltip.keepDrop" datatype="html">
+        <source>Allows keeping or dropping certain dice results. Useful for mechanics like "4d6, drop lowest" during character creation.</source>
+        <target>Ermöglicht das Behalten oder Verwerfen bestimmter Würfelergebnisse. Nützlich für Mechaniken wie "4W6, niedrigsten verwerfen" bei der Charaktererstellung.</target>
+      </trans-unit>
+      <trans-unit id="diceGroup.label.keepDropType" datatype="html">
+        <source>Type</source>
+        <target>Typ</target>
+      </trans-unit>
+      <trans-unit id="diceGroup.tooltip.keepDropType" datatype="html">
+        <source>Keep Highest/Lowest: Keeps the highest/lowest dice. Drop Highest/Lowest: Discards the highest/lowest dice.</source>
+        <target>Höchste/Niedrigste behalten: Behält die höchsten/niedrigsten Würfel. Höchste/Niedrigste verwerfen: Verwirft die höchsten/niedrigsten Würfel.</target>
+      </trans-unit>
+      <trans-unit id="keepDrop.keepHighest" datatype="html">
+        <source>Keep Highest</source>
+        <target>Höchste behalten</target>
+      </trans-unit>
+      <trans-unit id="keepDrop.keepLowest" datatype="html">
+        <source>Keep Lowest</source>
+        <target>Niedrigste behalten</target>
+      </trans-unit>
+      <trans-unit id="keepDrop.dropHighest" datatype="html">
+        <source>Drop Highest</source>
+        <target>Höchste verwerfen</target>
+      </trans-unit>
+      <trans-unit id="keepDrop.dropLowest" datatype="html">
+        <source>Drop Lowest</source>
+        <target>Niedrigste verwerfen</target>
+      </trans-unit>
+      <trans-unit id="diceGroup.label.keepDropCount" datatype="html">
+        <source>Count</source>
+        <target>Anzahl</target>
+      </trans-unit>
+      <trans-unit id="diceGroup.tooltip.keepDropCount" datatype="html">
+        <source>Number of dice to keep or drop.</source>
+        <target>Anzahl der Würfel, die behalten oder verworfen werden.</target>
+      </trans-unit>
+      <trans-unit id="diceRoller.title" datatype="html">
+        <source>Dice Roller</source>
+        <target>Würfel-Roller</target>
+      </trans-unit>
+      <trans-unit id="diceRoller.button.removeGroup" datatype="html">
+        <source> Remove Group </source>
+        <target> Gruppe entfernen </target>
+      </trans-unit>
+      <trans-unit id="diceRoller.button.addGroup" datatype="html">
+        <source>Add Dice Group</source>
+        <target>Würfelgruppe hinzufügen</target>
+      </trans-unit>
+      <trans-unit id="diceRoller.label.modifier" datatype="html">
+        <source>Modifier</source>
+        <target>Modifikator</target>
+      </trans-unit>
+      <trans-unit id="diceRoller.tooltip.modifier" datatype="html">
+        <source>A fixed bonus or penalty added to the roll result. Can be entered manually or calculated from your character sheet.</source>
+        <target>Ein fester Bonus oder Malus, der zum Würfelergebnis addiert wird. Kann manuell eingegeben oder aus dem Charakterbogen berechnet werden.</target>
+      </trans-unit>
+      <trans-unit id="diceRoller.label.advantage" datatype="html">
+        <source>Advantage/Disadvantage</source>
+        <target>Vorteil/Nachteil</target>
+      </trans-unit>
+      <trans-unit id="diceRoller.tooltip.advantage" datatype="html">
+        <source>With Advantage, you roll 2d20 and take the higher result. With Disadvantage, you take the lower result.</source>
+        <target>Bei Vorteil würfelst du 2W20 und nimmst das höhere Ergebnis. Bei Nachteil nimmst du das niedrigere Ergebnis.</target>
+      </trans-unit>
+      <trans-unit id="advantage.none" datatype="html">
+        <source>None</source>
+        <target>Keiner</target>
+      </trans-unit>
+      <trans-unit id="advantage.advantage" datatype="html">
+        <source>Advantage</source>
+        <target>Vorteil</target>
+      </trans-unit>
+      <trans-unit id="advantage.disadvantage" datatype="html">
+        <source>Disadvantage</source>
+        <target>Nachteil</target>
+      </trans-unit>
+      <trans-unit id="diceRoller.label.targetDC" datatype="html">
+        <source>Target DC</source>
+        <target>Ziel-SG</target>
+      </trans-unit>
+      <trans-unit id="diceRoller.tooltip.targetDC" datatype="html">
+        <source>The Difficulty Class you need to meet or exceed. Shows your success probability in real-time.</source>
+        <target>Der Schwierigkeitsgrad, den du erreichen oder übertreffen musst. Zeigt deine Erfolgswahrscheinlichkeit in Echtzeit.</target>
+      </trans-unit>
+      <trans-unit id="diceRoller.label.successProbability" datatype="html">
+        <source>Success Probability:</source>
+        <target>Erfolgswahrscheinlichkeit:</target>
+      </trans-unit>
+      <trans-unit id="diceRoller.button.roll" datatype="html">
+        <source>Roll Dice</source>
+        <target>Würfeln</target>
+      </trans-unit>
+      <trans-unit id="diceRoller.button.repeatLast" datatype="html">
+        <source> 🔄 Repeat Last Roll </source>
+        <target> 🔄 Letzten Wurf wiederholen </target>
+      </trans-unit>
+      <trans-unit id="error.diceRoll" datatype="html">
+        <source>Dice roll error</source>
+        <target>Würfelfehler</target>
+      </trans-unit>
+      <trans-unit id="modifier.mode.manual" datatype="html">
+        <source> Manual </source>
+        <target> Manuell </target>
+      </trans-unit>
+      <trans-unit id="modifier.mode.character" datatype="html">
+        <source> Character </source>
+        <target> Charakter </target>
+      </trans-unit>
+      <trans-unit id="modifier.tooltip.mode" datatype="html">
+        <source>Manual: Enter a fixed value. Character: Automatically calculates the modifier from your character sheet.</source>
+        <target>Manuell: Einen festen Wert eingeben. Charakter: Berechnet den Modifikator automatisch aus dem Charakterbogen.</target>
+      </trans-unit>
+      <trans-unit id="modifier.label.modifier" datatype="html">
+        <source>Modifier</source>
+        <target>Modifikator</target>
+      </trans-unit>
+      <trans-unit id="modifier.tooltip.fixedModifier" datatype="html">
+        <source>A fixed numeric value that is added (positive) or subtracted (negative) from the roll result.</source>
+        <target>Ein fester numerischer Wert, der zum Würfelergebnis addiert (positiv) oder davon abgezogen (negativ) wird.</target>
+      </trans-unit>
+      <trans-unit id="modifier.warning.noCharacter" datatype="html">
+        <source>Please fill out the character sheet in the Character Sheet tab first</source>
+        <target>Bitte fülle zuerst den Charakterbogen im Charakterbogen-Tab aus</target>
+      </trans-unit>
+      <trans-unit id="modifier.label.ability" datatype="html">
+        <source>Ability</source>
+        <target>Attribut</target>
+      </trans-unit>
+      <trans-unit id="modifier.tooltip.ability" datatype="html">
+        <source>Select the ability whose modifier should be used (e.g., STR for melee attacks, DEX for ranged attacks).</source>
+        <target>Wähle das Attribut, dessen Modifikator verwendet werden soll (z.B. STR für Nahkampfangriffe, DEX für Fernkampfangriffe).</target>
+      </trans-unit>
+      <trans-unit id="modifier.label.proficiencyBonus" datatype="html">
+        <source>Proficiency Bonus</source>
+        <target>Übungsbonus</target>
+      </trans-unit>
+      <trans-unit id="modifier.tooltip.proficiency" datatype="html">
+        <source>Enable this for rolls where your character is proficient (proficient attacks, trained skills, saving throws).</source>
+        <target>Aktiviere dies für Würfe, bei denen dein Charakter geübt ist (geübte Angriffe, trainierte Fertigkeiten, Rettungswürfe).</target>
+      </trans-unit>
+      <trans-unit id="modifier.label.additionalBonus" datatype="html">
+        <source>Additional Bonus</source>
+        <target>Zusätzlicher Bonus</target>
+      </trans-unit>
+      <trans-unit id="modifier.tooltip.additionalBonus" datatype="html">
+        <source>Extra bonuses from other sources such as magic items, spells, or class features.</source>
+        <target>Extra-Boni aus anderen Quellen wie magischen Gegenständen, Zaubern oder Klassenfähigkeiten.</target>
+      </trans-unit>
+      <trans-unit id="modifier.label.total" datatype="html">
+        <source>Total:</source>
+        <target>Gesamt:</target>
+      </trans-unit>
+      <trans-unit id="modifier.formula.noCharacter" datatype="html">
+        <source>No character</source>
+        <target>Kein Charakter</target>
+      </trans-unit>
+      <trans-unit id="modifier.ability.none" datatype="html">
+        <source>None</source>
+        <target>Keins</target>
+      </trans-unit>
+      <trans-unit id="presets.title" datatype="html">
+        <source>Presets</source>
+        <target>Vorlagen</target>
+      </trans-unit>
+      <trans-unit id="presets.button.cancel" datatype="html">
+        <source>Cancel</source>
+        <target>Abbrechen</target>
+      </trans-unit>
+      <trans-unit id="presets.button.saveCurrent" datatype="html">
+        <source>Save Current</source>
+        <target>Aktuelle speichern</target>
+      </trans-unit>
+      <trans-unit id="presets.label.filterByCategory" datatype="html">
+        <source>Filter by Category:</source>
+        <target>Nach Kategorie filtern:</target>
+      </trans-unit>
+      <trans-unit id="presets.tooltip.filter" datatype="html">
+        <source>Filters the preset list by categories. Select "All Categories" to see all presets.</source>
+        <target>Filtert die Vorlagenliste nach Kategorien. Wähle "Alle Kategorien", um alle Vorlagen zu sehen.</target>
+      </trans-unit>
+      <trans-unit id="presets.label.presetName" datatype="html">
+        <source>Preset Name</source>
+        <target>Vorlagenname</target>
+      </trans-unit>
+      <trans-unit id="presets.tooltip.presetName" datatype="html">
+        <source>Give your preset a descriptive name, e.g., "Longsword Attack" or "Fireball Damage".</source>
+        <target>Gib deiner Vorlage einen beschreibenden Namen, z.B. "Langschwert-Angriff" oder "Feuerball-Schaden".</target>
+      </trans-unit>
+      <trans-unit id="presets.placeholder.presetName" datatype="html">
+        <source>Enter preset name...</source>
+        <target>Vorlagenname eingeben...</target>
+      </trans-unit>
+      <trans-unit id="presets.label.categories" datatype="html">
+        <source>Categories (optional):</source>
+        <target>Kategorien (optional):</target>
+      </trans-unit>
+      <trans-unit id="presets.tooltip.categories" datatype="html">
+        <source>Categorize your preset for better organization. You can select multiple categories.</source>
+        <target>Kategorisiere deine Vorlage für bessere Organisation. Du kannst mehrere Kategorien auswählen.</target>
+      </trans-unit>
+      <trans-unit id="presets.button.savePreset" datatype="html">
+        <source> Save Preset </source>
+        <target> Vorlage speichern </target>
+      </trans-unit>
+      <trans-unit id="presets.button.load" datatype="html">
+        <source> Load </source>
+        <target> Laden </target>
+      </trans-unit>
+      <trans-unit id="presets.button.delete" datatype="html">
+        <source> Delete </source>
+        <target> Löschen </target>
+      </trans-unit>
+      <trans-unit id="presets.empty.noPresets" datatype="html">
+        <source>No presets saved yet. Save your favorite dice configurations!</source>
+        <target>Noch keine Vorlagen gespeichert. Speichere deine Lieblings-Würfelkonfigurationen!</target>
+      </trans-unit>
+      <trans-unit id="presets.empty.noPresetsInCategory" datatype="html">
+        <source>No presets in this category.</source>
+        <target>Keine Vorlagen in dieser Kategorie.</target>
+      </trans-unit>
+      <trans-unit id="error.emptyPresetName" datatype="html">
+        <source>Please enter a preset name</source>
+        <target>Bitte gib einen Vorlagennamen ein</target>
+      </trans-unit>
+      <trans-unit id="toast.presetSaved" datatype="html">
+        <source>Preset "<x id="PH" equiv-text="name"/>" saved successfully!</source>
+        <target>Vorlage "<x id="PH" equiv-text="name"/>" erfolgreich gespeichert!</target>
+      </trans-unit>
+      <trans-unit id="toast.presetLoaded" datatype="html">
+        <source>Loaded preset "<x id="PH" equiv-text="preset.name"/>"</source>
+        <target>Vorlage "<x id="PH" equiv-text="preset.name"/>" geladen</target>
+      </trans-unit>
+      <trans-unit id="modal.deletePreset.title" datatype="html">
+        <source>Delete Preset</source>
+        <target>Vorlage löschen</target>
+      </trans-unit>
+      <trans-unit id="modal.deletePreset.message" datatype="html">
+        <source>Are you sure you want to delete the preset "<x id="PH" equiv-text="preset.name"/>"? This action cannot be undone.</source>
+        <target>Möchtest du die Vorlage "<x id="PH" equiv-text="preset.name"/>" wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.</target>
+      </trans-unit>
+      <trans-unit id="toast.presetDeleted" datatype="html">
+        <source>Preset "<x id="PH" equiv-text="preset.name"/>" deleted</source>
+        <target>Vorlage "<x id="PH" equiv-text="preset.name"/>" gelöscht</target>
+      </trans-unit>
+      <trans-unit id="probability.label.targetDC" datatype="html">
+        <source>Target DC (Difficulty Class)</source>
+        <target>Ziel-SG (Schwierigkeitsgrad)</target>
+      </trans-unit>
+      <trans-unit id="probability.loading" datatype="html">
+        <source>Calculating probabilities...</source>
+        <target>Berechne Wahrscheinlichkeiten...</target>
+      </trans-unit>
+      <trans-unit id="probability.empty.configureDice" datatype="html">
+        <source>Configure dice in the Dice Roller to see probabilities.</source>
+        <target>Konfiguriere Würfel im Würfel-Roller, um Wahrscheinlichkeiten zu sehen.</target>
+      </trans-unit>
+      <trans-unit id="probability.label.successProbability" datatype="html">
+        <source> Success Probability (≥ <x id="INTERPOLATION" equiv-text="{{ targetDC }}"/>) </source>
+        <target> Erfolgswahrscheinlichkeit (≥ <x id="INTERPOLATION" equiv-text="{{ targetDC }}"/>) </target>
+      </trans-unit>
+      <trans-unit id="probability.stat.expectedValue" datatype="html">
+        <source>Expected Value</source>
+        <target>Erwartungswert</target>
+      </trans-unit>
+      <trans-unit id="probability.stat.median" datatype="html">
+        <source>Median</source>
+        <target>Median</target>
+      </trans-unit>
+      <trans-unit id="probability.stat.minimum" datatype="html">
+        <source>Minimum</source>
+        <target>Minimum</target>
+      </trans-unit>
+      <trans-unit id="probability.stat.maximum" datatype="html">
+        <source>Maximum</source>
+        <target>Maximum</target>
+      </trans-unit>
+      <trans-unit id="probability.section.criticalRolls" datatype="html">
+        <source>Critical Rolls (d20)</source>
+        <target>Kritische Würfe (W20)</target>
+      </trans-unit>
+      <trans-unit id="probability.critical.nat20" datatype="html">
+        <source>Nat 20</source>
+        <target>Nat 20</target>
+      </trans-unit>
+      <trans-unit id="probability.critical.nat1" datatype="html">
+        <source>Nat 1</source>
+        <target>Nat 1</target>
+      </trans-unit>
+      <trans-unit id="probability.section.distribution" datatype="html">
+        <source>Probability Distribution</source>
+        <target>Wahrscheinlichkeitsverteilung</target>
+      </trans-unit>
+      <trans-unit id="probability.calculationMethod" datatype="html">
+        <source>Calculation Method:</source>
+        <target>Berechnungsmethode:</target>
+      </trans-unit>
+      <trans-unit id="probability.method.exact" datatype="html">
+        <source>Exact Calculation</source>
+        <target>Exakte Berechnung</target>
+      </trans-unit>
+      <trans-unit id="probability.method.monteCarlo" datatype="html">
+        <source>Monte Carlo Simulation</source>
+        <target>Monte-Carlo-Simulation</target>
+      </trans-unit>
+      <trans-unit id="probability.rolls" datatype="html">
+        <source>rolls</source>
+        <target>Würfe</target>
+      </trans-unit>
+      <trans-unit id="rollHistory.tab.history" datatype="html">
+        <source> Roll History </source>
+        <target> Verlauf </target>
+      </trans-unit>
+      <trans-unit id="rollHistory.tab.statistics" datatype="html">
+        <source> Statistics </source>
+        <target> Statistik </target>
+      </trans-unit>
+      <trans-unit id="rollHistory.tab.probabilities" datatype="html">
+        <source> Probabilities </source>
+        <target> Chancen </target>
+      </trans-unit>
+      <trans-unit id="rollHistory.button.clearHistory" datatype="html">
+        <source>Clear History</source>
+        <target>Löschen</target>
+      </trans-unit>
+      <trans-unit id="rollHistory.empty.noRolls" datatype="html">
+        <source>No rolls yet. Start rolling some dice!</source>
+        <target>Noch keine Würfe. Fang an zu würfeln!</target>
+      </trans-unit>
+      <trans-unit id="modal.clearHistory.title" datatype="html">
+        <source>Clear Roll History</source>
+        <target>Würfelverlauf löschen</target>
+      </trans-unit>
+      <trans-unit id="modal.clearHistory.message" datatype="html">
+        <source>Are you sure you want to clear the entire roll history? This action cannot be undone.</source>
+        <target>Möchtest du den gesamten Würfelverlauf wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.</target>
+      </trans-unit>
+      <trans-unit id="statistics.filter.today" datatype="html">
+        <source> Today </source>
+        <target> Heute </target>
+      </trans-unit>
+      <trans-unit id="statistics.filter.session" datatype="html">
+        <source> Session </source>
+        <target> Sitzung </target>
+      </trans-unit>
+      <trans-unit id="statistics.filter.all" datatype="html">
+        <source> All </source>
+        <target> Alle </target>
+      </trans-unit>
+      <trans-unit id="statistics.button.newSession" datatype="html">
+        <source> New Session </source>
+        <target> Neue Sitzung </target>
+      </trans-unit>
+      <trans-unit id="statistics.metric.totalRolls" datatype="html">
+        <source>Total Rolls</source>
+        <target>Gesamtwürfe</target>
+      </trans-unit>
+      <trans-unit id="statistics.metric.average" datatype="html">
+        <source>Average</source>
+        <target>Durchschnitt</target>
+      </trans-unit>
+      <trans-unit id="statistics.metric.minimum" datatype="html">
+        <source>Minimum</source>
+        <target>Minimum</target>
+      </trans-unit>
+      <trans-unit id="statistics.metric.maximum" datatype="html">
+        <source>Maximum</source>
+        <target>Maximum</target>
+      </trans-unit>
+      <trans-unit id="statistics.section.criticalRolls" datatype="html">
+        <source>Critical Rolls (d20)</source>
+        <target>Kritische Würfe (W20)</target>
+      </trans-unit>
+      <trans-unit id="statistics.critical.nat20" datatype="html">
+        <source>Nat 20</source>
+        <target>Nat 20</target>
+      </trans-unit>
+      <trans-unit id="statistics.critical.nat1" datatype="html">
+        <source>Nat 1</source>
+        <target>Nat 1</target>
+      </trans-unit>
+      <trans-unit id="statistics.section.resultDistribution" datatype="html">
+        <source>Result Distribution</source>
+        <target>Ergebnisverteilung</target>
+      </trans-unit>
+      <trans-unit id="statistics.section.diceTypeAnalysis" datatype="html">
+        <source>Dice Type Analysis</source>
+        <target>Würfelart-Analyse</target>
+      </trans-unit>
+      <trans-unit id="statistics.diceType.used" datatype="html">
+        <source>used</source>
+        <target>verwendet</target>
+      </trans-unit>
+      <trans-unit id="statistics.button.exportJSON" datatype="html">
+        <source> Export JSON </source>
+        <target> JSON exportieren </target>
+      </trans-unit>
+      <trans-unit id="statistics.button.exportCSV" datatype="html">
+        <source> Export CSV </source>
+        <target> CSV exportieren </target>
+      </trans-unit>
+      <trans-unit id="statistics.empty.noStats" datatype="html">
+        <source>No statistics available. Roll some dice first!</source>
+        <target>Keine Statistiken verfügbar. Würfle zuerst ein paar Würfel!</target>
+      </trans-unit>
+      <trans-unit id="modal.newSession.title" datatype="html">
+        <source>New Session</source>
+        <target>Neue Sitzung</target>
+      </trans-unit>
+      <trans-unit id="modal.newSession.message" datatype="html">
+        <source>Start a new session? This will reset the session timer.</source>
+        <target>Neue Sitzung starten? Dadurch wird der Sitzungstimer zurückgesetzt.</target>
+      </trans-unit>
+      <trans-unit id="modal.button.confirm" datatype="html">
+        <source>Confirm</source>
+        <target>Bestätigen</target>
+      </trans-unit>
+      <trans-unit id="modal.button.cancel" datatype="html">
+        <source>Cancel</source>
+        <target>Abbrechen</target>
+      </trans-unit>
+      <trans-unit id="modal.button.ok" datatype="html">
+        <source>OK</source>
+        <target>OK</target>
+      </trans-unit>
+      <trans-unit id="ability.strength" datatype="html">
+        <source>Strength</source>
+        <target>Stärke</target>
+      </trans-unit>
+      <trans-unit id="ability.dexterity" datatype="html">
+        <source>Dexterity</source>
+        <target>Geschicklichkeit</target>
+      </trans-unit>
+      <trans-unit id="ability.constitution" datatype="html">
+        <source>Constitution</source>
+        <target>Konstitution</target>
+      </trans-unit>
+      <trans-unit id="ability.intelligence" datatype="html">
+        <source>Intelligence</source>
+        <target>Intelligenz</target>
+      </trans-unit>
+      <trans-unit id="ability.wisdom" datatype="html">
+        <source>Wisdom</source>
+        <target>Weisheit</target>
+      </trans-unit>
+      <trans-unit id="ability.charisma" datatype="html">
+        <source>Charisma</source>
+        <target>Charisma</target>
+      </trans-unit>
+      <!-- Category translations -->
+      <trans-unit id="category.combat" datatype="html">
+        <source>Combat</source>
+        <target>Kampf</target>
+      </trans-unit>
+      <trans-unit id="category.utility" datatype="html">
+        <source>Utility</source>
+        <target>Nützlich</target>
+      </trans-unit>
+      <trans-unit id="category.character" datatype="html">
+        <source>Character</source>
+        <target>Charakter</target>
+      </trans-unit>
+      <trans-unit id="category.skillCheck" datatype="html">
+        <source>Skill Check</source>
+        <target>Fertigkeitsprobe</target>
+      </trans-unit>
+      <trans-unit id="category.damage" datatype="html">
+        <source>Damage</source>
+        <target>Schaden</target>
+      </trans-unit>
+      <trans-unit id="category.healing" datatype="html">
+        <source>Healing</source>
+        <target>Heilung</target>
+      </trans-unit>
+      <trans-unit id="category.custom" datatype="html">
+        <source>Custom</source>
+        <target>Benutzerdefiniert</target>
+      </trans-unit>
+      <trans-unit id="category.allCategories" datatype="html">
+        <source>All Categories</source>
+        <target>Alle Kategorien</target>
+      </trans-unit>
+      <trans-unit id="category.uncategorized" datatype="html">
+        <source>Uncategorized</source>
+        <target>Ohne Kategorie</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

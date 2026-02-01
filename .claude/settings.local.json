@@ -25,7 +25,12 @@
       "Bash(Select-Object -ExpandProperty FullName)",
       "Bash(tree:*)",
       "Bash(timeout /t 15 /nobreak)",
-      "Bash(node \"node_modules\\\\@angular\\\\cli\\\\bin\\\\ng.js\" build:*)"
+      "Bash(node \"node_modules\\\\@angular\\\\cli\\\\bin\\\\ng.js\" build:*)",
+      "Bash(npm run extract-i18n:*)",
+      "Bash(node node_modules/@angular/cli/bin/ng.js extract-i18n:*)",
+      "Bash(node:*)",
+      "Bash(findstr:*)",
+      "Bash(npm run start:de:*)"
     ]
   }
 }

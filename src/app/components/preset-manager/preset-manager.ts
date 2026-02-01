@@ -15,7 +15,8 @@ import {
   CategoryFilter,
   PRESET_CATEGORIES,
   ALL_CATEGORIES,
-  UNCATEGORIZED
+  UNCATEGORIZED,
+  getCategoryLabel
 } from '../../types/preset-category.type';
 
 /**
@@ -85,7 +86,7 @@ export class PresetManager implements OnInit {
    */
   onSaveCurrentAsPreset(): void {
     if (!this.newPresetName.trim()) {
-      this.toastService.error('Please enter a preset name');
+      this.toastService.error($localize`:@@error.emptyPresetName:Please enter a preset name`);
       return;
     }
 
@@ -106,7 +107,7 @@ export class PresetManager implements OnInit {
     };
 
     this.presetService.savePreset(preset);
-    this.toastService.success(`Preset "${name}" saved successfully!`);
+    this.toastService.success($localize`:@@toast.presetSaved:Preset "${name}" saved successfully!`);
 
     // Reset form state
     this.newPresetName = '';
@@ -119,7 +120,7 @@ export class PresetManager implements OnInit {
    */
   onLoadPreset(preset: PresetModel): void {
     this.loadPreset.emit(preset.expression);
-    this.toastService.info(`Loaded preset "${preset.name}"`);
+    this.toastService.info($localize`:@@toast.presetLoaded:Loaded preset "${preset.name}"`);
   }
 
   /**
@@ -127,13 +128,13 @@ export class PresetManager implements OnInit {
    */
   async deletePreset(preset: PresetModel): Promise<void> {
     const confirmed = await this.modalService.confirm(
-      'Delete Preset',
-      `Are you sure you want to delete the preset "${preset.name}"? This action cannot be undone.`
+      $localize`:@@modal.deletePreset.title:Delete Preset`,
+      $localize`:@@modal.deletePreset.message:Are you sure you want to delete the preset "${preset.name}"? This action cannot be undone.`
     );
 
     if (confirmed) {
       this.presetService.deletePreset(preset.id);
-      this.toastService.success(`Preset "${preset.name}" deleted`);
+      this.toastService.success($localize`:@@toast.presetDeleted:Preset "${preset.name}" deleted`);
     }
   }
 
@@ -169,6 +170,13 @@ export class PresetManager implements OnInit {
    */
   getCategoryBadges(preset: PresetModel): PresetCategory[] {
     return preset.categories || [];
+  }
+
+  /**
+   * Gets the translated label for a category.
+   */
+  getCategoryLabel(category: PresetCategory | typeof ALL_CATEGORIES | typeof UNCATEGORIZED): string {
+    return getCategoryLabel(category);
   }
 
   /**

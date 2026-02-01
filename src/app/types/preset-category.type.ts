@@ -39,3 +39,31 @@ export const UNCATEGORIZED = 'Uncategorized' as const;
  * Union type for all filter options (categories + special filters).
  */
 export type CategoryFilter = PresetCategory | typeof ALL_CATEGORIES | typeof UNCATEGORIZED;
+
+/**
+ * Returns localized labels for preset categories.
+ */
+export function getCategoryLabel(category: PresetCategory | typeof ALL_CATEGORIES | typeof UNCATEGORIZED): string {
+  switch (category) {
+    case 'Combat':
+      return $localize`:@@category.combat:Combat`;
+    case 'Utility':
+      return $localize`:@@category.utility:Utility`;
+    case 'Character':
+      return $localize`:@@category.character:Character`;
+    case 'Skill Check':
+      return $localize`:@@category.skillCheck:Skill Check`;
+    case 'Damage':
+      return $localize`:@@category.damage:Damage`;
+    case 'Healing':
+      return $localize`:@@category.healing:Healing`;
+    case 'Custom':
+      return $localize`:@@category.custom:Custom`;
+    case ALL_CATEGORIES:
+      return $localize`:@@category.allCategories:All Categories`;
+    case UNCATEGORIZED:
+      return $localize`:@@category.uncategorized:Uncategorized`;
+    default:
+      return category;
+  }
+}

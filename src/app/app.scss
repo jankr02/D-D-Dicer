@@ -35,6 +35,12 @@
       gap: 2rem;
     }
 
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
     h1 {
       flex: 1;
       color: var(--text-light);

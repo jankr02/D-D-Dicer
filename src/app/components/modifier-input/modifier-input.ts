@@ -4,7 +4,7 @@ import { FormsModule, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/f
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Modifier, FixedModifier, CharacterModifier } from '../../models/modifier.model';
-import { Ability, ABILITY_LABELS } from '../../types/character-types';
+import { Ability, getAbilityLabels } from '../../types/character-types';
 import { CharacterService } from '../../services/character';
 import { ComputedCharacterValues } from '../../models/character.model';
 
@@ -176,7 +176,7 @@ export class ModifierInput implements OnInit, OnDestroy, ControlValueAccessor {
     }
 
     if (!this.hasCharacter || !this.computedValues) {
-      return 'Kein Charakter';
+      return $localize`:@@modifier.formula.noCharacter:No character`;
     }
 
     const parts: string[] = [];
@@ -208,9 +208,9 @@ export class ModifierInput implements OnInit, OnDestroy, ControlValueAccessor {
    */
   getAbilityLabel(ability: Ability | null): string {
     if (ability === null) {
-      return 'Keins';
+      return $localize`:@@modifier.ability.none:None`;
     }
-    return ABILITY_LABELS[ability];
+    return getAbilityLabels()[ability];
   }
 
   /**

@@ -1,7 +1,7 @@
 <div class="probability-panel">
   <!-- DC Input Section -->
   <div class="dc-input-section">
-    <label for="targetDC">Target DC (Difficulty Class)</label>
+    <label for="targetDC" i18n="@@probability.label.targetDC">Target DC (Difficulty Class)</label>
     <input
       type="number"
       id="targetDC"
@@ -15,13 +15,13 @@
   @if (isCalculating) {
     <div class="loading-state">
       <div class="loading-spinner"></div>
-      <p>Calculating probabilities...</p>
+      <p i18n="@@probability.loading">Calculating probabilities...</p>
     </div>
   }
 
   @if (!probabilityResult && !isCalculating) {
     <div class="empty-state">
-      <p>Configure dice in the Dice Roller to see probabilities.</p>
+      <p i18n="@@probability.empty.configureDice">Configure dice in the Dice Roller to see probabilities.</p>
     </div>
   }
 
@@ -29,7 +29,7 @@
     <!-- Success Probability Card -->
     @if (targetDC > 0) {
       <div class="success-card" [ngClass]="getSuccessClass()">
-        <div class="success-label">
+        <div class="success-label" i18n="@@probability.label.successProbability">
           Success Probability (≥ {{ targetDC }})
         </div>
         <div class="success-percentage">{{ successPercentage }}%</div>
@@ -39,21 +39,21 @@
     <!-- Stats Grid -->
     <div class="stats-grid">
       <div class="stat-card">
-        <div class="stat-label">Expected Value</div>
+        <div class="stat-label" i18n="@@probability.stat.expectedValue">Expected Value</div>
         <div class="stat-value">
           {{ probabilityResult.expectedValue | number: '1.1-1' }}
         </div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Median</div>
+        <div class="stat-label" i18n="@@probability.stat.median">Median</div>
         <div class="stat-value">{{ probabilityResult.median }}</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Minimum</div>
+        <div class="stat-label" i18n="@@probability.stat.minimum">Minimum</div>
         <div class="stat-value">{{ probabilityResult.minValue }}</div>
       </div>
       <div class="stat-card">
-        <div class="stat-label">Maximum</div>
+        <div class="stat-label" i18n="@@probability.stat.maximum">Maximum</div>
         <div class="stat-value">{{ probabilityResult.maxValue }}</div>
       </div>
     </div>
@@ -61,18 +61,18 @@
     <!-- Critical Probabilities (only for d20) -->
     @if (criticalProbs) {
       <div class="critical-section">
-        <h3>Critical Rolls (d20)</h3>
+        <h3 i18n="@@probability.section.criticalRolls">Critical Rolls (d20)</h3>
         <div class="critical-probs">
           <div class="crit-card success">
             <div class="crit-icon">⚔️</div>
-            <div class="crit-label">Nat 20</div>
+            <div class="crit-label" i18n="@@probability.critical.nat20">Nat 20</div>
             <div class="crit-percentage">
               {{ criticalProbs.nat20Probability | number: '1.1-1' }}%
             </div>
           </div>
           <div class="crit-card failure">
             <div class="crit-icon">💀</div>
-            <div class="crit-label">Nat 1</div>
+            <div class="crit-label" i18n="@@probability.critical.nat1">Nat 1</div>
             <div class="crit-percentage">
               {{ criticalProbs.nat1Probability | number: '1.1-1' }}%
             </div>
@@ -83,7 +83,7 @@
 
     <!-- Distribution Chart -->
     <div class="distribution-section">
-      <h3>Probability Distribution</h3>
+      <h3 i18n="@@probability.section.distribution">Probability Distribution</h3>
       <div class="distribution-chart">
         @for (dist of probabilityResult.distribution; track dist.value) {
           <div
@@ -112,14 +112,14 @@
     <!-- Calculation Info -->
     <div class="calculation-info">
       <small>
-        Calculation Method:
-        {{
-          probabilityResult.calculationMethod === 'exact'
-            ? 'Exact Calculation'
-            : 'Monte Carlo Simulation'
-        }}
+        <ng-container i18n="@@probability.calculationMethod">Calculation Method:</ng-container>
+        @if (probabilityResult.calculationMethod === 'exact') {
+          <ng-container i18n="@@probability.method.exact">Exact Calculation</ng-container>
+        } @else {
+          <ng-container i18n="@@probability.method.monteCarlo">Monte Carlo Simulation</ng-container>
+        }
         @if (probabilityResult.simulationRuns) {
-          ({{ probabilityResult.simulationRuns | number }} rolls)
+          ({{ probabilityResult.simulationRuns | number }} <ng-container i18n="@@probability.rolls">rolls</ng-container>)
         }
       </small>
     </div>

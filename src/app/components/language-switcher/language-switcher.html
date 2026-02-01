@@ -1,0 +1,18 @@
+<div class="language-switcher">
+  <button
+    type="button"
+    class="lang-button"
+    [class.active]="getCurrentLanguage() === 'en'"
+    (click)="switchTo('en')"
+    [disabled]="getCurrentLanguage() === 'en'">
+    EN
+  </button>
+  <button
+    type="button"
+    class="lang-button"
+    [class.active]="getCurrentLanguage() === 'de'"
+    (click)="switchTo('de')"
+    [disabled]="getCurrentLanguage() === 'de'">
+    DE
+  </button>
+</div>

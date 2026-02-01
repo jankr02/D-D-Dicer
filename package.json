@@ -2,11 +2,15 @@
   "name": "d-and-d-dicer",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "ng": "node node_modules/@angular/cli/bin/ng.js",
+    "start": "node node_modules/@angular/cli/bin/ng.js serve",
+    "start:en": "node node_modules/@angular/cli/bin/ng.js serve --configuration=en",
+    "start:de": "node node_modules/@angular/cli/bin/ng.js serve --configuration=de",
+    "build": "node node_modules/@angular/cli/bin/ng.js build",
+    "build:i18n": "node node_modules/@angular/cli/bin/ng.js build --localize",
+    "watch": "node node_modules/@angular/cli/bin/ng.js build --watch --configuration development",
+    "test": "node node_modules/@angular/cli/bin/ng.js test",
+    "extract-i18n": "node node_modules/@angular/cli/bin/ng.js extract-i18n"
   },
   "prettier": {
     "printWidth": 100,
@@ -39,6 +43,7 @@
     "@angular/build": "^20.3.7",
     "@angular/cli": "^20.3.7",
     "@angular/compiler-cli": "^20.3.0",
+    "@angular/localize": "^20.3.16",
     "@types/jasmine": "~5.1.0",
     "@types/uuid": "^10.0.0",
     "jasmine-core": "~5.9.0",

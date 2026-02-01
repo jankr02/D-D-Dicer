@@ -22,8 +22,8 @@ export class ModalService {
       title: config.title,
       message: config.message,
       type: config.type || 'confirm',
-      confirmText: config.confirmText || 'Confirm',
-      cancelText: config.cancelText || 'Cancel',
+      confirmText: config.confirmText || $localize`:@@modal.button.confirm:Confirm`,
+      cancelText: config.cancelText || $localize`:@@modal.button.cancel:Cancel`,
       showCancel: config.showCancel !== false,
       timestamp: new Date()
     };
@@ -49,8 +49,8 @@ export class ModalService {
       title,
       message,
       type: 'confirm',
-      confirmText: 'Confirm',
-      cancelText: 'Cancel',
+      confirmText: $localize`:@@modal.button.confirm:Confirm`,
+      cancelText: $localize`:@@modal.button.cancel:Cancel`,
       showCancel: true
     });
     return result.confirmed;
@@ -64,7 +64,7 @@ export class ModalService {
       title,
       message,
       type: 'alert',
-      confirmText: 'OK',
+      confirmText: $localize`:@@modal.button.ok:OK`,
       showCancel: false
     });
   }

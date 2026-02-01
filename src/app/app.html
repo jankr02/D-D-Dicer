@@ -2,7 +2,10 @@
   <header>
     <div class="header-content">
       <h1>{{ title }}</h1>
-      <app-theme-toggle></app-theme-toggle>
+      <div class="header-controls">
+        <app-language-switcher></app-language-switcher>
+        <app-theme-toggle></app-theme-toggle>
+      </div>
     </div>
   </header>
 
@@ -12,14 +15,16 @@
       class="tab-button"
       [class.active]="activeTab === 'dice'"
       (click)="switchTab('dice')"
-      type="button">
+      type="button"
+      i18n="@@app.tabs.diceRolling">
       Dice Rolling
     </button>
     <button
       class="tab-button"
       [class.active]="activeTab === 'character'"
       (click)="switchTab('character')"
-      type="button">
+      type="button"
+      i18n="@@app.tabs.characterSheet">
       Character Sheet
     </button>
   </nav>

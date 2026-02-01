@@ -6,7 +6,7 @@ import { debounceTime, takeUntil } from 'rxjs/operators';
 import { CharacterService } from '../../services/character';
 import { ModalService } from '../../services/modal.service';
 import { ComputedCharacterValues } from '../../models/character.model';
-import { Ability, ABILITY_LABELS } from '../../types/character-types';
+import { Ability, getAbilityLabels } from '../../types/character-types';
 
 /**
  * CharacterSheet Component - Charakterbogen Verwaltung.
@@ -131,8 +131,8 @@ export class CharacterSheet implements OnInit, OnDestroy {
    */
   async resetCharacter(): Promise<void> {
     const confirmed = await this.modalService.confirm(
-      'Charakter zurücksetzen',
-      'Möchten Sie den aktuellen Charakter wirklich löschen? Diese Aktion kann nicht rückgängig gemacht werden.'
+      $localize`:@@modal.resetCharacter.title:Reset Character`,
+      $localize`:@@modal.resetCharacter.message:Are you sure you want to reset the current character? This action cannot be undone.`
     );
 
     if (confirmed) {
@@ -157,7 +157,7 @@ export class CharacterSheet implements OnInit, OnDestroy {
    * Gibt das Label für eine Ability zurück.
    */
   getAbilityLabel(ability: Ability): string {
-    return `${ABILITY_LABELS[ability]} (${ability})`;
+    return `${getAbilityLabels()[ability]} (${ability})`;
   }
 
   /**

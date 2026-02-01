@@ -1,15 +1,15 @@
 <div class="dice-group-form" [formGroup]="groupForm">
   <div class="form-header">
-    <h3>Dice Group {{ groupIndex + 1 }}</h3>
+    <h3 i18n="@@diceGroup.title">Dice Group {{ groupIndex + 1 }}</h3>
   </div>
 
   <div class="form-row">
     <div class="form-field">
       <label>
-        Count
+        <ng-container i18n="@@diceGroup.label.count">Count</ng-container>
         <span class="info-tooltip">
           <span class="info-icon">i</span>
-          <span class="tooltip-text">Number of dice in this group to be rolled (e.g., 2 for 2d6).</span>
+          <span class="tooltip-text" i18n="@@diceGroup.tooltip.count">Number of dice in this group to be rolled (e.g., 2 for 2d6).</span>
         </span>
       </label>
       <input type="number" formControlName="count" min="1" max="20" />
@@ -17,10 +17,10 @@
 
     <div class="form-field">
       <label>
-        Dice Type
+        <ng-container i18n="@@diceGroup.label.diceType">Dice Type</ng-container>
         <span class="info-tooltip">
           <span class="info-icon">i</span>
-          <span class="tooltip-text">The type of die (d4, d6, d8, d10, d12, d20, d100). The number indicates the number of sides.</span>
+          <span class="tooltip-text" i18n="@@diceGroup.tooltip.diceType">The type of die (d4, d6, d8, d10, d12, d20, d100). The number indicates the number of sides.</span>
         </span>
       </label>
       <select formControlName="type">
@@ -34,10 +34,10 @@
   <div class="keep-drop-toggle">
     <label>
       <input type="checkbox" [checked]="showKeepDrop" (change)="toggleKeepDrop()" />
-      Enable Keep/Drop
+      <ng-container i18n="@@diceGroup.label.enableKeepDrop">Enable Keep/Drop</ng-container>
       <span class="info-tooltip">
         <span class="info-icon">i</span>
-        <span class="tooltip-text">Allows keeping or dropping certain dice results. Useful for mechanics like "4d6, drop lowest" during character creation.</span>
+        <span class="tooltip-text" i18n="@@diceGroup.tooltip.keepDrop">Allows keeping or dropping certain dice results. Useful for mechanics like "4d6, drop lowest" during character creation.</span>
       </span>
     </label>
   </div>
@@ -47,19 +47,19 @@
       <div class="form-row">
         <div class="form-field">
           <label>
-            Type
+            <ng-container i18n="@@diceGroup.label.keepDropType">Type</ng-container>
             <span class="info-tooltip">
               <span class="info-icon">i</span>
-              <span class="tooltip-text">Keep Highest/Lowest: Keeps the highest/lowest dice. Drop Highest/Lowest: Discards the highest/lowest dice.</span>
+              <span class="tooltip-text" i18n="@@diceGroup.tooltip.keepDropType">Keep Highest/Lowest: Keeps the highest/lowest dice. Drop Highest/Lowest: Discards the highest/lowest dice.</span>
             </span>
           </label>
           <select formControlName="type">
             @for (keepDropType of keepDropTypes; track keepDropType) {
               <option [value]="keepDropType">
-                @if (keepDropType === 'keep_highest') { Keep Highest }
-                @else if (keepDropType === 'keep_lowest') { Keep Lowest }
-                @else if (keepDropType === 'drop_highest') { Drop Highest }
-                @else if (keepDropType === 'drop_lowest') { Drop Lowest }
+                @if (keepDropType === 'keep_highest') { <ng-container i18n="@@keepDrop.keepHighest">Keep Highest</ng-container> }
+                @else if (keepDropType === 'keep_lowest') { <ng-container i18n="@@keepDrop.keepLowest">Keep Lowest</ng-container> }
+                @else if (keepDropType === 'drop_highest') { <ng-container i18n="@@keepDrop.dropHighest">Drop Highest</ng-container> }
+                @else if (keepDropType === 'drop_lowest') { <ng-container i18n="@@keepDrop.dropLowest">Drop Lowest</ng-container> }
               </option>
             }
           </select>
@@ -67,10 +67,10 @@
 
         <div class="form-field">
           <label>
-            Count
+            <ng-container i18n="@@diceGroup.label.keepDropCount">Count</ng-container>
             <span class="info-tooltip">
               <span class="info-icon">i</span>
-              <span class="tooltip-text">Number of dice to keep or drop.</span>
+              <span class="tooltip-text" i18n="@@diceGroup.tooltip.keepDropCount">Number of dice to keep or drop.</span>
             </span>
           </label>
           <input type="number" formControlName="count" min="1" [max]="getMaxKeepDropCount()" />

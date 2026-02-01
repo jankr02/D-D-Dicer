@@ -1,20 +1,21 @@
 <div class="character-sheet">
-  <h2>Character Sheet</h2>
+  <h2 i18n="@@character.title">Character Sheet</h2>
 
   <form [formGroup]="characterForm">
     <!-- Character Name -->
     <div class="form-field">
       <label for="characterName">
-        Name
+        <ng-container i18n="@@character.label.name">Name</ng-container>
         <span class="info-tooltip">
           <span class="info-icon">i</span>
-          <span class="tooltip-text">Your character's name. Displayed in presets that use character values.</span>
+          <span class="tooltip-text" i18n="@@character.tooltip.name">Your character's name. Displayed in presets that use character values.</span>
         </span>
       </label>
       <input
         type="text"
         id="characterName"
         formControlName="name"
+        i18n-placeholder="@@character.placeholder.name"
         placeholder="Unnamed Hero"
       />
     </div>
@@ -23,10 +24,10 @@
     <div class="level-section">
       <div class="form-field">
         <label for="characterLevel">
-          Level
+          <ng-container i18n="@@character.label.level">Level</ng-container>
           <span class="info-tooltip">
             <span class="info-icon">i</span>
-            <span class="tooltip-text">Your character's level (1-20). Determines the Proficiency Bonus: Lvl 1-4: +2, Lvl 5-8: +3, Lvl 9-12: +4, Lvl 13-16: +5, Lvl 17-20: +6.</span>
+            <span class="tooltip-text" i18n="@@character.tooltip.level">Your character's level (1-20). Determines the Proficiency Bonus: Lvl 1-4: +2, Lvl 5-8: +3, Lvl 9-12: +4, Lvl 13-16: +5, Lvl 17-20: +6.</span>
           </span>
         </label>
         <input
@@ -39,10 +40,10 @@
       </div>
       <div class="proficiency-display">
         <span class="label">
-          Proficiency Bonus:
+          <ng-container i18n="@@character.label.proficiencyBonus">Proficiency Bonus:</ng-container>
           <span class="info-tooltip">
             <span class="info-icon">i</span>
-            <span class="tooltip-text">Automatically calculated from level and added to rolls where you are proficient (e.g., attacks, saving throws, skill checks).</span>
+            <span class="tooltip-text" i18n="@@character.tooltip.proficiencyBonus">Automatically calculated from level and added to rolls where you are proficient (e.g., attacks, saving throws, skill checks).</span>
           </span>
         </span>
         <span class="value">{{ formatModifier(computedValues?.proficiencyBonus) }}</span>
@@ -52,10 +53,10 @@
     <!-- Ability Scores -->
     <div formGroupName="abilityScores" class="abilities-section">
       <h3>
-        Ability Scores
+        <ng-container i18n="@@character.section.abilityScores">Ability Scores</ng-container>
         <span class="info-tooltip">
           <span class="info-icon">i</span>
-          <span class="tooltip-text">Your character's six core attributes. The modifier is calculated from the score: (Score - 10) / 2, rounded down. E.g., 14 = +2, 8 = -1.</span>
+          <span class="tooltip-text" i18n="@@character.tooltip.abilityScores">Your character's six core attributes. The modifier is calculated from the score: (Score - 10) / 2, rounded down. E.g., 14 = +2, 8 = -1.</span>
         </span>
       </h3>
 
@@ -86,6 +87,7 @@
         class="reset-btn"
         (click)="resetCharacter()"
         [disabled]="!hasCharacter()"
+        i18n="@@character.button.reset"
       >
         Reset Character
       </button>
@@ -94,7 +96,7 @@
 
   <!-- Info when no character -->
   <div *ngIf="!hasCharacter()" class="info-box">
-    <p>
+    <p i18n="@@character.info.noCharacter">
       No character created yet. Fill out the fields and your data will be saved automatically.
     </p>
   </div>

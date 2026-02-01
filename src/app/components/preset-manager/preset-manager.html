@@ -1,18 +1,22 @@
 <div class="preset-manager">
   <div class="preset-header">
-    <h2>Presets</h2>
+    <h2 i18n="@@presets.title">Presets</h2>
     <button class="save-button" (click)="toggleSaveForm()">
-      {{ showSaveForm ? 'Cancel' : 'Save Current' }}
+      @if (showSaveForm) {
+        <ng-container i18n="@@presets.button.cancel">Cancel</ng-container>
+      } @else {
+        <ng-container i18n="@@presets.button.saveCurrent">Save Current</ng-container>
+      }
     </button>
   </div>
 
   <!-- Category Filter Dropdown -->
   <div class="category-filter">
     <label for="category-select">
-      Filter by Category:
+      <ng-container i18n="@@presets.label.filterByCategory">Filter by Category:</ng-container>
       <span class="info-tooltip">
         <span class="info-icon">i</span>
-        <span class="tooltip-text">Filters the preset list by categories. Select "All Categories" to see all presets.</span>
+        <span class="tooltip-text" i18n="@@presets.tooltip.filter">Filters the preset list by categories. Select "All Categories" to see all presets.</span>
       </span>
     </label>
     <select
@@ -20,12 +24,12 @@
       class="category-select"
       [(ngModel)]="selectedFilter"
       (ngModelChange)="onFilterChange($event)">
-      <option [value]="ALL_CATEGORIES">{{ ALL_CATEGORIES }}</option>
+      <option [value]="ALL_CATEGORIES">{{ getCategoryLabel(ALL_CATEGORIES) }}</option>
       @for (category of allCategories; track category) {
-        <option [value]="category">{{ category }}</option>
+        <option [value]="category">{{ getCategoryLabel(category) }}</option>
       }
       @if (hasUncategorized$ | async) {
-        <option [value]="UNCATEGORIZED">{{ UNCATEGORIZED }}</option>
+        <option [value]="UNCATEGORIZED">{{ getCategoryLabel(UNCATEGORIZED) }}</option>
       }
     </select>
   </div>
@@ -34,15 +38,16 @@
     <div class="save-form">
       <div class="form-field">
         <label>
-          Preset Name
+          <ng-container i18n="@@presets.label.presetName">Preset Name</ng-container>
           <span class="info-tooltip">
             <span class="info-icon">i</span>
-            <span class="tooltip-text">Give your preset a descriptive name, e.g., "Longsword Attack" or "Fireball Damage".</span>
+            <span class="tooltip-text" i18n="@@presets.tooltip.presetName">Give your preset a descriptive name, e.g., "Longsword Attack" or "Fireball Damage".</span>
           </span>
         </label>
         <input
           type="text"
           [(ngModel)]="newPresetName"
+          i18n-placeholder="@@presets.placeholder.presetName"
           placeholder="Enter preset name..."
           class="preset-name-input"
           (keyup.enter)="onSaveCurrentAsPreset()"
@@ -52,10 +57,10 @@
       <!-- Category Selection (Multi-select checkboxes) -->
       <div class="category-selection">
         <label class="category-label">
-          Categories (optional):
+          <ng-container i18n="@@presets.label.categories">Categories (optional):</ng-container>
           <span class="info-tooltip">
             <span class="info-icon">i</span>
-            <span class="tooltip-text">Categorize your preset for better organization. You can select multiple categories.</span>
+            <span class="tooltip-text" i18n="@@presets.tooltip.categories">Categorize your preset for better organization. You can select multiple categories.</span>
           </span>
         </label>
         <div class="category-chips">
@@ -65,7 +70,7 @@
               class="category-chip"
               [class.selected]="isCategorySelected(category)"
               (click)="toggleCategory(category)">
-              {{ category }}
+              {{ getCategoryLabel(category) }}
               @if (isCategorySelected(category)) {
                 <span class="check-mark">✓</span>
               }
@@ -77,7 +82,8 @@
       <button
         class="confirm-save-button"
         (click)="onSaveCurrentAsPreset()"
-        [disabled]="!newPresetName.trim()">
+        [disabled]="!newPresetName.trim()"
+        i18n="@@presets.button.savePreset">
         Save Preset
       </button>
     </div>
@@ -90,6 +96,7 @@
           <div
             class="preset-item"
             [class.unavailable]="!isPresetAvailable(preset)"
+            i18n-title="@@presets.tooltip.requiresCharacter"
             [title]="isPresetAvailable(preset) ? '' : 'Requires character - please fill out the character sheet'">
             <div class="preset-info">
               <div class="preset-name">{{ preset.name }}</div>
@@ -98,7 +105,7 @@
               @if (getCategoryBadges(preset).length > 0) {
                 <div class="category-badges">
                   @for (category of getCategoryBadges(preset); track category) {
-                    <span class="category-badge">{{ category }}</span>
+                    <span class="category-badge">{{ getCategoryLabel(category) }}</span>
                   }
                 </div>
               }
@@ -109,10 +116,11 @@
               <button
                 class="load-button"
                 (click)="onLoadPreset(preset)"
-                [disabled]="!isPresetAvailable(preset)">
+                [disabled]="!isPresetAvailable(preset)"
+                i18n="@@presets.button.load">
                 Load
               </button>
-              <button class="delete-button" (click)="deletePreset(preset)">
+              <button class="delete-button" (click)="deletePreset(preset)" i18n="@@presets.button.delete">
                 Delete
               </button>
             </div>
@@ -123,9 +131,9 @@
       <div class="empty-state">
         <p>
           @if (selectedFilter === ALL_CATEGORIES) {
-            No presets saved yet. Save your favorite dice configurations!
+            <ng-container i18n="@@presets.empty.noPresets">No presets saved yet. Save your favorite dice configurations!</ng-container>
           } @else {
-            No presets in "{{ selectedFilter }}" category.
+            <ng-container i18n="@@presets.empty.noPresetsInCategory">No presets in this category.</ng-container>
           }
         </p>
       </div>

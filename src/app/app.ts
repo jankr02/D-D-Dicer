@@ -7,6 +7,7 @@ import { CharacterSheet } from './components/character-sheet/character-sheet';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { ToastContainerComponent } from './components/toast/toast-container.component';
 import { ModalContainerComponent } from './components/modal/modal-container.component';
+import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher';
 import { DiceExpression } from './models';
 import { Settings } from './services/settings';
 import { ToastService } from './services/toast.service';
@@ -21,7 +22,8 @@ import { ToastService } from './services/toast.service';
     CharacterSheet,
     ThemeToggleComponent,
     ToastContainerComponent,
-    ModalContainerComponent
+    ModalContainerComponent,
+    LanguageSwitcherComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
@@ -66,7 +68,7 @@ export class App implements OnInit {
     const expression = this.diceRoller.getCurrentExpression();
 
     if (!expression) {
-      this.toastService.error('Please configure a valid dice expression first');
+      this.toastService.error($localize`:@@error.invalidDiceExpression:Please configure a valid dice expression first`);
       return;
     }
 

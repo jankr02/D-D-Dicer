@@ -1,6 +1,6 @@
 <div class="dice-roller">
   <div class="roller-header">
-    <h2>Dice Roller</h2>
+    <h2 i18n="@@diceRoller.title">Dice Roller</h2>
   </div>
 
   <form [formGroup]="diceForm" (ngSubmit)="rollDice()">
@@ -11,7 +11,7 @@
           </app-dice-group-form>
 
           @if (groups.length > 1) {
-            <button type="button" class="remove-group-button" (click)="removeGroup($index)">
+            <button type="button" class="remove-group-button" (click)="removeGroup($index)" i18n="@@diceRoller.button.removeGroup">
               Remove Group
             </button>
           }
@@ -19,15 +19,15 @@
       }
     </div>
 
-    <button type="button" class="add-group-button" (click)="addGroup()">Add Dice Group</button>
+    <button type="button" class="add-group-button" (click)="addGroup()" i18n="@@diceRoller.button.addGroup">Add Dice Group</button>
 
     <div class="global-options">
       <div class="form-field">
         <label>
-          Modifier
+          <ng-container i18n="@@diceRoller.label.modifier">Modifier</ng-container>
           <span class="info-tooltip">
             <span class="info-icon">i</span>
-            <span class="tooltip-text">A fixed bonus or penalty added to the roll result. Can be entered manually or calculated from your character sheet.</span>
+            <span class="tooltip-text" i18n="@@diceRoller.tooltip.modifier">A fixed bonus or penalty added to the roll result. Can be entered manually or calculated from your character sheet.</span>
           </span>
         </label>
         <app-modifier-input formControlName="modifier"></app-modifier-input>
@@ -36,21 +36,21 @@
       @if (isD20Roll()) {
         <div class="form-field">
           <label>
-            Advantage/Disadvantage
+            <ng-container i18n="@@diceRoller.label.advantage">Advantage/Disadvantage</ng-container>
             <span class="info-tooltip">
               <span class="info-icon">i</span>
-              <span class="tooltip-text">With Advantage, you roll 2d20 and take the higher result. With Disadvantage, you take the lower result.</span>
+              <span class="tooltip-text" i18n="@@diceRoller.tooltip.advantage">With Advantage, you roll 2d20 and take the higher result. With Disadvantage, you take the lower result.</span>
             </span>
           </label>
           <select formControlName="advantage">
             @for (advantageType of advantageTypes; track advantageType) {
               <option [value]="advantageType">
                 @if (advantageType === 'none') {
-                  None
+                  <ng-container i18n="@@advantage.none">None</ng-container>
                 } @else if (advantageType === 'advantage') {
-                  Advantage
+                  <ng-container i18n="@@advantage.advantage">Advantage</ng-container>
                 } @else if (advantageType === 'disadvantage') {
-                  Disadvantage
+                  <ng-container i18n="@@advantage.disadvantage">Disadvantage</ng-container>
                 }
               </option>
             }
@@ -62,10 +62,10 @@
     <!-- Live Probability Preview -->
     <div class="dc-quick-check">
       <label for="targetDC">
-        Target DC
+        <ng-container i18n="@@diceRoller.label.targetDC">Target DC</ng-container>
         <span class="info-tooltip">
           <span class="info-icon">i</span>
-          <span class="tooltip-text">The Difficulty Class you need to meet or exceed. Shows your success probability in real-time.</span>
+          <span class="tooltip-text" i18n="@@diceRoller.tooltip.targetDC">The Difficulty Class you need to meet or exceed. Shows your success probability in real-time.</span>
         </span>
       </label>
       <input
@@ -80,19 +80,20 @@
 
       @if (liveSuccessProbability !== null) {
         <div class="success-indicator" [ngClass]="getSuccessIndicatorClass()">
-          <span class="success-label">Success Probability:</span>
+          <span class="success-label" i18n="@@diceRoller.label.successProbability">Success Probability:</span>
           <span class="success-value">{{ liveSuccessProbability }}%</span>
         </div>
       }
     </div>
 
-    <button type="submit" class="roll-button" [disabled]="diceForm.invalid">Roll Dice</button>
+    <button type="submit" class="roll-button" [disabled]="diceForm.invalid" i18n="@@diceRoller.button.roll">Roll Dice</button>
 
     <button
       type="button"
       class="repeat-button"
       (click)="repeatLastRoll()"
       [disabled]="!hasLastRoll()"
+      i18n="@@diceRoller.button.repeatLast"
     >
       🔄 Repeat Last Roll
     </button>

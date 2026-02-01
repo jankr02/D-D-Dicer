@@ -140,7 +140,7 @@ export class DiceRoller implements OnInit, OnDestroy {
     } catch (error) {
       // Show error toast
       this.toastService.error(
-        error instanceof Error ? error.message : 'Würfelfehler'
+        error instanceof Error ? error.message : $localize`:@@error.diceRoll:Dice roll error`
       );
     }
   }
