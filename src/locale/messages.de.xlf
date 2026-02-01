@@ -599,6 +599,27 @@
         <source>Uncategorized</source>
         <target>Ohne Kategorie</target>
       </trans-unit>
+      <!-- PWA translations -->
+      <trans-unit id="pwa.installApp" datatype="html">
+        <source>Install</source>
+        <target>Installieren</target>
+      </trans-unit>
+      <trans-unit id="pwa.installTooltip" datatype="html">
+        <source>Install this app on your device</source>
+        <target>App auf deinem Gerät installieren</target>
+      </trans-unit>
+      <trans-unit id="pwa.installSuccess" datatype="html">
+        <source>App installed successfully!</source>
+        <target>App erfolgreich installiert!</target>
+      </trans-unit>
+      <trans-unit id="pwa.updateAvailable" datatype="html">
+        <source>A new version is available! Refresh to update.</source>
+        <target>Eine neue Version ist verfügbar! Aktualisiere zum Update.</target>
+      </trans-unit>
+      <trans-unit id="pwa.unrecoverable" datatype="html">
+        <source>An error occurred. Please refresh the page.</source>
+        <target>Ein Fehler ist aufgetreten. Bitte lade die Seite neu.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

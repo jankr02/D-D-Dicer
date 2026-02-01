@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#3e2723"/>
+  <!-- D20 shape (icosahedron face) -->
+  <polygon points="256,60 420,180 380,380 132,380 92,180" fill="#5d4037" stroke="#b8860b" stroke-width="8"/>
+  <!-- Inner triangle -->
+  <polygon points="256,120 360,300 152,300" fill="#4e342e" stroke="#b8860b" stroke-width="4"/>
+  <!-- "20" text -->
+  <text x="256" y="280" font-family="Georgia, serif" font-size="120" font-weight="bold" fill="#ffd54f" text-anchor="middle">20</text>
+  <!-- Decorative border -->
+  <circle cx="256" cy="256" r="240" fill="none" stroke="#b8860b" stroke-width="12"/>
+</svg>

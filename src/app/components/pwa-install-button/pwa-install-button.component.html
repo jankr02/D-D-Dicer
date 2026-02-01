@@ -1,0 +1,11 @@
+@if (installService.canInstall() && !installService.isInstalled()) {
+  <button
+    class="install-button"
+    (click)="onInstall()"
+    type="button"
+    i18n-title="@@pwa.installTooltip"
+    title="Install this app on your device">
+    <span class="icon">📲</span>
+    <span class="label" i18n="@@pwa.installApp">Install</span>
+  </button>
+}

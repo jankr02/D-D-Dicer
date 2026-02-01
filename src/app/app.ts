@@ -9,9 +9,12 @@ import { ToastContainerComponent } from './components/toast/toast-container.comp
 import { ModalContainerComponent } from './components/modal/modal-container.component';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher';
 import { BottomTabBarComponent, MobileTab } from './components/bottom-tab-bar/bottom-tab-bar.component';
+import { PwaInstallButtonComponent } from './components/pwa-install-button/pwa-install-button.component';
 import { DiceExpression } from './models';
 import { Settings } from './services/settings';
 import { ToastService } from './services/toast.service';
+import { PwaUpdateService } from './services/pwa-update.service';
+import { PwaInstallService } from './services/pwa-install.service';
 
 @Component({
   selector: 'app-root',
@@ -25,7 +28,8 @@ import { ToastService } from './services/toast.service';
     ToastContainerComponent,
     ModalContainerComponent,
     LanguageSwitcherComponent,
-    BottomTabBarComponent
+    BottomTabBarComponent,
+    PwaInstallButtonComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
@@ -40,10 +44,11 @@ export class App implements OnInit {
 
   constructor(
     _settings: Settings,
-    private toastService: ToastService
+    private toastService: ToastService,
+    _pwaUpdateService: PwaUpdateService,
+    _pwaInstallService: PwaInstallService
   ) {
-    // Settings service is injected and initializes automatically
-    // No need to store the reference as it's a singleton service
+    // Services are injected to initialize them as singletons
   }
 
   ngOnInit(): void {
