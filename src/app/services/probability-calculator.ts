@@ -244,10 +244,19 @@ export class ProbabilityCalculator {
     }
 
     // Apply modifier by shifting the distribution
-    if (expression.modifier !== 0) {
+    // Resolve modifier to numeric value
+    let resolvedModifier: number;
+    try {
+      resolvedModifier = (this.diceRoller as any).resolveModifier(expression.modifier);
+    } catch (error) {
+      // If character modifier can't be resolved, default to 0
+      resolvedModifier = 0;
+    }
+
+    if (resolvedModifier !== 0) {
       const shiftedDistribution = new Map<number, number>();
       for (const [value, probability] of combinedDistribution.entries()) {
-        shiftedDistribution.set(value + expression.modifier, probability);
+        shiftedDistribution.set(value + resolvedModifier, probability);
       }
       combinedDistribution = shiftedDistribution;
     }

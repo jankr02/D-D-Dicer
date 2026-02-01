@@ -16,7 +16,7 @@ import { PresetCategory, CategoryFilter, ALL_CATEGORIES, UNCATEGORIZED } from '.
 export class Preset {
   private readonly STORAGE_KEY = 'dnd_dicer_presets';
   private readonly STORAGE_VERSION_KEY = 'dnd_dicer_presets_version';
-  private readonly CURRENT_VERSION = 2;
+  private readonly CURRENT_VERSION = 3;
 
   private presetsSubject = new BehaviorSubject<PresetModel[]>([]);
   public presets$ = this.presetsSubject.asObservable();
@@ -62,14 +62,31 @@ export class Preset {
 
   /**
    * Migrates presets from older versions to current format.
-   * Ensures all presets have the categories field (even if empty/undefined).
+   * v1 → v2: Added categories field
+   * v2 → v3: Changed modifier from number to Modifier union type
    */
   private migratePresets(presets: PresetModel[]): PresetModel[] {
-    return presets.map(preset => ({
-      ...preset,
-      // Keep existing categories if present, otherwise undefined (uncategorized)
-      categories: preset.categories || undefined
-    }));
+    return presets.map(preset => {
+      let migratedPreset = { ...preset };
+
+      // Migration v1 → v2: Categories
+      if (!migratedPreset.categories) {
+        migratedPreset.categories = undefined;
+      }
+
+      // Migration v2 → v3: Modifier number → FixedModifier
+      if (typeof migratedPreset.expression?.modifier === 'number') {
+        migratedPreset.expression = {
+          ...migratedPreset.expression,
+          modifier: {
+            type: 'fixed',
+            value: migratedPreset.expression.modifier
+          }
+        };
+      }
+
+      return migratedPreset;
+    });
   }
 
   /**

@@ -1,4 +1,5 @@
 import { DiceExpression, DiceGroup } from '../models';
+import { Modifier } from '../models/modifier.model';
 import { KeepDropType, AdvantageType } from '../types/dice-types';
 
 /**
@@ -26,12 +27,49 @@ function groupToNotation(group: DiceGroup): string {
 }
 
 /**
+ * Generiert Notation für einen Modifier.
+ *
+ * Fixed Modifier: "+5", "-3", "" (wenn 0)
+ * Character Modifier: "+STR", "+STR+Prof", "+DEX+Prof+2", etc.
+ *
+ * @param modifier Der Modifier
+ * @returns Notation-String
+ */
+export function generateModifierNotation(modifier: Modifier): string {
+  if (modifier.type === 'fixed') {
+    const value = modifier.value;
+    if (value === 0) return '';
+    return value > 0 ? `+${value}` : `${value}`;
+  }
+
+  // CharacterModifier - zeige Formel statt Wert
+  const parts: string[] = [];
+
+  if (modifier.ability) {
+    parts.push(modifier.ability);
+  }
+
+  if (modifier.includeProficiency) {
+    parts.push('Prof');
+  }
+
+  if (modifier.additionalBonus !== 0) {
+    const sign = modifier.additionalBonus > 0 ? '+' : '';
+    parts.push(`${sign}${modifier.additionalBonus}`);
+  }
+
+  if (parts.length === 0) return '';
+  return '+' + parts.join('+');
+}
+
+/**
  * Generates standard D&D dice notation from a DiceExpression.
  *
  * Examples:
  * - Simple: "1d20 + 5"
  * - Multiple groups: "2d20kh1 + 3d6 + 5"
  * - Advantage: "2d20kh1 + 3"
+ * - Character modifier: "1d20 + STR + Prof"
  * - No modifier: "1d8"
  *
  * @param expression The dice expression to convert
@@ -63,12 +101,9 @@ export function generateNotation(expression: DiceExpression): string {
   let notation = parts.join(' + ');
 
   // Add modifier if present
-  if (expression.modifier !== 0) {
-    if (expression.modifier > 0) {
-      notation += ` + ${expression.modifier}`;
-    } else {
-      notation += ` - ${Math.abs(expression.modifier)}`;
-    }
+  const modifierNotation = generateModifierNotation(expression.modifier);
+  if (modifierNotation) {
+    notation += ` ${modifierNotation}`;
   }
 
   return notation;

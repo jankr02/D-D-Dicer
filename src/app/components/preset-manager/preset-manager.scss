@@ -283,6 +283,23 @@
         transform: translateX(4px);
       }
 
+      &.unavailable {
+        opacity: 0.5;
+        filter: grayscale(0.4);
+        cursor: not-allowed;
+
+        &:hover {
+          transform: none;
+          background: var(--parchment-medium);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+          border-color: var(--parchment-dark);
+        }
+
+        .preset-name {
+          text-decoration: line-through;
+        }
+      }
+
       .preset-info {
         flex: 1;
         min-width: 0;

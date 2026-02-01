@@ -3,7 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Preset } from '../../services/preset';
+import { CharacterService } from '../../services/character';
 import { Preset as PresetModel, DiceExpression } from '../../models';
+import { Modifier } from '../../models/modifier.model';
 import { generateUUID } from '../../utils/uuid.util';
 import { DiceNotationPipe } from '../../pipes/dice-notation.pipe';
 import { ToastService } from '../../services/toast.service';
@@ -54,6 +56,7 @@ export class PresetManager implements OnInit {
 
   constructor(
     private presetService: Preset,
+    private characterService: CharacterService,
     private toastService: ToastService,
     private modalService: ModalService
   ) {}
@@ -166,5 +169,41 @@ export class PresetManager implements OnInit {
    */
   getCategoryBadges(preset: PresetModel): PresetCategory[] {
     return preset.categories || [];
+  }
+
+  /**
+   * Generiert Anzeige-Text für Modifier in Preset-Liste.
+   */
+  getModifierDisplay(modifier: Modifier): string {
+    if (modifier.type === 'fixed') {
+      const val = modifier.value;
+      if (val === 0) return '';
+      return val > 0 ? `+${val}` : `${val}`;
+    }
+
+    // CharacterModifier - zeige Formel
+    const parts: string[] = [];
+    if (modifier.ability) parts.push(modifier.ability);
+    if (modifier.includeProficiency) parts.push('Prof');
+    if (modifier.additionalBonus !== 0) {
+      parts.push(modifier.additionalBonus > 0
+        ? `+${modifier.additionalBonus}`
+        : `${modifier.additionalBonus}`
+      );
+    }
+    return parts.length > 0 ? '+' + parts.join('+') : '';
+  }
+
+  /**
+   * Prüft ob Preset nutzbar ist (bei CharacterModifier: Charakter vorhanden?).
+   */
+  isPresetAvailable(preset: PresetModel): boolean {
+    if (preset.expression.modifier.type === 'fixed') {
+      return true;
+    }
+
+    // CharacterModifier erfordert Charakter
+    const char = this.characterService.getCharacter();
+    return char !== null;
   }
 }

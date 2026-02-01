@@ -6,17 +6,43 @@
     </div>
   </header>
 
+  <!-- Tab Navigation -->
+  <nav class="tab-navigation">
+    <button
+      class="tab-button"
+      [class.active]="activeTab === 'dice'"
+      (click)="switchTab('dice')"
+      type="button">
+      Dice Rolling
+    </button>
+    <button
+      class="tab-button"
+      [class.active]="activeTab === 'character'"
+      (click)="switchTab('character')"
+      type="button">
+      Character Sheet
+    </button>
+  </nav>
+
   <main class="content">
-    <div class="left-panel">
-      <app-dice-roller></app-dice-roller>
-      <app-preset-manager
-        (loadPreset)="onLoadPreset($event)"
-        (requestSave)="onSavePreset($event)">
-      </app-preset-manager>
+    <!-- Dice Tab -->
+    <div *ngIf="activeTab === 'dice'" class="tab-content">
+      <div class="left-panel">
+        <app-dice-roller></app-dice-roller>
+        <app-preset-manager
+          (loadPreset)="onLoadPreset($event)"
+          (requestSave)="onSavePreset($event)">
+        </app-preset-manager>
+      </div>
+
+      <div class="right-panel">
+        <app-roll-history></app-roll-history>
+      </div>
     </div>
 
-    <div class="right-panel">
-      <app-roll-history></app-roll-history>
+    <!-- Character Sheet Tab -->
+    <div *ngIf="activeTab === 'character'" class="tab-content character-tab">
+      <app-character-sheet></app-character-sheet>
     </div>
   </main>
 

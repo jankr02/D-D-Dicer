@@ -8,7 +8,7 @@
           class="filter-button"
           [class.active]="selectedTimeFilter === 'today'"
           (click)="setTimeFilter('today')">
-          Heute
+          Today
         </button>
         <button
           class="filter-button"
@@ -20,10 +20,10 @@
           class="filter-button"
           [class.active]="selectedTimeFilter === 'all'"
           (click)="setTimeFilter('all')">
-          Alle
+          All
         </button>
         <button class="new-session-button" (click)="newSession()">
-          Neue Session
+          New Session
         </button>
       </div>
 
@@ -34,7 +34,7 @@
           <div class="metric-value">{{ stats.basic.totalRolls }}</div>
         </div>
         <div class="metric-card">
-          <div class="metric-label">Durchschnitt</div>
+          <div class="metric-label">Average</div>
           <div class="metric-value">{{ stats.basic.averageResult }}</div>
         </div>
         <div class="metric-card">
@@ -74,7 +74,7 @@
 
       <!-- Distribution Chart -->
       <div class="distribution-section">
-        <h3>Ergebnis-Verteilung</h3>
+        <h3>Result Distribution</h3>
         <div class="distribution-chart">
           @for (entry of stats.distribution; track entry.value) {
             <div class="chart-bar">
@@ -94,13 +94,13 @@
 
       <!-- Dice Type Analysis -->
       <div class="dice-types-section">
-        <h3>Würfeltyp-Analyse</h3>
+        <h3>Dice Type Analysis</h3>
         <div class="dice-types-list">
           @for (diceType of stats.diceTypes; track diceType.diceType) {
             <div class="dice-type-card">
               <div class="dice-type-name">{{ diceType.diceType }}</div>
               <div class="dice-type-stats">
-                <span class="usage-count">{{ diceType.count }}x verwendet</span>
+                <span class="usage-count">{{ diceType.count }}x used</span>
                 <span class="average">⌀ {{ diceType.averageResult }}</span>
               </div>
             </div>
@@ -120,7 +120,7 @@
 
     } @else {
       <div class="empty-state">
-        <p>Keine Statistiken verfügbar. Würfle ein paar Mal!</p>
+        <p>No statistics available. Roll some dice first!</p>
       </div>
     }
   }

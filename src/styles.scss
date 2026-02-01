@@ -154,3 +154,125 @@ select {
     animation-duration: 0.01ms !important;
   }
 }
+
+// === Info Tooltip Component ===
+.info-tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+
+  .info-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--brass-primary);
+    color: var(--parchment-light);
+    font-size: 12px;
+    font-weight: 700;
+    font-style: normal;
+    cursor: help;
+    transition: var(--transition);
+    user-select: none;
+
+    &:hover {
+      background: var(--brass-hover);
+      transform: scale(1.1);
+    }
+  }
+
+  .tooltip-text {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    z-index: 1000;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 200px;
+    max-width: 300px;
+    padding: 0.75rem 1rem;
+    background: var(--tavern-wood-dark);
+    color: var(--parchment-light);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: left;
+    border: 2px solid var(--brass-primary);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+
+    // Arrow
+    &::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 8px;
+      border-style: solid;
+      border-color: var(--brass-primary) transparent transparent transparent;
+    }
+  }
+
+  // Show on hover
+  &:hover .tooltip-text,
+  &:focus-within .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  // Click/touch support
+  &.active .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  // Position adjustment for tooltips near edges
+  &.tooltip-left .tooltip-text {
+    left: 0;
+    transform: translateX(0);
+
+    &::after {
+      left: 12px;
+    }
+  }
+
+  &.tooltip-right .tooltip-text {
+    left: auto;
+    right: 0;
+    transform: translateX(0);
+
+    &::after {
+      left: auto;
+      right: 12px;
+    }
+  }
+
+  // Bottom position variant
+  &.tooltip-bottom .tooltip-text {
+    bottom: auto;
+    top: calc(100% + 8px);
+
+    &::after {
+      top: auto;
+      bottom: 100%;
+      border-color: transparent transparent var(--brass-primary) transparent;
+    }
+  }
+}
+
+// Label with info tooltip alignment
+label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}

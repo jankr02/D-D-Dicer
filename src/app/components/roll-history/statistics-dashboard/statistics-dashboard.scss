@@ -105,7 +105,7 @@
 
     h3 {
       font-family: var(--font-heading);
-      color: var(--tavern-wood-dark);
+      color: var(--text-primary);
       margin-bottom: 1rem;
       font-size: 1.4rem;
       letter-spacing: 1px;
@@ -192,7 +192,7 @@
 
     h3 {
       font-family: var(--font-heading);
-      color: var(--tavern-wood-dark);
+      color: var(--text-primary);
       margin-bottom: 1rem;
       font-size: 1.4rem;
       letter-spacing: 1px;
@@ -284,7 +284,7 @@
 
     h3 {
       font-family: var(--font-heading);
-      color: var(--tavern-wood-dark);
+      color: var(--text-primary);
       margin-bottom: 1rem;
       font-size: 1.4rem;
       letter-spacing: 1px;
@@ -449,5 +449,75 @@
     .dice-types-list {
       grid-template-columns: 1fr;
     }
+  }
+}
+
+// === Dark Mode ===
+:host-context([data-theme='dark']) .statistics-dashboard {
+  background: var(--tavern-wood-medium);
+
+  .filter-controls {
+    border-bottom-color: var(--border-primary);
+
+    .filter-button.active {
+      color: var(--text-light);
+    }
+  }
+
+  .metrics-grid {
+    .metric-card {
+      background: linear-gradient(135deg, var(--tavern-wood-dark) 0%, var(--tavern-wood-medium) 100%);
+      border-color: var(--border-primary);
+
+      .metric-label {
+        color: var(--text-secondary);
+      }
+    }
+  }
+
+  .critical-section {
+    h3 {
+      color: var(--text-light);
+    }
+  }
+
+  .distribution-section {
+    h3 {
+      color: var(--text-light);
+    }
+
+    .distribution-chart {
+      background: rgba(0, 0, 0, 0.2);
+      border-color: var(--border-primary);
+
+      .chart-bar {
+        .bar-label {
+          color: var(--text-light);
+        }
+      }
+    }
+  }
+
+  .dice-types-section {
+    h3 {
+      color: var(--text-light);
+    }
+
+    .dice-types-list {
+      .dice-type-card {
+        background: linear-gradient(135deg, var(--tavern-wood-dark) 0%, var(--tavern-wood-medium) 100%);
+        border-color: var(--brass-primary);
+
+        .dice-type-stats {
+          .average {
+            color: var(--text-light);
+          }
+        }
+      }
+    }
+  }
+
+  .export-controls {
+    border-top-color: var(--border-primary);
   }
 }

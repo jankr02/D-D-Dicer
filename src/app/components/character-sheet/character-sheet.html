@@ -1,0 +1,101 @@
+<div class="character-sheet">
+  <h2>Character Sheet</h2>
+
+  <form [formGroup]="characterForm">
+    <!-- Character Name -->
+    <div class="form-field">
+      <label for="characterName">
+        Name
+        <span class="info-tooltip">
+          <span class="info-icon">i</span>
+          <span class="tooltip-text">Your character's name. Displayed in presets that use character values.</span>
+        </span>
+      </label>
+      <input
+        type="text"
+        id="characterName"
+        formControlName="name"
+        placeholder="Unnamed Hero"
+      />
+    </div>
+
+    <!-- Level and Proficiency Bonus -->
+    <div class="level-section">
+      <div class="form-field">
+        <label for="characterLevel">
+          Level
+          <span class="info-tooltip">
+            <span class="info-icon">i</span>
+            <span class="tooltip-text">Your character's level (1-20). Determines the Proficiency Bonus: Lvl 1-4: +2, Lvl 5-8: +3, Lvl 9-12: +4, Lvl 13-16: +5, Lvl 17-20: +6.</span>
+          </span>
+        </label>
+        <input
+          type="number"
+          id="characterLevel"
+          formControlName="level"
+          min="1"
+          max="20"
+        />
+      </div>
+      <div class="proficiency-display">
+        <span class="label">
+          Proficiency Bonus:
+          <span class="info-tooltip">
+            <span class="info-icon">i</span>
+            <span class="tooltip-text">Automatically calculated from level and added to rolls where you are proficient (e.g., attacks, saving throws, skill checks).</span>
+          </span>
+        </span>
+        <span class="value">{{ formatModifier(computedValues?.proficiencyBonus) }}</span>
+      </div>
+    </div>
+
+    <!-- Ability Scores -->
+    <div formGroupName="abilityScores" class="abilities-section">
+      <h3>
+        Ability Scores
+        <span class="info-tooltip">
+          <span class="info-icon">i</span>
+          <span class="tooltip-text">Your character's six core attributes. The modifier is calculated from the score: (Score - 10) / 2, rounded down. E.g., 14 = +2, 8 = -1.</span>
+        </span>
+      </h3>
+
+      <div class="abilities-grid">
+        <div *ngFor="let ability of abilities" class="ability-row">
+          <label [for]="'ability-' + ability">
+            {{ getAbilityLabel(ability) }}
+          </label>
+          <input
+            type="number"
+            [id]="'ability-' + ability"
+            [formControlName]="ability"
+            min="1"
+            max="30"
+            class="ability-score-input"
+          />
+          <span class="modifier-display">
+            {{ computedValues ? formatModifier(computedValues.abilityModifiers[ability]) : '+0' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset Button -->
+    <div class="actions">
+      <button
+        type="button"
+        class="reset-btn"
+        (click)="resetCharacter()"
+        [disabled]="!hasCharacter()"
+      >
+        Reset Character
+      </button>
+    </div>
+  </form>
+
+  <!-- Info when no character -->
+  <div *ngIf="!hasCharacter()" class="info-box">
+    <p>
+      No character created yet. Fill out the fields and your data will be saved automatically.
+    </p>
+  </div>
+</div>

@@ -6,8 +6,10 @@ import {
   DiceGroupResult,
   IndividualRoll,
 } from '../models';
+import { Modifier } from '../models/modifier.model';
 import { DiceType, AdvantageType, KeepDropType } from '../types/dice-types';
 import { generateNotation } from '../utils/dice-notation.util';
+import { CharacterService } from './character';
 
 /**
  * DiceRoller Service - Core dice rolling logic for D&D.
@@ -19,6 +21,32 @@ import { generateNotation } from '../utils/dice-notation.util';
   providedIn: 'root',
 })
 export class DiceRoller {
+  constructor(private characterService: CharacterService) {}
+  /**
+   * Löst einen Modifier zu einem numerischen Wert auf.
+   * Bei CharacterModifier wird der aktuelle Charakterwert verwendet.
+   * Wirft einen Fehler, wenn ein CharacterModifier ohne Charakter verwendet wird.
+   *
+   * @param modifier Der aufzulösende Modifier
+   * @returns Der numerische Modifikator-Wert
+   * @throws Error wenn CharacterModifier ohne Charakter verwendet wird
+   */
+  private resolveModifier(modifier: Modifier): number {
+    if (modifier.type === 'fixed') {
+      return modifier.value;
+    }
+
+    // CharacterModifier
+    const resolved = this.characterService.resolveModifier(modifier);
+    if (resolved === null) {
+      throw new Error(
+        'Charaktermodifikator kann nicht berechnet werden. ' +
+        'Bitte überprüfen Sie Ihren Charakterbogen im Charakterbogen-Tab.'
+      );
+    }
+    return resolved;
+  }
+
   /**
    * Rolls a single die of the specified type.
    *
@@ -178,14 +206,17 @@ export class DiceRoller {
       (sum, result) => sum + result.groupSum,
       0
     );
-    const total = groupsTotal + expression.modifier;
+
+    // Resolve modifier to numeric value
+    const resolvedModifier = this.resolveModifier(expression.modifier);
+    const total = groupsTotal + resolvedModifier;
 
     // Generate notation for this roll
     const notation = this.generateNotation(expression);
 
     return {
       groupResults,
-      modifier: expression.modifier,
+      modifier: resolvedModifier,
       total,
       timestamp: new Date(),
       notation,

@@ -152,7 +152,7 @@
 
     h3 {
       font-family: var(--font-heading);
-      color: var(--tavern-wood-dark);
+      color: var(--text-primary);
       margin-bottom: 1rem;
       font-size: 1.4rem;
       letter-spacing: 1px;
@@ -230,7 +230,7 @@
 
     h3 {
       font-family: var(--font-heading);
-      color: var(--tavern-wood-dark);
+      color: var(--text-primary);
       margin-bottom: 1rem;
       font-size: 1.4rem;
       letter-spacing: 1px;
@@ -427,5 +427,73 @@
         font-size: 2.5rem;
       }
     }
+  }
+}
+
+// === Dark Mode ===
+:host-context([data-theme='dark']) .probability-panel {
+  background: var(--tavern-wood-medium);
+
+  .dc-input-section {
+    background: linear-gradient(135deg, var(--tavern-wood-dark) 0%, var(--tavern-wood-medium) 100%);
+    border-color: var(--border-primary);
+
+    label {
+      color: var(--text-light);
+    }
+
+    .dc-input {
+      background: var(--parchment-dark);
+      color: var(--text-light);
+      border-color: var(--border-primary);
+
+      &:focus {
+        border-color: var(--brass-primary);
+      }
+    }
+  }
+
+  .success-card {
+    .success-label {
+      color: var(--text-light);
+    }
+  }
+
+  .stats-grid {
+    .stat-card {
+      background: linear-gradient(135deg, var(--tavern-wood-dark) 0%, var(--tavern-wood-medium) 100%);
+      border-color: var(--border-primary);
+
+      .stat-label {
+        color: var(--text-secondary);
+      }
+    }
+  }
+
+  .critical-section {
+    h3 {
+      color: var(--text-light);
+    }
+  }
+
+  .distribution-section {
+    h3 {
+      color: var(--text-light);
+    }
+
+    .distribution-chart {
+      background: rgba(0, 0, 0, 0.2);
+      border-color: var(--border-primary);
+
+      .chart-bar {
+        .bar-label {
+          color: var(--text-light);
+        }
+      }
+    }
+  }
+
+  .calculation-info {
+    background: rgba(0, 0, 0, 0.2);
   }
 }

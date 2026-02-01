@@ -8,7 +8,13 @@
 
   <!-- Category Filter Dropdown -->
   <div class="category-filter">
-    <label for="category-select">Filter by Category:</label>
+    <label for="category-select">
+      Filter by Category:
+      <span class="info-tooltip">
+        <span class="info-icon">i</span>
+        <span class="tooltip-text">Filters the preset list by categories. Select "All Categories" to see all presets.</span>
+      </span>
+    </label>
     <select
       id="category-select"
       class="category-select"
@@ -26,17 +32,32 @@
 
   @if (showSaveForm) {
     <div class="save-form">
-      <input
-        type="text"
-        [(ngModel)]="newPresetName"
-        placeholder="Enter preset name..."
-        class="preset-name-input"
-        (keyup.enter)="onSaveCurrentAsPreset()"
-      />
+      <div class="form-field">
+        <label>
+          Preset Name
+          <span class="info-tooltip">
+            <span class="info-icon">i</span>
+            <span class="tooltip-text">Give your preset a descriptive name, e.g., "Longsword Attack" or "Fireball Damage".</span>
+          </span>
+        </label>
+        <input
+          type="text"
+          [(ngModel)]="newPresetName"
+          placeholder="Enter preset name..."
+          class="preset-name-input"
+          (keyup.enter)="onSaveCurrentAsPreset()"
+        />
+      </div>
 
       <!-- Category Selection (Multi-select checkboxes) -->
       <div class="category-selection">
-        <label class="category-label">Categories (optional):</label>
+        <label class="category-label">
+          Categories (optional):
+          <span class="info-tooltip">
+            <span class="info-icon">i</span>
+            <span class="tooltip-text">Categorize your preset for better organization. You can select multiple categories.</span>
+          </span>
+        </label>
         <div class="category-chips">
           @for (category of allCategories; track category) {
             <button
@@ -66,7 +87,10 @@
     @if (presets.length > 0) {
       <div class="preset-list">
         @for (preset of presets; track preset.id) {
-          <div class="preset-item">
+          <div
+            class="preset-item"
+            [class.unavailable]="!isPresetAvailable(preset)"
+            [title]="isPresetAvailable(preset) ? '' : 'Requires character - please fill out the character sheet'">
             <div class="preset-info">
               <div class="preset-name">{{ preset.name }}</div>
 
@@ -82,7 +106,10 @@
               <div class="preset-notation">{{ preset.expression | diceNotation }}</div>
             </div>
             <div class="preset-actions">
-              <button class="load-button" (click)="onLoadPreset(preset)">
+              <button
+                class="load-button"
+                (click)="onLoadPreset(preset)"
+                [disabled]="!isPresetAvailable(preset)">
                 Load
               </button>
               <button class="delete-button" (click)="deletePreset(preset)">

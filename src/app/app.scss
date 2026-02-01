@@ -56,36 +56,99 @@
     }
   }
 
+  // === Tab Navigation ===
+  .tab-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    background: var(--tavern-wood-medium);
+    padding: 0.5rem 2rem;
+    border-bottom: 3px solid var(--border-primary);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+
+    .tab-button {
+      padding: 0.75rem 2rem;
+      background: linear-gradient(180deg, var(--tavern-wood-dark) 0%, #2c1810 100%);
+      color: rgba(255, 255, 255, 0.6);
+      border: 2px solid var(--border-primary);
+      border-bottom: none;
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      margin: 0 0.25rem;
+      border-radius: 6px 6px 0 0;
+
+      &:hover {
+        background: linear-gradient(180deg, #5d4037 0%, var(--tavern-wood-dark) 100%);
+        color: rgba(255, 255, 255, 0.8);
+        transform: translateY(-2px);
+      }
+
+      &.active {
+        background: linear-gradient(180deg, var(--parchment-medium) 0%, var(--parchment-light) 100%);
+        color: var(--text-primary);
+        border-color: var(--brass-primary);
+        box-shadow:
+          0 -2px 8px rgba(184, 134, 11, 0.3),
+          inset 0 2px 4px rgba(184, 134, 11, 0.1);
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -3px;
+          left: 0;
+          right: 0;
+          height: 3px;
+          background: var(--parchment-light);
+        }
+      }
+    }
+  }
+
   // === Main Content Area ===
   .content {
-    display: flex;
     flex: 1;
-    gap: 1.5rem;
     padding: 1.5rem;
     max-width: 1600px;
     margin: 0 auto;
     width: 100%;
 
-    // === Left Panel - Dice Roller & Presets ===
-    .left-panel {
-      flex: 1;
+    .tab-content {
       display: flex;
-      flex-direction: column;
       gap: 1.5rem;
-      min-width: 400px;
-    }
+      width: 100%;
 
-    // === Right Panel - Roll History ===
-    .right-panel {
-      flex: 1;
-      min-width: 400px;
+      // === Left Panel - Dice Roller & Presets ===
+      .left-panel {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        min-width: 400px;
+      }
+
+      // === Right Panel - Roll History ===
+      .right-panel {
+        flex: 1;
+        min-width: 400px;
+      }
+
+      // Character Tab - Centered layout
+      &.character-tab {
+        justify-content: center;
+      }
     }
   }
 }
 
 // === Responsive Design ===
 @media (max-width: 1024px) {
-  .app-container .content {
+  .app-container .content .tab-content {
     flex-direction: column;
 
     .left-panel,

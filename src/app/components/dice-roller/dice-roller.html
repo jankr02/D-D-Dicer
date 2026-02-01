@@ -23,13 +23,25 @@
 
     <div class="global-options">
       <div class="form-field">
-        <label>Modifier</label>
-        <input type="number" formControlName="modifier" />
+        <label>
+          Modifier
+          <span class="info-tooltip">
+            <span class="info-icon">i</span>
+            <span class="tooltip-text">A fixed bonus or penalty added to the roll result. Can be entered manually or calculated from your character sheet.</span>
+          </span>
+        </label>
+        <app-modifier-input formControlName="modifier"></app-modifier-input>
       </div>
 
       @if (isD20Roll()) {
         <div class="form-field">
-          <label>Advantage/Disadvantage</label>
+          <label>
+            Advantage/Disadvantage
+            <span class="info-tooltip">
+              <span class="info-icon">i</span>
+              <span class="tooltip-text">With Advantage, you roll 2d20 and take the higher result. With Disadvantage, you take the lower result.</span>
+            </span>
+          </label>
           <select formControlName="advantage">
             @for (advantageType of advantageTypes; track advantageType) {
               <option [value]="advantageType">
@@ -49,7 +61,13 @@
 
     <!-- Live Probability Preview -->
     <div class="dc-quick-check">
-      <label for="targetDC">Target DC</label>
+      <label for="targetDC">
+        Target DC
+        <span class="info-tooltip">
+          <span class="info-icon">i</span>
+          <span class="tooltip-text">The Difficulty Class you need to meet or exceed. Shows your success probability in real-time.</span>
+        </span>
+      </label>
       <input
         type="number"
         id="targetDC"

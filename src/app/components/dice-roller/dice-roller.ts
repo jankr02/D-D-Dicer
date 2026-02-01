@@ -7,9 +7,12 @@ import { DiceRoller as DiceRollerService } from '../../services/dice-roller';
 import { Historie } from '../../services/historie';
 import { ProbabilityCalculator } from '../../services/probability-calculator';
 import { DiceExpressionState } from '../../services/dice-expression-state';
+import { ToastService } from '../../services/toast.service';
 import { DiceExpression, DiceGroup } from '../../models';
+import { Modifier } from '../../models/modifier.model';
 import { DiceType, AdvantageType } from '../../types/dice-types';
 import { DiceGroupForm } from './dice-group-form/dice-group-form';
+import { ModifierInput } from '../modifier-input/modifier-input';
 
 /**
  * DiceRollerComponent - Main dice rolling interface.
@@ -23,7 +26,7 @@ import { DiceGroupForm } from './dice-group-form/dice-group-form';
  */
 @Component({
   selector: 'app-dice-roller',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, DiceGroupForm],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, DiceGroupForm, ModifierInput],
   templateUrl: './dice-roller.html',
   styleUrl: './dice-roller.scss',
 })
@@ -42,13 +45,14 @@ export class DiceRoller implements OnInit, OnDestroy {
     private diceRollerService: DiceRollerService,
     private historieService: Historie,
     private probabilityCalculator: ProbabilityCalculator,
-    private diceExpressionState: DiceExpressionState
+    private diceExpressionState: DiceExpressionState,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     this.diceForm = this.fb.group({
       groups: this.fb.array([this.createDiceGroupForm()]),
-      modifier: [0],
+      modifier: [{ type: 'fixed', value: 0 } as Modifier],
       advantage: [AdvantageType.NONE]
     });
 
@@ -123,15 +127,22 @@ export class DiceRoller implements OnInit, OnDestroy {
         type: g.type,
         keepDrop: g.keepDrop
       })),
-      modifier: formValue.modifier || 0,
+      modifier: formValue.modifier,
       advantage: formValue.advantage
     };
 
-    // Execute roll
-    const result = this.diceRollerService.rollExpression(expression);
+    try {
+      // Execute roll
+      const result = this.diceRollerService.rollExpression(expression);
 
-    // Add to history
-    this.historieService.addRollResult(result);
+      // Add to history
+      this.historieService.addRollResult(result);
+    } catch (error) {
+      // Show error toast
+      this.toastService.error(
+        error instanceof Error ? error.message : 'Würfelfehler'
+      );
+    }
   }
 
   /**
@@ -185,7 +196,7 @@ export class DiceRoller implements OnInit, OnDestroy {
         type: g.type,
         keepDrop: g.keepDrop
       })),
-      modifier: formValue.modifier || 0,
+      modifier: formValue.modifier,
       advantage: formValue.advantage
     };
   }

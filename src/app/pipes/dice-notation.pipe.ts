@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DiceExpression } from '../models';
 import { AdvantageType, KeepDropType } from '../types/dice-types';
+import { generateModifierNotation } from '../utils/dice-notation.util';
 
 /**
  * Transforms a DiceExpression object into a human-readable dice notation string.
@@ -43,12 +44,9 @@ export class DiceNotationPipe implements PipeTransform {
     }
 
     // Add modifier
-    if (expression.modifier !== 0) {
-      if (expression.modifier > 0) {
-        notation += ` + ${expression.modifier}`;
-      } else {
-        notation += ` - ${Math.abs(expression.modifier)}`;
-      }
+    const modifierNotation = generateModifierNotation(expression.modifier);
+    if (modifierNotation) {
+      notation += ` ${modifierNotation}`;
     }
 
     return notation;

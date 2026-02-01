@@ -21,7 +21,11 @@
       "Bash(grep:*)",
       "Bash(cd:*)",
       "Bash(./node_modules/.bin/ng build:*)",
-      "Bash(head:*)"
+      "Bash(head:*)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(tree:*)",
+      "Bash(timeout /t 15 /nobreak)",
+      "Bash(node \"node_modules\\\\@angular\\\\cli\\\\bin\\\\ng.js\" build:*)"
     ]
   }
 }

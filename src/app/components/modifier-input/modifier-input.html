@@ -1,0 +1,117 @@
+<div class="modifier-input">
+  <!-- Mode Toggle -->
+  <div class="mode-toggle">
+    <button
+      type="button"
+      class="mode-button"
+      [class.active]="modifierType === 'fixed'"
+      (click)="switchMode('fixed')">
+      Manual
+    </button>
+    <button
+      type="button"
+      class="mode-button"
+      [class.active]="modifierType === 'character'"
+      (click)="switchMode('character')">
+      Character
+    </button>
+    <span class="info-tooltip tooltip-right">
+      <span class="info-icon">i</span>
+      <span class="tooltip-text">Manual: Enter a fixed value. Character: Automatically calculates the modifier from your character sheet.</span>
+    </span>
+  </div>
+
+  <!-- Fixed Mode -->
+  <div *ngIf="modifierType === 'fixed'" class="fixed-mode">
+    <label for="fixedModifier">
+      Modifier
+      <span class="info-tooltip">
+        <span class="info-icon">i</span>
+        <span class="tooltip-text">A fixed numeric value that is added (positive) or subtracted (negative) from the roll result.</span>
+      </span>
+    </label>
+    <input
+      type="number"
+      id="fixedModifier"
+      [(ngModel)]="fixedValue"
+      (ngModelChange)="onValueChange()"
+      class="modifier-input-field"
+    />
+  </div>
+
+  <!-- Character Mode -->
+  <div *ngIf="modifierType === 'character'" class="character-mode">
+    <!-- Warning when no character -->
+    <div *ngIf="!hasCharacter" class="warning-box">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+      </svg>
+      <span>Please fill out the character sheet in the Character Sheet tab first</span>
+    </div>
+
+    <!-- Character Modifier Controls -->
+    <div class="character-controls">
+      <!-- Ability Selection -->
+      <div class="form-field">
+        <label for="abilitySelect">
+          Ability
+          <span class="info-tooltip">
+            <span class="info-icon">i</span>
+            <span class="tooltip-text">Select the ability whose modifier should be used (e.g., STR for melee attacks, DEX for ranged attacks).</span>
+          </span>
+        </label>
+        <select
+          id="abilitySelect"
+          [(ngModel)]="selectedAbility"
+          (ngModelChange)="onValueChange()"
+          class="ability-select">
+          <option *ngFor="let ability of abilities" [ngValue]="ability">
+            {{ getAbilityLabel(ability) }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Proficiency Checkbox -->
+      <div class="checkbox-field">
+        <label>
+          <input
+            type="checkbox"
+            [(ngModel)]="includeProficiency"
+            (ngModelChange)="onValueChange()"
+          />
+          <span>Proficiency Bonus</span>
+          <span class="info-tooltip">
+            <span class="info-icon">i</span>
+            <span class="tooltip-text">Enable this for rolls where your character is proficient (proficient attacks, trained skills, saving throws).</span>
+          </span>
+        </label>
+      </div>
+
+      <!-- Additional Bonus -->
+      <div class="form-field">
+        <label for="additionalBonus">
+          Additional Bonus
+          <span class="info-tooltip">
+            <span class="info-icon">i</span>
+            <span class="tooltip-text">Extra bonuses from other sources such as magic items, spells, or class features.</span>
+          </span>
+        </label>
+        <input
+          type="number"
+          id="additionalBonus"
+          [(ngModel)]="additionalBonus"
+          (ngModelChange)="onValueChange()"
+          class="bonus-input"
+        />
+      </div>
+    </div>
+
+    <!-- Live Preview -->
+    <div class="preview-box" [class.no-character]="!hasCharacter">
+      <div class="preview-label">Total:</div>
+      <div class="preview-value">{{ formatModifier(getPreviewValue()) }}</div>
+      <div class="preview-formula">{{ getFormulaDisplay() }}</div>
+    </div>
+  </div>
+</div>

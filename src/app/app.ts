@@ -1,7 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { DiceRoller } from './components/dice-roller/dice-roller';
 import { RollHistory } from './components/roll-history/roll-history';
 import { PresetManager } from './components/preset-manager/preset-manager';
+import { CharacterSheet } from './components/character-sheet/character-sheet';
 import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.component';
 import { ToastContainerComponent } from './components/toast/toast-container.component';
 import { ModalContainerComponent } from './components/modal/modal-container.component';
@@ -12,9 +14,11 @@ import { ToastService } from './services/toast.service';
 @Component({
   selector: 'app-root',
   imports: [
+    CommonModule,
     DiceRoller,
     RollHistory,
     PresetManager,
+    CharacterSheet,
     ThemeToggleComponent,
     ToastContainerComponent,
     ModalContainerComponent
@@ -24,6 +28,7 @@ import { ToastService } from './services/toast.service';
 })
 export class App implements OnInit {
   title = 'D&D Dice Roller';
+  activeTab: 'dice' | 'character' = 'dice';
 
   constructor(
     _settings: Settings,
@@ -66,5 +71,12 @@ export class App implements OnInit {
     }
 
     this.presetManager.savePreset(name, expression);
+  }
+
+  /**
+   * Switches between tabs.
+   */
+  switchTab(tab: 'dice' | 'character'): void {
+    this.activeTab = tab;
   }
 }

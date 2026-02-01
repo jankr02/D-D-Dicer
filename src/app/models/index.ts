@@ -7,3 +7,5 @@ export * from './statistics.model';
 export * from './toast.model';
 export * from './modal.model';
 export * from './probability.model';
+export * from './character.model';
+export * from './modifier.model';

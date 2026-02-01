@@ -108,35 +108,53 @@
 }
 
 // === Dark Mode Anpassungen ===
-:root[data-theme="dark"] {
-  .dice-group-form {
-    .form-row {
-      .form-field {
-        input,
-        select {
-          background: var(--parchment-dark);
-          color: var(--text-light);
-          border-color: var(--border-primary);
+:host-context([data-theme='dark']) .dice-group-form {
+  .form-header {
+    h3 {
+      color: var(--text-light);
+    }
+  }
 
-          &:focus {
-            border-color: var(--brass-primary);
-            box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.3);
-          }
+  .form-row {
+    .form-field {
+      label {
+        color: var(--text-light);
+      }
 
-          &:hover {
-            border-color: var(--brass-hover);
-          }
+      input,
+      select {
+        background: var(--parchment-dark);
+        color: var(--text-light);
+        border-color: var(--border-primary);
+
+        &:focus {
+          border-color: var(--brass-primary);
+          box-shadow: 0 0 0 3px rgba(184, 134, 11, 0.3);
         }
 
-        input::placeholder {
-          color: var(--text-secondary);
+        &:hover {
+          border-color: var(--brass-hover);
         }
       }
-    }
 
-    .keep-drop-section {
-      background: rgba(0, 0, 0, 0.3);
-      border-color: var(--brass-primary);
+      input::placeholder {
+        color: var(--text-secondary);
+      }
     }
+  }
+
+  .keep-drop-toggle {
+    label {
+      color: var(--text-light);
+
+      &:hover {
+        color: var(--brass-hover);
+      }
+    }
+  }
+
+  .keep-drop-section {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: var(--brass-primary);
   }
 }

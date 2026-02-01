@@ -120,3 +120,22 @@
     }
   }
 }
+
+// === Dark Mode ===
+:host-context([data-theme='dark']) .roll-history {
+  .history-header {
+    .tab-navigation {
+      .tab-button {
+        &.active {
+          background: var(--tavern-wood-medium);
+          color: var(--text-light);
+          border-bottom-color: var(--tavern-wood-medium);
+        }
+      }
+    }
+  }
+
+  .history-list {
+    background: var(--tavern-wood-medium);
+  }
+}

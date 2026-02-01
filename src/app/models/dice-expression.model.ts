@@ -1,8 +1,9 @@
 import { DiceGroup } from './dice-group.model';
 import { AdvantageType } from '../types/dice-types';
+import { Modifier } from './modifier.model';
 
 export interface DiceExpression {
   groups: DiceGroup[];
-  modifier: number;
+  modifier: Modifier;
   advantage?: AdvantageType;
 }
