@@ -1,17 +1,47 @@
 <div class="preset-manager">
   <div class="preset-header">
     <h2 i18n="@@presets.title">Presets</h2>
-    <button class="save-button" (click)="toggleSaveForm()">
-      @if (showSaveForm) {
-        <ng-container i18n="@@presets.button.cancel">Cancel</ng-container>
-      } @else {
-        <ng-container i18n="@@presets.button.saveCurrent">Save Current</ng-container>
-      }
+    @if (activeTab === 'presets') {
+      <button class="save-button" (click)="toggleSaveForm()">
+        @if (showSaveForm) {
+          <ng-container i18n="@@presets.button.cancel">Cancel</ng-container>
+        } @else {
+          <ng-container i18n="@@presets.button.saveCurrent">Save Current</ng-container>
+        }
+      </button>
+    }
+  </div>
+
+  <!-- Tab Switcher -->
+  <div class="tab-switcher">
+    <button
+      class="tab-button"
+      [class.active]="activeTab === 'templates'"
+      (click)="setActiveTab('templates')">
+      <span class="tab-icon"></span>
+      <ng-container i18n="@@presets.tab.templates">Templates</ng-container>
+    </button>
+    <button
+      class="tab-button"
+      [class.active]="activeTab === 'presets'"
+      (click)="setActiveTab('presets')">
+      <span class="tab-icon"></span>
+      <ng-container i18n="@@presets.tab.myPresets">My Presets</ng-container>
     </button>
   </div>
 
-  <!-- Category Filter Dropdown -->
-  <div class="category-filter">
+  <!-- Templates Tab -->
+  @if (activeTab === 'templates') {
+    <app-template-library
+      (useTemplate)="onUseTemplate($event)"
+      (copyToPresets)="onCopyToPresets($event)">
+    </app-template-library>
+  }
+
+  <!-- My Presets Tab -->
+  @if (activeTab === 'presets') {
+    <!-- Category Filter Dropdown -->
+    <div class="category-filter">
     <label for="category-select">
       <ng-container i18n="@@presets.label.filterByCategory">Filter by Category:</ng-container>
       <span class="info-tooltip">
@@ -139,4 +169,5 @@
       </div>
     }
   }
+  } <!-- End of @if (activeTab === 'presets') -->
 </div>

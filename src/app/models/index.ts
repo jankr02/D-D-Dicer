@@ -9,3 +9,4 @@ export * from './modal.model';
 export * from './probability.model';
 export * from './character.model';
 export * from './modifier.model';
+export * from './roll-template.model';

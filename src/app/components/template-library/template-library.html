@@ -1,0 +1,78 @@
+<div class="template-library">
+  <!-- Search Bar -->
+  <div class="search-bar">
+    <input
+      type="text"
+      [(ngModel)]="searchQuery"
+      (ngModelChange)="onSearchChange()"
+      i18n-placeholder="@@template.placeholder.search"
+      placeholder="Search templates..."
+      class="search-input"
+    />
+  </div>
+
+  <!-- Category Filter -->
+  <div class="category-filter">
+    <label for="template-category-select" i18n="@@template.label.category">Category:</label>
+    <select
+      id="template-category-select"
+      class="category-select"
+      [(ngModel)]="selectedCategory"
+      (ngModelChange)="onCategoryChange()">
+      <option [value]="ALL_CATEGORIES">{{ getCategoryLabel(ALL_CATEGORIES) }}</option>
+      @for (category of allCategories; track category) {
+        <option [value]="category">{{ getCategoryLabel(category) }} ({{ getCategoryCount(category) }})</option>
+      }
+    </select>
+  </div>
+
+  <!-- Template List -->
+  @if (filteredTemplates.length > 0) {
+    <div class="template-list">
+      @for (template of filteredTemplates; track template.id) {
+        <div
+          class="template-item"
+          [class.unavailable]="!isTemplateAvailable(template)"
+          i18n-title="@@template.tooltip.requiresCharacter"
+          [title]="isTemplateAvailable(template) ? '' : 'Requires character sheet'">
+          <div class="template-info">
+            <div class="template-header">
+              @if (template.icon) {
+                <span class="template-icon">{{ template.icon }}</span>
+              }
+              <span class="template-name">{{ template.name }}</span>
+            </div>
+            <div class="template-notation">{{ template.expression | diceNotation }}</div>
+            <div class="template-description">{{ template.description }}</div>
+          </div>
+          <div class="template-actions">
+            <button
+              class="use-button"
+              (click)="onUseTemplate(template)"
+              [disabled]="!isTemplateAvailable(template)"
+              i18n="@@template.button.use">
+              Use
+            </button>
+            <button
+              class="copy-button"
+              (click)="onCopyToPresets(template)"
+              i18n-title="@@template.button.copy.title"
+              title="Copy to My Presets">
+              <span class="copy-icon"></span>
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  } @else {
+    <div class="empty-state">
+      <p>
+        @if (searchQuery) {
+          <ng-container i18n="@@template.empty.noResults">No templates found matching "{{ searchQuery }}"</ng-container>
+        } @else {
+          <ng-container i18n="@@template.empty.noTemplates">No templates available in this category.</ng-container>
+        }
+      </p>
+    </div>
+  }
+</div>

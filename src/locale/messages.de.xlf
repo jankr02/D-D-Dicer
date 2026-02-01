@@ -620,6 +620,397 @@
         <source>An error occurred. Please refresh the page.</source>
         <target>Ein Fehler ist aufgetreten. Bitte lade die Seite neu.</target>
       </trans-unit>
+      <!-- Dice Group Standard/Custom -->
+      <trans-unit id="diceGroup.standardDice" datatype="html">
+        <source>Standard</source>
+        <target>Standard</target>
+      </trans-unit>
+      <trans-unit id="diceGroup.customDice" datatype="html">
+        <source>Custom</source>
+        <target>Benutzerdefiniert</target>
+      </trans-unit>
+      <!-- Template Tabs -->
+      <trans-unit id="presets.tab.templates" datatype="html">
+        <source>Templates</source>
+        <target>Vorlagen</target>
+      </trans-unit>
+      <trans-unit id="presets.tab.myPresets" datatype="html">
+        <source>My Presets</source>
+        <target>Meine Vorlagen</target>
+      </trans-unit>
+      <!-- Template Categories -->
+      <trans-unit id="templateCategory.abilityCheck" datatype="html">
+        <source>Ability Check</source>
+        <target>Attributsprobe</target>
+      </trans-unit>
+      <trans-unit id="templateCategory.savingThrow" datatype="html">
+        <source>Saving Throw</source>
+        <target>Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="templateCategory.attackRoll" datatype="html">
+        <source>Attack Roll</source>
+        <target>Angriffswurf</target>
+      </trans-unit>
+      <trans-unit id="templateCategory.damage" datatype="html">
+        <source>Damage</source>
+        <target>Schaden</target>
+      </trans-unit>
+      <trans-unit id="templateCategory.healing" datatype="html">
+        <source>Healing</source>
+        <target>Heilung</target>
+      </trans-unit>
+      <trans-unit id="templateCategory.utility" datatype="html">
+        <source>Utility</source>
+        <target>Nützlich</target>
+      </trans-unit>
+      <trans-unit id="templateCategory.characterCreation" datatype="html">
+        <source>Character Creation</source>
+        <target>Charaktererstellung</target>
+      </trans-unit>
+      <trans-unit id="templateCategory.all" datatype="html">
+        <source>All Categories</source>
+        <target>Alle Kategorien</target>
+      </trans-unit>
+      <!-- Template Library UI -->
+      <trans-unit id="template.placeholder.search" datatype="html">
+        <source>Search templates...</source>
+        <target>Vorlagen suchen...</target>
+      </trans-unit>
+      <trans-unit id="template.label.category" datatype="html">
+        <source>Category:</source>
+        <target>Kategorie:</target>
+      </trans-unit>
+      <trans-unit id="template.button.use" datatype="html">
+        <source>Use</source>
+        <target>Verwenden</target>
+      </trans-unit>
+      <trans-unit id="template.button.copy.title" datatype="html">
+        <source>Copy to My Presets</source>
+        <target>Zu meinen Vorlagen kopieren</target>
+      </trans-unit>
+      <trans-unit id="template.empty.noResults" datatype="html">
+        <source>No templates found matching "<x id="INTERPOLATION" equiv-text="{{ searchQuery }}"/>"</source>
+        <target>Keine Vorlagen gefunden für "<x id="INTERPOLATION" equiv-text="{{ searchQuery }}"/>"</target>
+      </trans-unit>
+      <trans-unit id="template.empty.noTemplates" datatype="html">
+        <source>No templates available in this category.</source>
+        <target>Keine Vorlagen in dieser Kategorie verfügbar.</target>
+      </trans-unit>
+      <trans-unit id="template.error.requiresCharacter" datatype="html">
+        <source>This template requires a character sheet</source>
+        <target>Diese Vorlage benötigt einen Charakterbogen</target>
+      </trans-unit>
+      <trans-unit id="template.toast.loaded" datatype="html">
+        <source>Loaded template "<x id="PH" equiv-text="template.name"/>"</source>
+        <target>Vorlage "<x id="PH" equiv-text="template.name"/>" geladen</target>
+      </trans-unit>
+      <trans-unit id="toast.templateCopied" datatype="html">
+        <source>Template "<x id="PH" equiv-text="template.name"/>" saved to presets!</source>
+        <target>Vorlage "<x id="PH" equiv-text="template.name"/>" zu Vorlagen hinzugefügt!</target>
+      </trans-unit>
+      <!-- Ability Checks -->
+      <trans-unit id="template.strCheck" datatype="html">
+        <source>Strength Check</source>
+        <target>Stärkeprobe</target>
+      </trans-unit>
+      <trans-unit id="template.strCheck.desc" datatype="html">
+        <source>Roll a Strength ability check</source>
+        <target>Würfle eine Stärke-Attributsprobe</target>
+      </trans-unit>
+      <trans-unit id="template.dexCheck" datatype="html">
+        <source>Dexterity Check</source>
+        <target>Geschicklichkeitsprobe</target>
+      </trans-unit>
+      <trans-unit id="template.dexCheck.desc" datatype="html">
+        <source>Roll a Dexterity ability check</source>
+        <target>Würfle eine Geschicklichkeits-Attributsprobe</target>
+      </trans-unit>
+      <trans-unit id="template.conCheck" datatype="html">
+        <source>Constitution Check</source>
+        <target>Konstitutionsprobe</target>
+      </trans-unit>
+      <trans-unit id="template.conCheck.desc" datatype="html">
+        <source>Roll a Constitution ability check</source>
+        <target>Würfle eine Konstitutions-Attributsprobe</target>
+      </trans-unit>
+      <trans-unit id="template.intCheck" datatype="html">
+        <source>Intelligence Check</source>
+        <target>Intelligenzprobe</target>
+      </trans-unit>
+      <trans-unit id="template.intCheck.desc" datatype="html">
+        <source>Roll an Intelligence ability check</source>
+        <target>Würfle eine Intelligenz-Attributsprobe</target>
+      </trans-unit>
+      <trans-unit id="template.wisCheck" datatype="html">
+        <source>Wisdom Check</source>
+        <target>Weisheitsprobe</target>
+      </trans-unit>
+      <trans-unit id="template.wisCheck.desc" datatype="html">
+        <source>Roll a Wisdom ability check</source>
+        <target>Würfle eine Weisheits-Attributsprobe</target>
+      </trans-unit>
+      <trans-unit id="template.chaCheck" datatype="html">
+        <source>Charisma Check</source>
+        <target>Charismaprobe</target>
+      </trans-unit>
+      <trans-unit id="template.chaCheck.desc" datatype="html">
+        <source>Roll a Charisma ability check</source>
+        <target>Würfle eine Charisma-Attributsprobe</target>
+      </trans-unit>
+      <!-- Saving Throws -->
+      <trans-unit id="template.strSave" datatype="html">
+        <source>Strength Save</source>
+        <target>Stärke-Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.strSave.desc" datatype="html">
+        <source>Roll a Strength saving throw</source>
+        <target>Würfle einen Stärke-Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.dexSave" datatype="html">
+        <source>Dexterity Save</source>
+        <target>Geschicklichkeits-Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.dexSave.desc" datatype="html">
+        <source>Roll a Dexterity saving throw</source>
+        <target>Würfle einen Geschicklichkeits-Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.conSave" datatype="html">
+        <source>Constitution Save</source>
+        <target>Konstitutions-Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.conSave.desc" datatype="html">
+        <source>Roll a Constitution saving throw</source>
+        <target>Würfle einen Konstitutions-Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.intSave" datatype="html">
+        <source>Intelligence Save</source>
+        <target>Intelligenz-Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.intSave.desc" datatype="html">
+        <source>Roll an Intelligence saving throw</source>
+        <target>Würfle einen Intelligenz-Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.wisSave" datatype="html">
+        <source>Wisdom Save</source>
+        <target>Weisheits-Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.wisSave.desc" datatype="html">
+        <source>Roll a Wisdom saving throw</source>
+        <target>Würfle einen Weisheits-Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.chaSave" datatype="html">
+        <source>Charisma Save</source>
+        <target>Charisma-Rettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.chaSave.desc" datatype="html">
+        <source>Roll a Charisma saving throw</source>
+        <target>Würfle einen Charisma-Rettungswurf</target>
+      </trans-unit>
+      <!-- Attack Rolls -->
+      <trans-unit id="template.meleeAttackStr" datatype="html">
+        <source>Melee Attack (STR)</source>
+        <target>Nahkampfangriff (STR)</target>
+      </trans-unit>
+      <trans-unit id="template.meleeAttackStr.desc" datatype="html">
+        <source>Standard melee weapon attack using Strength</source>
+        <target>Standard-Nahkampfangriff mit Stärke</target>
+      </trans-unit>
+      <trans-unit id="template.meleeAttackDex" datatype="html">
+        <source>Melee Attack (DEX/Finesse)</source>
+        <target>Nahkampfangriff (GES/Finesse)</target>
+      </trans-unit>
+      <trans-unit id="template.meleeAttackDex.desc" datatype="html">
+        <source>Finesse weapon attack using Dexterity</source>
+        <target>Finesse-Waffenangriff mit Geschicklichkeit</target>
+      </trans-unit>
+      <trans-unit id="template.rangedAttack" datatype="html">
+        <source>Ranged Attack (DEX)</source>
+        <target>Fernkampfangriff (GES)</target>
+      </trans-unit>
+      <trans-unit id="template.rangedAttack.desc" datatype="html">
+        <source>Ranged weapon attack using Dexterity</source>
+        <target>Fernkampfangriff mit Geschicklichkeit</target>
+      </trans-unit>
+      <trans-unit id="template.spellAttack" datatype="html">
+        <source>Spell Attack</source>
+        <target>Zauberangriff</target>
+      </trans-unit>
+      <trans-unit id="template.spellAttack.desc" datatype="html">
+        <source>Spell attack roll (set your spellcasting ability)</source>
+        <target>Zauberangriffswurf (Zauberattribut wählen)</target>
+      </trans-unit>
+      <!-- Damage Rolls -->
+      <trans-unit id="template.longsword1h" datatype="html">
+        <source>Longsword (1-handed)</source>
+        <target>Langschwert (einhändig)</target>
+      </trans-unit>
+      <trans-unit id="template.longsword1h.desc" datatype="html">
+        <source>Longsword damage, one-handed (1d8 + STR)</source>
+        <target>Langschwert-Schaden, einhändig (1W8 + STR)</target>
+      </trans-unit>
+      <trans-unit id="template.longsword2h" datatype="html">
+        <source>Longsword (2-handed)</source>
+        <target>Langschwert (zweihändig)</target>
+      </trans-unit>
+      <trans-unit id="template.longsword2h.desc" datatype="html">
+        <source>Longsword damage, two-handed (1d10 + STR)</source>
+        <target>Langschwert-Schaden, zweihändig (1W10 + STR)</target>
+      </trans-unit>
+      <trans-unit id="template.greatsword" datatype="html">
+        <source>Greatsword</source>
+        <target>Großschwert</target>
+      </trans-unit>
+      <trans-unit id="template.greatsword.desc" datatype="html">
+        <source>Greatsword damage (2d6 + STR)</source>
+        <target>Großschwert-Schaden (2W6 + STR)</target>
+      </trans-unit>
+      <trans-unit id="template.greataxe" datatype="html">
+        <source>Greataxe</source>
+        <target>Großaxt</target>
+      </trans-unit>
+      <trans-unit id="template.greataxe.desc" datatype="html">
+        <source>Greataxe damage (1d12 + STR)</source>
+        <target>Großaxt-Schaden (1W12 + STR)</target>
+      </trans-unit>
+      <trans-unit id="template.dagger" datatype="html">
+        <source>Dagger</source>
+        <target>Dolch</target>
+      </trans-unit>
+      <trans-unit id="template.dagger.desc" datatype="html">
+        <source>Dagger damage (1d4 + DEX)</source>
+        <target>Dolch-Schaden (1W4 + GES)</target>
+      </trans-unit>
+      <trans-unit id="template.shortbow" datatype="html">
+        <source>Shortbow</source>
+        <target>Kurzbogen</target>
+      </trans-unit>
+      <trans-unit id="template.shortbow.desc" datatype="html">
+        <source>Shortbow damage (1d6 + DEX)</source>
+        <target>Kurzbogen-Schaden (1W6 + GES)</target>
+      </trans-unit>
+      <trans-unit id="template.longbow" datatype="html">
+        <source>Longbow</source>
+        <target>Langbogen</target>
+      </trans-unit>
+      <trans-unit id="template.longbow.desc" datatype="html">
+        <source>Longbow damage (1d8 + DEX)</source>
+        <target>Langbogen-Schaden (1W8 + GES)</target>
+      </trans-unit>
+      <trans-unit id="template.lightCrossbow" datatype="html">
+        <source>Light Crossbow</source>
+        <target>Leichte Armbrust</target>
+      </trans-unit>
+      <trans-unit id="template.lightCrossbow.desc" datatype="html">
+        <source>Light crossbow damage (1d8 + DEX)</source>
+        <target>Leichte Armbrust-Schaden (1W8 + GES)</target>
+      </trans-unit>
+      <trans-unit id="template.heavyCrossbow" datatype="html">
+        <source>Heavy Crossbow</source>
+        <target>Schwere Armbrust</target>
+      </trans-unit>
+      <trans-unit id="template.heavyCrossbow.desc" datatype="html">
+        <source>Heavy crossbow damage (1d10 + DEX)</source>
+        <target>Schwere Armbrust-Schaden (1W10 + GES)</target>
+      </trans-unit>
+      <trans-unit id="template.sneakAttack" datatype="html">
+        <source>Sneak Attack (1d6)</source>
+        <target>Hinterhältiger Angriff (1W6)</target>
+      </trans-unit>
+      <trans-unit id="template.sneakAttack.desc" datatype="html">
+        <source>Rogue Sneak Attack extra damage</source>
+        <target>Schurken-Hinterhältiger-Angriff Extraschaden</target>
+      </trans-unit>
+      <!-- Healing -->
+      <trans-unit id="template.cureWounds" datatype="html">
+        <source>Cure Wounds (1st level)</source>
+        <target>Wunden heilen (1. Grad)</target>
+      </trans-unit>
+      <trans-unit id="template.cureWounds.desc" datatype="html">
+        <source>Cure Wounds healing (1d8 + spellcasting mod)</source>
+        <target>Wunden heilen (1W8 + Zaubermod)</target>
+      </trans-unit>
+      <trans-unit id="template.healingWord" datatype="html">
+        <source>Healing Word (1st level)</source>
+        <target>Heilendes Wort (1. Grad)</target>
+      </trans-unit>
+      <trans-unit id="template.healingWord.desc" datatype="html">
+        <source>Healing Word bonus action heal (1d4 + spellcasting mod)</source>
+        <target>Heilendes Wort Bonusaktion (1W4 + Zaubermod)</target>
+      </trans-unit>
+      <trans-unit id="template.healingPotion" datatype="html">
+        <source>Potion of Healing</source>
+        <target>Heiltrank</target>
+      </trans-unit>
+      <trans-unit id="template.healingPotion.desc" datatype="html">
+        <source>Standard Potion of Healing (2d4 + 2)</source>
+        <target>Standard-Heiltrank (2W4 + 2)</target>
+      </trans-unit>
+      <trans-unit id="template.healingPotionGreater" datatype="html">
+        <source>Potion of Greater Healing</source>
+        <target>Großer Heiltrank</target>
+      </trans-unit>
+      <trans-unit id="template.healingPotionGreater.desc" datatype="html">
+        <source>Potion of Greater Healing (4d4 + 4)</source>
+        <target>Großer Heiltrank (4W4 + 4)</target>
+      </trans-unit>
+      <trans-unit id="template.healingPotionSuperior" datatype="html">
+        <source>Potion of Superior Healing</source>
+        <target>Überlegener Heiltrank</target>
+      </trans-unit>
+      <trans-unit id="template.healingPotionSuperior.desc" datatype="html">
+        <source>Potion of Superior Healing (8d4 + 8)</source>
+        <target>Überlegener Heiltrank (8W4 + 8)</target>
+      </trans-unit>
+      <!-- Utility -->
+      <trans-unit id="template.initiative" datatype="html">
+        <source>Initiative</source>
+        <target>Initiative</target>
+      </trans-unit>
+      <trans-unit id="template.initiative.desc" datatype="html">
+        <source>Roll for initiative (d20 + DEX)</source>
+        <target>Initiativewurf (W20 + GES)</target>
+      </trans-unit>
+      <trans-unit id="template.deathSave" datatype="html">
+        <source>Death Saving Throw</source>
+        <target>Todesrettungswurf</target>
+      </trans-unit>
+      <trans-unit id="template.deathSave.desc" datatype="html">
+        <source>Death saving throw (d20, no modifier)</source>
+        <target>Todesrettungswurf (W20, kein Modifikator)</target>
+      </trans-unit>
+      <trans-unit id="template.percentile" datatype="html">
+        <source>Percentile (d100)</source>
+        <target>Prozent (W100)</target>
+      </trans-unit>
+      <trans-unit id="template.percentile.desc" datatype="html">
+        <source>Roll percentile dice for random tables</source>
+        <target>Prozentwürfel für Zufallstabellen</target>
+      </trans-unit>
+      <trans-unit id="template.coinFlip" datatype="html">
+        <source>Coin Flip (d2)</source>
+        <target>Münzwurf (W2)</target>
+      </trans-unit>
+      <trans-unit id="template.coinFlip.desc" datatype="html">
+        <source>Flip a coin (1 = heads, 2 = tails)</source>
+        <target>Münze werfen (1 = Kopf, 2 = Zahl)</target>
+      </trans-unit>
+      <!-- Character Creation -->
+      <trans-unit id="template.4d6DropLowest" datatype="html">
+        <source>Ability Score (4d6 drop lowest)</source>
+        <target>Attributswert (4W6, niedrigsten verwerfen)</target>
+      </trans-unit>
+      <trans-unit id="template.4d6DropLowest.desc" datatype="html">
+        <source>Standard ability score generation: roll 4d6, drop lowest</source>
+        <target>Standard-Attributserzeugung: 4W6 würfeln, niedrigsten verwerfen</target>
+      </trans-unit>
+      <trans-unit id="template.3d6" datatype="html">
+        <source>Ability Score (3d6)</source>
+        <target>Attributswert (3W6)</target>
+      </trans-unit>
+      <trans-unit id="template.3d6.desc" datatype="html">
+        <source>Classic ability score generation: roll 3d6</source>
+        <target>Klassische Attributserzeugung: 3W6 würfeln</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

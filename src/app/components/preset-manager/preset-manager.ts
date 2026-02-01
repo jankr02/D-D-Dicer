@@ -4,12 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Preset } from '../../services/preset';
 import { CharacterService } from '../../services/character';
-import { Preset as PresetModel, DiceExpression } from '../../models';
+import { Preset as PresetModel, DiceExpression, RollTemplate } from '../../models';
 import { Modifier } from '../../models/modifier.model';
 import { generateUUID } from '../../utils/uuid.util';
 import { DiceNotationPipe } from '../../pipes/dice-notation.pipe';
 import { ToastService } from '../../services/toast.service';
 import { ModalService } from '../../services/modal.service';
+import { TemplateLibrary } from '../template-library/template-library';
 import {
   PresetCategory,
   CategoryFilter,
@@ -28,15 +29,20 @@ import {
  * - Load preset into dice roller
  * - Delete presets
  */
+export type PresetManagerTab = 'templates' | 'presets';
+
 @Component({
   selector: 'app-preset-manager',
-  imports: [CommonModule, FormsModule, DiceNotationPipe],
+  imports: [CommonModule, FormsModule, DiceNotationPipe, TemplateLibrary],
   templateUrl: './preset-manager.html',
   styleUrl: './preset-manager.scss',
 })
 export class PresetManager implements OnInit {
   @Output() loadPreset = new EventEmitter<DiceExpression>();
   @Output() requestSave = new EventEmitter<string>();
+
+  // Tab state
+  activeTab: PresetManagerTab = 'templates';
 
   // Preset data
   filteredPresets$!: Observable<PresetModel[]>;
@@ -213,5 +219,68 @@ export class PresetManager implements OnInit {
     // CharacterModifier erfordert Charakter
     const char = this.characterService.getCharacter();
     return char !== null;
+  }
+
+  // ============================================
+  // Tab Management
+  // ============================================
+
+  /**
+   * Switches between templates and presets tabs.
+   */
+  setActiveTab(tab: PresetManagerTab): void {
+    this.activeTab = tab;
+    // Reset save form when switching tabs
+    if (tab === 'templates' && this.showSaveForm) {
+      this.showSaveForm = false;
+      this.newPresetName = '';
+      this.selectedCategories = [];
+    }
+  }
+
+  // ============================================
+  // Template Library Events
+  // ============================================
+
+  /**
+   * Handles useTemplate event from TemplateLibrary.
+   */
+  onUseTemplate(expression: DiceExpression): void {
+    this.loadPreset.emit(expression);
+  }
+
+  /**
+   * Handles copyToPresets event from TemplateLibrary.
+   * Copies a template to user presets.
+   */
+  onCopyToPresets(template: RollTemplate): void {
+    const preset: PresetModel = {
+      id: generateUUID(),
+      name: template.name,
+      expression: template.expression,
+      categories: this.mapTemplateCategoryToPresetCategories(template.category)
+    };
+
+    this.presetService.savePreset(preset);
+    this.toastService.success($localize`:@@toast.templateCopied:Template "${template.name}" saved to presets!`);
+
+    // Switch to presets tab to show the new preset
+    this.activeTab = 'presets';
+  }
+
+  /**
+   * Maps template category to preset categories.
+   */
+  private mapTemplateCategoryToPresetCategories(templateCategory: string): PresetCategory[] {
+    const mapping: Record<string, PresetCategory[]> = {
+      'Ability Check': ['Skill Check'],
+      'Saving Throw': ['Combat'],
+      'Attack Roll': ['Combat'],
+      'Damage': ['Damage'],
+      'Healing': ['Healing'],
+      'Utility': ['Utility'],
+      'Character Creation': ['Character']
+    };
+    return mapping[templateCategory] || [];
   }
 }

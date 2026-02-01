@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { DiceExpression } from '../models';
+import { DiceExpression, getDiceGroupSides } from '../models';
 import { AdvantageType, KeepDropType } from '../types/dice-types';
 import { generateModifierNotation } from '../utils/dice-notation.util';
 
@@ -25,7 +25,8 @@ export class DiceNotationPipe implements PipeTransform {
 
     // Convert each dice group to notation
     for (const group of expression.groups) {
-      let groupNotation = `${group.count}${group.type}`;
+      const sides = getDiceGroupSides(group);
+      let groupNotation = `${group.count}d${sides}`;
 
       // Add keep/drop notation
       if (group.keepDrop) {
