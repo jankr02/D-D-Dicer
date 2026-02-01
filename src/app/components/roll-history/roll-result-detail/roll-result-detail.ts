@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RollResult } from '../../../models';
+import { ToastService } from '../../../services/toast.service';
 
 /**
  * RollResultDetailComponent - Displays detailed information about a dice roll.
@@ -19,6 +20,8 @@ import { RollResult } from '../../../models';
   styleUrl: './roll-result-detail.scss',
 })
 export class RollResultDetail {
+  private toastService = inject(ToastService);
+
   @Input() result!: RollResult;
   @Input() compact = false;
 
@@ -46,5 +49,49 @@ export class RollResultDetail {
     const activeRolls = group.rolls.filter(r => !r.isDropped);
 
     return activeRolls.length === 1 && activeRolls[0].value === 1;
+  }
+
+  /**
+   * Copies the roll result to clipboard in a shareable format.
+   */
+  async copyToClipboard(): Promise<void> {
+    const text = this.formatResultForClipboard(this.result);
+
+    try {
+      await navigator.clipboard.writeText(text);
+      this.toastService.success('Roll copied to clipboard!', 2000);
+    } catch {
+      this.toastService.error('Failed to copy to clipboard');
+    }
+  }
+
+  /**
+   * Formats a roll result as a shareable text string.
+   */
+  private formatResultForClipboard(result: RollResult): string {
+    const parts: string[] = [];
+
+    // Notation and total
+    parts.push(`${result.notation} = ${result.total}`);
+
+    // Individual rolls breakdown
+    const rollDetails = result.groupResults.map((group) => {
+      const rolls = group.rolls
+        .map(r => (r.isDropped ? `(${r.value})` : r.value.toString()))
+        .join(', ');
+      return `[${rolls}]`;
+    });
+
+    if (rollDetails.length > 0) {
+      parts.push(`Rolls: ${rollDetails.join(' + ')}`);
+    }
+
+    // Modifier if present
+    if (result.modifier !== 0) {
+      const sign = result.modifier > 0 ? '+' : '';
+      parts.push(`Modifier: ${sign}${result.modifier}`);
+    }
+
+    return parts.join('\n');
   }
 }
