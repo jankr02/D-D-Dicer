@@ -15,6 +15,9 @@
     "extract-i18n": "node node_modules/@angular/cli/bin/ng.js extract-i18n",
     "lint": "node node_modules/@angular/cli/bin/ng.js lint",
     "lint:fix": "node node_modules/@angular/cli/bin/ng.js lint --fix",
+    "e2e": "npx playwright test",
+    "e2e:ui": "npx playwright test --ui",
+    "e2e:headed": "npx playwright test --headed",
     "prepare": "husky"
   },
   "prettier": {
@@ -63,6 +66,7 @@
     "@angular/cli": "^20.3.7",
     "@angular/compiler-cli": "^20.3.0",
     "@angular/localize": "^20.3.16",
+    "@playwright/test": "^1.58.1",
     "@types/jasmine": "~5.1.0",
     "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.54.0",

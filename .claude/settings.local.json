@@ -36,7 +36,9 @@
       "Bash(npm run lint)",
       "Bash(npx husky init)",
       "Bash(npx lint-staged:*)",
-      "Bash(npm run test:ci:*)"
+      "Bash(npm run test:ci:*)",
+      "Bash(npm run test:coverage:*)",
+      "Bash(npx playwright install chromium)"
     ]
   }
 }
