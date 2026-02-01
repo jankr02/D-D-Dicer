@@ -16,7 +16,7 @@ import { PresetCategory, CategoryFilter, ALL_CATEGORIES, UNCATEGORIZED } from '.
 export class Preset {
   private readonly STORAGE_KEY = 'dnd_dicer_presets';
   private readonly STORAGE_VERSION_KEY = 'dnd_dicer_presets_version';
-  private readonly CURRENT_VERSION = 3;
+  private readonly CURRENT_VERSION = 4;
 
   private presetsSubject = new BehaviorSubject<PresetModel[]>([]);
   public presets$ = this.presetsSubject.asObservable();
@@ -64,6 +64,7 @@ export class Preset {
    * Migrates presets from older versions to current format.
    * v1 → v2: Added categories field
    * v2 → v3: Changed modifier from number to Modifier union type
+   * v3 → v4: Changed DiceGroup.type (DiceType enum) to DiceGroup.sides (number)
    */
   private migratePresets(presets: PresetModel[]): PresetModel[] {
     return presets.map(preset => {
@@ -82,6 +83,25 @@ export class Preset {
             type: 'fixed',
             value: migratedPreset.expression.modifier
           }
+        };
+      }
+
+      // Migration v3 → v4: DiceType → sides
+      if (migratedPreset.expression?.groups) {
+        migratedPreset.expression = {
+          ...migratedPreset.expression,
+          groups: migratedPreset.expression.groups.map((group: any) => {
+            // If group has type but no sides, convert type to sides
+            if (group.type && group.sides === undefined) {
+              const sides = parseInt(group.type.substring(1), 10); // "d20" -> 20
+              return {
+                count: group.count,
+                sides,
+                keepDrop: group.keepDrop
+              };
+            }
+            return group;
+          })
         };
       }
 

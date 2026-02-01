@@ -30,7 +30,8 @@
       "Bash(node node_modules/@angular/cli/bin/ng.js extract-i18n:*)",
       "Bash(node:*)",
       "Bash(findstr:*)",
-      "Bash(npm run start:de:*)"
+      "Bash(npm run start:de:*)",
+      "Bash(npm test:*)"
     ]
   }
 }

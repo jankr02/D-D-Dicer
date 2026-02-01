@@ -5,9 +5,10 @@ import {
   DiceGroup,
   DiceGroupResult,
   IndividualRoll,
+  getDiceGroupSides,
 } from '../models';
 import { Modifier } from '../models/modifier.model';
-import { DiceType, AdvantageType, KeepDropType } from '../types/dice-types';
+import { AdvantageType, KeepDropType } from '../types/dice-types';
 import { generateNotation } from '../utils/dice-notation.util';
 import { CharacterService } from './character';
 
@@ -48,24 +49,16 @@ export class DiceRoller {
   }
 
   /**
-   * Rolls a single die of the specified type.
+   * Rolls a single die with the specified number of sides.
    *
-   * @param type The type of die to roll (d4, d6, d8, d10, d12, d20, d100)
-   * @returns A random integer between 1 and the die's maximum value
+   * @param sides Number of sides on the die (e.g., 6 for d6, 37 for d37)
+   * @returns A random integer between 1 and sides (inclusive)
    */
-  private rollDie(type: DiceType): number {
-    const maxValueMap: Record<DiceType, number> = {
-      [DiceType.D4]: 4,
-      [DiceType.D6]: 6,
-      [DiceType.D8]: 8,
-      [DiceType.D10]: 10,
-      [DiceType.D12]: 12,
-      [DiceType.D20]: 20,
-      [DiceType.D100]: 100,
-    };
-
-    const max = maxValueMap[type];
-    return Math.floor(Math.random() * max) + 1;
+  private rollDie(sides: number): number {
+    if (sides < 1) {
+      throw new Error('Die must have at least 1 side');
+    }
+    return Math.floor(Math.random() * sides) + 1;
   }
 
   /**
@@ -121,7 +114,7 @@ export class DiceRoller {
   }
 
   /**
-   * Rolls a complete dice group (e.g., 3d6, 2d20kh1).
+   * Rolls a complete dice group (e.g., 3d6, 2d20kh1, 4d37).
    *
    * @param group The dice group configuration
    * @returns Result containing all rolls and the group sum
@@ -132,9 +125,16 @@ export class DiceRoller {
       throw new Error('Dice count must be between 1 and 20');
     }
 
+    // Get sides (new property or legacy type)
+    const sides = getDiceGroupSides(group);
+
+    if (sides < 1 || sides > 10000) {
+      throw new Error('Die sides must be between 1 and 10000');
+    }
+
     // Roll all dice in the group
     const rolls: IndividualRoll[] = Array.from({ length: group.count }, () => ({
-      value: this.rollDie(group.type),
+      value: this.rollDie(sides),
       isDropped: false,
     }));
 
@@ -173,12 +173,12 @@ export class DiceRoller {
       expression.advantage &&
       expression.advantage !== AdvantageType.NONE &&
       expression.groups.length > 0 &&
-      expression.groups[0].type === DiceType.D20
+      getDiceGroupSides(expression.groups[0]) === 20
     ) {
       // Roll two d20s and keep highest or lowest
       const advantageGroup: DiceGroup = {
         count: 2,
-        type: DiceType.D20,
+        sides: 20,
         keepDrop: {
           type:
             expression.advantage === AdvantageType.ADVANTAGE

@@ -1,14 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { DiceType, KeepDropType } from '../../../types/dice-types';
+import { KeepDropType } from '../../../types/dice-types';
 
 /**
  * DiceGroupFormComponent - Reusable form for configuring a single dice group.
  *
  * Manages:
  * - Dice count (1-20)
- * - Dice type (d4, d6, d8, d10, d12, d20, d100)
+ * - Dice sides (standard: 4, 6, 8, 10, 12, 20, 100 or custom: any number 1-10000)
  * - Optional Keep/Drop configuration
  */
 @Component({
@@ -21,16 +21,40 @@ export class DiceGroupForm implements OnInit {
   @Input() groupForm!: FormGroup;
   @Input() groupIndex!: number;
 
-  diceTypes = Object.values(DiceType);
+  // Standard dice for quick selection
+  standardDice: number[] = [4, 6, 8, 10, 12, 20, 100];
   keepDropTypes = Object.values(KeepDropType);
 
   // Flag to show/hide Keep/Drop options
   showKeepDrop = false;
 
+  // Flag for custom dice input mode
+  useCustomDice = false;
+
   ngOnInit(): void {
+    if (!this.groupForm) {
+      return;
+    }
+
     // Check if Keep/Drop is already configured
     const keepDropValue = this.groupForm.get('keepDrop')?.value;
     this.showKeepDrop = keepDropValue !== null && keepDropValue !== undefined;
+
+    // Check if current value is a non-standard die
+    const sidesValue = this.groupForm.get('sides')?.value;
+    this.useCustomDice = sidesValue && !this.standardDice.includes(sidesValue);
+  }
+
+  /**
+   * Toggles between standard dice dropdown and custom dice input.
+   */
+  toggleCustomDice(): void {
+    this.useCustomDice = !this.useCustomDice;
+
+    if (!this.useCustomDice) {
+      // Reset to d20 when switching back to standard
+      this.groupForm.patchValue({ sides: 20 });
+    }
   }
 
   /**

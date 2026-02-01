@@ -15,19 +15,46 @@
       <input type="number" formControlName="count" min="1" max="20" />
     </div>
 
-    <div class="form-field">
+    <div class="form-field dice-type-field">
       <label>
         <ng-container i18n="@@diceGroup.label.diceType">Dice Type</ng-container>
         <span class="info-tooltip">
           <span class="info-icon">i</span>
-          <span class="tooltip-text" i18n="@@diceGroup.tooltip.diceType">The type of die (d4, d6, d8, d10, d12, d20, d100). The number indicates the number of sides.</span>
+          <span class="tooltip-text" i18n="@@diceGroup.tooltip.diceType">The type of die (d4, d6, d8, d10, d12, d20, d100, or custom). The number indicates the number of sides.</span>
         </span>
       </label>
-      <select formControlName="type">
-        @for (diceType of diceTypes; track diceType) {
-          <option [value]="diceType">{{ diceType }}</option>
+      <div class="dice-type-row">
+        @if (!useCustomDice) {
+          <select formControlName="sides">
+            @for (sides of standardDice; track sides) {
+              <option [value]="sides">d{{ sides }}</option>
+            }
+          </select>
+        } @else {
+          <div class="custom-dice-input">
+            <span class="dice-prefix">d</span>
+            <input
+              type="number"
+              formControlName="sides"
+              min="1"
+              max="10000"
+              class="custom-sides-input"
+            />
+          </div>
         }
-      </select>
+        <button
+          type="button"
+          class="custom-toggle"
+          (click)="toggleCustomDice()"
+          [title]="useCustomDice ? 'Switch to standard dice' : 'Switch to custom dice'"
+        >
+          @if (useCustomDice) {
+            <span i18n="@@diceGroup.standardDice">Standard</span>
+          } @else {
+            <span i18n="@@diceGroup.customDice">Custom</span>
+          }
+        </button>
+      </div>
     </div>
   </div>
 

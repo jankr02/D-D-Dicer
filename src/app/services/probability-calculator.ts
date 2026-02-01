@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { DiceRoller } from './dice-roller';
 import {
   DiceExpression,
+  DiceGroup,
   ProbabilityResult,
   SuccessProbability,
   CriticalProbabilities,
+  getDiceGroupSides,
 } from '../models';
-import { DiceType, AdvantageType, KeepDropType } from '../types/dice-types';
+import { AdvantageType, KeepDropType } from '../types/dice-types';
 import { generateNotation } from '../utils/dice-notation.util';
 import {
   calculateDieDistribution,
@@ -134,7 +136,7 @@ export class ProbabilityCalculator {
     expression: DiceExpression
   ): CriticalProbabilities | null {
     // Only applicable if first group is d20
-    if (expression.groups.length === 0 || expression.groups[0].type !== DiceType.D20) {
+    if (expression.groups.length === 0 || getDiceGroupSides(expression.groups[0]) !== 20) {
       return null;
     }
 
@@ -175,6 +177,7 @@ export class ProbabilityCalculator {
 
   /**
    * Decides whether to use simulation or exact calculation.
+   * Custom dice with many sides may require simulation.
    *
    * @param expression The dice expression
    * @returns True if simulation should be used
@@ -183,8 +186,13 @@ export class ProbabilityCalculator {
     let totalOutcomes = 1;
 
     for (const group of expression.groups) {
-      const faces = this.getFaces(group.type);
+      const faces = getDiceGroupSides(group);
       const diceCount = group.count;
+
+      // Custom dice with many sides should use simulation
+      if (faces > 100) {
+        return true;
+      }
 
       if (group.keepDrop) {
         // Keep/drop requires enumeration
@@ -212,19 +220,19 @@ export class ProbabilityCalculator {
    * @returns Distribution map (value -> probability)
    */
   private calculateExact(expression: DiceExpression): Map<number, number> {
-    let groups = [...expression.groups];
+    let groups: DiceGroup[] = [...expression.groups];
 
     // Handle advantage/disadvantage for d20
     if (
       expression.advantage &&
       expression.advantage !== AdvantageType.NONE &&
       groups.length > 0 &&
-      groups[0].type === DiceType.D20
+      getDiceGroupSides(groups[0]) === 20
     ) {
       // Convert advantage/disadvantage to 2d20kh1 or 2d20kl1
-      const advantageGroup = {
+      const advantageGroup: DiceGroup = {
         count: 2,
-        type: DiceType.D20,
+        sides: 20,
         keepDrop: {
           type: expression.advantage === AdvantageType.ADVANTAGE
             ? KeepDropType.KEEP_HIGHEST
@@ -270,18 +278,20 @@ export class ProbabilityCalculator {
    * @param group The dice group
    * @returns Distribution map for this group
    */
-  private calculateGroupDistribution(group: any): Map<number, number> {
+  private calculateGroupDistribution(group: DiceGroup): Map<number, number> {
+    const sides = getDiceGroupSides(group);
+
     if (group.keepDrop) {
       // Use keep/drop algorithm
       return applyKeepDrop(
         group.count,
-        group.type,
+        sides,
         group.keepDrop.type,
         group.keepDrop.count
       );
     } else {
       // Simple case: convolve multiple identical dice
-      const singleDie = calculateDieDistribution(group.type);
+      const singleDie = calculateDieDistribution(sides);
       let distribution = new Map<number, number>([[0, 1]]);
 
       for (let i = 0; i < group.count; i++) {
@@ -360,23 +370,4 @@ export class ProbabilityCalculator {
     this.cacheKeys.push(key);
   }
 
-  /**
-   * Gets the number of faces for a dice type.
-   *
-   * @param diceType The type of die
-   * @returns Number of faces
-   */
-  private getFaces(diceType: DiceType): number {
-    const facesMap: Record<DiceType, number> = {
-      [DiceType.D4]: 4,
-      [DiceType.D6]: 6,
-      [DiceType.D8]: 8,
-      [DiceType.D10]: 10,
-      [DiceType.D12]: 12,
-      [DiceType.D20]: 20,
-      [DiceType.D100]: 100,
-    };
-
-    return facesMap[diceType];
-  }
 }

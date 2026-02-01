@@ -8,9 +8,9 @@ import { Historie } from '../../services/historie';
 import { ProbabilityCalculator } from '../../services/probability-calculator';
 import { DiceExpressionState } from '../../services/dice-expression-state';
 import { ToastService } from '../../services/toast.service';
-import { DiceExpression, DiceGroup } from '../../models';
+import { DiceExpression, DiceGroup, getDiceGroupSides } from '../../models';
 import { Modifier } from '../../models/modifier.model';
-import { DiceType, AdvantageType } from '../../types/dice-types';
+import { AdvantageType } from '../../types/dice-types';
 import { DiceGroupForm } from './dice-group-form/dice-group-form';
 import { ModifierInput } from '../modifier-input/modifier-input';
 
@@ -81,7 +81,7 @@ export class DiceRoller implements OnInit, OnDestroy {
   private createDiceGroupForm(): FormGroup {
     return this.fb.group({
       count: [1, [Validators.required, Validators.min(1), Validators.max(20)]],
-      type: [DiceType.D20, Validators.required],
+      sides: [20, [Validators.required, Validators.min(1), Validators.max(10000)]],
       keepDrop: [null]
     });
   }
@@ -124,7 +124,7 @@ export class DiceRoller implements OnInit, OnDestroy {
     const expression: DiceExpression = {
       groups: formValue.groups.map((g: DiceGroup) => ({
         count: g.count,
-        type: g.type,
+        sides: g.sides,
         keepDrop: g.keepDrop
       })),
       modifier: formValue.modifier,
@@ -151,11 +151,12 @@ export class DiceRoller implements OnInit, OnDestroy {
   isD20Roll(): boolean {
     if (this.groups.length === 0) return false;
     const firstGroup = this.groups.at(0).value;
-    return firstGroup.type === DiceType.D20;
+    return firstGroup.sides === 20;
   }
 
   /**
    * Loads a preset into the dice roller form.
+   * Supports both new `sides` property and legacy `type` for backwards compatibility.
    */
   loadPreset(expression: DiceExpression): void {
     // Clear existing groups
@@ -167,7 +168,7 @@ export class DiceRoller implements OnInit, OnDestroy {
     expression.groups.forEach(group => {
       const formGroup = this.fb.group({
         count: [group.count, [Validators.required, Validators.min(1), Validators.max(20)]],
-        type: [group.type, Validators.required],
+        sides: [getDiceGroupSides(group), [Validators.required, Validators.min(1), Validators.max(10000)]],
         keepDrop: [group.keepDrop]
       });
       this.groups.push(formGroup);
@@ -193,7 +194,7 @@ export class DiceRoller implements OnInit, OnDestroy {
     return {
       groups: formValue.groups.map((g: DiceGroup) => ({
         count: g.count,
-        type: g.type,
+        sides: g.sides,
         keepDrop: g.keepDrop
       })),
       modifier: formValue.modifier,

@@ -69,6 +69,64 @@
       input[type="number"] {
         max-width: 100px;
       }
+
+      &.dice-type-field {
+        .dice-type-row {
+          display: flex;
+          gap: 0.5rem;
+          align-items: stretch;
+
+          select {
+            flex: 1;
+            min-width: 80px;
+          }
+
+          .custom-dice-input {
+            display: flex;
+            align-items: center;
+            flex: 1;
+
+            .dice-prefix {
+              padding: 0.7rem 0.5rem;
+              background: var(--parchment-dark);
+              border: 2px solid var(--parchment-dark);
+              border-right: none;
+              border-radius: var(--border-radius) 0 0 var(--border-radius);
+              font-weight: 700;
+              color: var(--text-primary);
+            }
+
+            .custom-sides-input {
+              flex: 1;
+              min-width: 60px;
+              max-width: none;
+              border-radius: 0 var(--border-radius) var(--border-radius) 0;
+            }
+          }
+
+          .custom-toggle {
+            padding: 0.5rem 0.75rem;
+            background: var(--brass-primary);
+            color: white;
+            border: 2px solid var(--brass-dark);
+            border-radius: var(--border-radius);
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+
+            &:hover {
+              background: var(--brass-hover);
+              border-color: var(--brass-primary);
+            }
+
+            &:active {
+              transform: scale(0.98);
+            }
+          }
+        }
+      }
     }
   }
 
@@ -139,6 +197,27 @@
 
       input::placeholder {
         color: var(--text-secondary);
+      }
+
+      &.dice-type-field {
+        .dice-type-row {
+          .custom-dice-input {
+            .dice-prefix {
+              background: var(--parchment-darker);
+              border-color: var(--border-primary);
+              color: var(--text-light);
+            }
+          }
+
+          .custom-toggle {
+            background: var(--brass-dark);
+            border-color: var(--brass-primary);
+
+            &:hover {
+              background: var(--brass-primary);
+            }
+          }
+        }
       }
     }
   }

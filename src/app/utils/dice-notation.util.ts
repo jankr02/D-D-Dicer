@@ -1,13 +1,14 @@
-import { DiceExpression, DiceGroup } from '../models';
+import { DiceExpression, DiceGroup, getDiceGroupSides } from '../models';
 import { Modifier } from '../models/modifier.model';
 import { KeepDropType, AdvantageType } from '../types/dice-types';
 
 /**
  * Converts a DiceGroup to standard D&D notation.
- * Examples: "2d6", "4d6kh3", "1d8dl1"
+ * Examples: "2d6", "4d6kh3", "1d8dl1", "3d37"
  */
 function groupToNotation(group: DiceGroup): string {
-  let notation = `${group.count}${group.type}`;
+  const sides = getDiceGroupSides(group);
+  let notation = `${group.count}d${sides}`;
 
   if (group.keepDrop) {
     const { type, count } = group.keepDrop;

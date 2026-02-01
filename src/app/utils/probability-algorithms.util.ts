@@ -1,20 +1,19 @@
-import { DiceType, KeepDropType } from '../types/dice-types';
+import { KeepDropType } from '../types/dice-types';
 import { ProbabilityDistribution } from '../models';
 
 /**
- * Calculates uniform probability distribution for a single die type.
+ * Calculates uniform probability distribution for a die with given sides.
  *
- * @param diceType The type of die (d4, d6, d8, d10, d12, d20, d100)
+ * @param sides Number of sides on the die (e.g., 6 for d6, 37 for d37)
  * @returns Map of value -> probability (uniform distribution)
  */
 export function calculateDieDistribution(
-  diceType: DiceType
+  sides: number
 ): Map<number, number> {
-  const faces = getFaces(diceType);
   const distribution = new Map<number, number>();
-  const probability = 1 / faces;
+  const probability = 1 / sides;
 
-  for (let i = 1; i <= faces; i++) {
+  for (let i = 1; i <= sides; i++) {
     distribution.set(i, probability);
   }
 
@@ -50,18 +49,18 @@ export function convolve(
  * This enumerates all possible combinations and calculates the resulting distribution.
  *
  * @param diceCount Number of dice rolled
- * @param diceType Type of die
+ * @param sides Number of sides on each die (e.g., 6 for d6, 37 for d37)
  * @param keepDropType Type of keep/drop operation
  * @param keepDropCount Number of dice to keep/drop
  * @returns Distribution after applying keep/drop logic
  */
 export function applyKeepDrop(
   diceCount: number,
-  diceType: DiceType,
+  sides: number,
   keepDropType: KeepDropType,
   keepDropCount: number
 ): Map<number, number> {
-  const faces = getFaces(diceType);
+  const faces = sides;
   const outcomes = new Map<number, number>();
 
   // Generate all possible dice combinations
@@ -211,22 +210,3 @@ export function calculateMode(
     .map(d => d.value);
 }
 
-/**
- * Gets the number of faces for a given dice type.
- *
- * @param diceType The type of die
- * @returns Number of faces on the die
- */
-function getFaces(diceType: DiceType): number {
-  const facesMap: Record<DiceType, number> = {
-    [DiceType.D4]: 4,
-    [DiceType.D6]: 6,
-    [DiceType.D8]: 8,
-    [DiceType.D10]: 10,
-    [DiceType.D12]: 12,
-    [DiceType.D20]: 20,
-    [DiceType.D100]: 100,
-  };
-
-  return facesMap[diceType];
-}
