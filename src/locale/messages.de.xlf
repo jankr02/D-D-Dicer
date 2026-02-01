@@ -627,7 +627,7 @@
       </trans-unit>
       <trans-unit id="diceGroup.customDice" datatype="html">
         <source>Custom</source>
-        <target>Benutzerdefiniert</target>
+        <target>Custom</target>
       </trans-unit>
       <!-- Template Tabs -->
       <trans-unit id="presets.tab.templates" datatype="html">
