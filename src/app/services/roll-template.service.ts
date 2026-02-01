@@ -5,7 +5,7 @@ import {
   TemplateCategory,
   TEMPLATE_CATEGORIES,
   ALL_TEMPLATE_CATEGORIES,
-  TemplateCategoryFilter
+  TemplateCategoryFilter,
 } from '../types/template-category.type';
 
 /**
@@ -13,7 +13,7 @@ import {
  * Templates are static and loaded from compiled data.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RollTemplateService {
   private templates: RollTemplate[] = ROLL_TEMPLATES;
@@ -32,25 +32,29 @@ export class RollTemplateService {
     if (filter === ALL_TEMPLATE_CATEGORIES) {
       return this.templates;
     }
-    return this.templates.filter(t => t.category === filter);
+    return this.templates.filter((t) => t.category === filter);
   }
 
   /**
    * Searches templates by name, description, or tags.
    * Case-insensitive search.
    */
-  searchTemplates(query: string, categoryFilter: TemplateCategoryFilter = ALL_TEMPLATE_CATEGORIES): RollTemplate[] {
-    let results = this.getTemplatesByCategory(categoryFilter);
+  searchTemplates(
+    query: string,
+    categoryFilter: TemplateCategoryFilter = ALL_TEMPLATE_CATEGORIES,
+  ): RollTemplate[] {
+    const results = this.getTemplatesByCategory(categoryFilter);
 
     if (!query.trim()) {
       return results;
     }
 
     const lowerQuery = query.toLowerCase();
-    return results.filter(t =>
-      t.name.toLowerCase().includes(lowerQuery) ||
-      t.description.toLowerCase().includes(lowerQuery) ||
-      t.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
+    return results.filter(
+      (t) =>
+        t.name.toLowerCase().includes(lowerQuery) ||
+        t.description.toLowerCase().includes(lowerQuery) ||
+        t.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)),
     );
   }
 
@@ -58,7 +62,7 @@ export class RollTemplateService {
    * Gets a template by ID.
    */
   getTemplateById(id: string): RollTemplate | undefined {
-    return this.templates.find(t => t.id === id);
+    return this.templates.find((t) => t.id === id);
   }
 
   /**
@@ -75,7 +79,10 @@ export class RollTemplateService {
     const grouped = new Map<TemplateCategory, RollTemplate[]>();
 
     for (const category of TEMPLATE_CATEGORIES) {
-      grouped.set(category, this.templates.filter(t => t.category === category));
+      grouped.set(
+        category,
+        this.templates.filter((t) => t.category === category),
+      );
     }
 
     return grouped;

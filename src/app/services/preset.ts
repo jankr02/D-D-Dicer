@@ -1,8 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Preset as PresetModel } from '../models';
-import { PresetCategory, CategoryFilter, ALL_CATEGORIES, UNCATEGORIZED } from '../types/preset-category.type';
+import { Preset as PresetModel, DiceGroup, KeepDropConfig } from '../models';
+import {
+  PresetCategory,
+  CategoryFilter,
+  ALL_CATEGORIES,
+  UNCATEGORIZED,
+} from '../types/preset-category.type';
 
 /**
  * PresetService - Manages saved dice roll configurations.
@@ -67,8 +72,8 @@ export class Preset {
    * v3 → v4: Changed DiceGroup.type (DiceType enum) to DiceGroup.sides (number)
    */
   private migratePresets(presets: PresetModel[]): PresetModel[] {
-    return presets.map(preset => {
-      let migratedPreset = { ...preset };
+    return presets.map((preset) => {
+      const migratedPreset = { ...preset };
 
       // Migration v1 → v2: Categories
       if (!migratedPreset.categories) {
@@ -81,8 +86,8 @@ export class Preset {
           ...migratedPreset.expression,
           modifier: {
             type: 'fixed',
-            value: migratedPreset.expression.modifier
-          }
+            value: migratedPreset.expression.modifier,
+          },
         };
       }
 
@@ -90,18 +95,24 @@ export class Preset {
       if (migratedPreset.expression?.groups) {
         migratedPreset.expression = {
           ...migratedPreset.expression,
-          groups: migratedPreset.expression.groups.map((group: any) => {
+          groups: migratedPreset.expression.groups.map((group): DiceGroup => {
+            const legacyGroup = group as {
+              type?: string;
+              sides?: number;
+              count: number;
+              keepDrop?: KeepDropConfig;
+            };
             // If group has type but no sides, convert type to sides
-            if (group.type && group.sides === undefined) {
-              const sides = parseInt(group.type.substring(1), 10); // "d20" -> 20
+            if (legacyGroup.type && legacyGroup.sides === undefined) {
+              const sides = parseInt(legacyGroup.type.substring(1), 10); // "d20" -> 20
               return {
-                count: group.count,
+                count: legacyGroup.count,
                 sides,
-                keepDrop: group.keepDrop
+                keepDrop: legacyGroup.keepDrop,
               };
             }
             return group;
-          })
+          }),
         };
       }
 
@@ -119,7 +130,7 @@ export class Preset {
     const currentPresets = this.presetsSubject.value;
 
     // Check if preset with this ID already exists
-    const existingIndex = currentPresets.findIndex(p => p.id === preset.id);
+    const existingIndex = currentPresets.findIndex((p) => p.id === preset.id);
 
     let updatedPresets: PresetModel[];
 
@@ -149,7 +160,7 @@ export class Preset {
    */
   deletePreset(id: string): void {
     const currentPresets = this.presetsSubject.value;
-    const updatedPresets = currentPresets.filter(p => p.id !== id);
+    const updatedPresets = currentPresets.filter((p) => p.id !== id);
 
     // Persist to localStorage
     try {
@@ -178,22 +189,20 @@ export class Preset {
    */
   getPresetsByCategory(categoryFilter: CategoryFilter): Observable<PresetModel[]> {
     return this.presets$.pipe(
-      map(presets => {
+      map((presets) => {
         if (categoryFilter === ALL_CATEGORIES) {
           return presets;
         }
 
         if (categoryFilter === UNCATEGORIZED) {
-          return presets.filter(preset =>
-            !preset.categories || preset.categories.length === 0
-          );
+          return presets.filter((preset) => !preset.categories || preset.categories.length === 0);
         }
 
         // Filter by specific category
-        return presets.filter(preset =>
-          preset.categories?.includes(categoryFilter as PresetCategory)
+        return presets.filter((preset) =>
+          preset.categories?.includes(categoryFilter as PresetCategory),
         );
-      })
+      }),
     );
   }
 
@@ -204,9 +213,9 @@ export class Preset {
    */
   hasUncategorizedPresets(): Observable<boolean> {
     return this.presets$.pipe(
-      map(presets =>
-        presets.some(preset => !preset.categories || preset.categories.length === 0)
-      )
+      map((presets) =>
+        presets.some((preset) => !preset.categories || preset.categories.length === 0),
+      ),
     );
   }
 }

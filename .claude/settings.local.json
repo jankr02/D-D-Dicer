@@ -31,7 +31,12 @@
       "Bash(node:*)",
       "Bash(findstr:*)",
       "Bash(npm run start:de:*)",
-      "Bash(npm test:*)"
+      "Bash(npm test:*)",
+      "Bash(cat:*)",
+      "Bash(npm run lint)",
+      "Bash(npx husky init)",
+      "Bash(npx lint-staged:*)",
+      "Bash(npm run test:ci:*)"
     ]
   }
 }

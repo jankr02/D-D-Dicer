@@ -61,6 +61,28 @@
   --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
 }
 
+// === Skip Link for Accessibility ===
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 10000;
+  padding: 1rem 1.5rem;
+  background: var(--brass-primary);
+  color: var(--text-light);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 var(--border-radius) 0;
+  transition: top 0.2s ease;
+
+  &:focus {
+    top: 0;
+    outline: 3px solid var(--brass-hover);
+    outline-offset: 2px;
+  }
+}
+
 // === Global Reset ===
 * {
   margin: 0;
@@ -206,7 +228,9 @@ select {
     border: 2px solid var(--brass-primary);
     border-radius: var(--border-radius);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    transition: opacity 0.2s ease, visibility 0.2s ease;
+    transition:
+      opacity 0.2s ease,
+      visibility 0.2s ease;
     pointer-events: none;
 
     // Arrow

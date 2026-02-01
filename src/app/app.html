@@ -17,7 +17,8 @@
       [class.active]="activeTab === 'dice'"
       (click)="switchTab('dice')"
       type="button"
-      i18n="@@app.tabs.diceRolling">
+      i18n="@@app.tabs.diceRolling"
+    >
       Dice Rolling
     </button>
     <button
@@ -25,12 +26,13 @@
       [class.active]="activeTab === 'character'"
       (click)="switchTab('character')"
       type="button"
-      i18n="@@app.tabs.characterSheet">
+      i18n="@@app.tabs.characterSheet"
+    >
       Character Sheet
     </button>
   </nav>
 
-  <main class="content">
+  <main id="main-content" class="content" tabindex="-1">
     <!-- Desktop Layout -->
     <ng-container *ngIf="!isMobile">
       <!-- Dice Tab -->
@@ -39,7 +41,8 @@
           <app-dice-roller></app-dice-roller>
           <app-preset-manager
             (loadPreset)="onLoadPreset($event)"
-            (requestSave)="onSavePreset($event)">
+            (requestSave)="onSavePreset($event)"
+          >
           </app-preset-manager>
         </div>
 
@@ -66,7 +69,8 @@
       <div *ngIf="mobileTab === 'presets'" class="mobile-tab-content">
         <app-preset-manager
           (loadPreset)="onLoadPreset($event)"
-          (requestSave)="onSavePreset($event)">
+          (requestSave)="onSavePreset($event)"
+        >
         </app-preset-manager>
       </div>
 
@@ -86,7 +90,8 @@
   <app-bottom-tab-bar
     *ngIf="isMobile"
     [activeTab]="mobileTab"
-    (tabChange)="switchMobileTab($event)">
+    (tabChange)="switchMobileTab($event)"
+  >
   </app-bottom-tab-bar>
 
   <app-toast-container></app-toast-container>

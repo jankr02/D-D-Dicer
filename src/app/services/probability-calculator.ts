@@ -107,15 +107,12 @@ export class ProbabilityCalculator {
    * @param targetDC Target difficulty class
    * @returns Success probability (P(total >= DC))
    */
-  getSuccessProbability(
-    expression: DiceExpression,
-    targetDC: number
-  ): SuccessProbability {
+  getSuccessProbability(expression: DiceExpression, targetDC: number): SuccessProbability {
     const probResult = this.calculateProbabilities(expression);
 
     // Sum probabilities for all values >= targetDC
     const successProb = probResult.distribution
-      .filter(d => d.value >= targetDC)
+      .filter((d) => d.value >= targetDC)
       .reduce((sum, d) => sum + d.probability, 0);
 
     return {
@@ -132,9 +129,7 @@ export class ProbabilityCalculator {
    * @param expression The dice expression
    * @returns Critical probabilities or null if not applicable
    */
-  getCriticalProbabilities(
-    expression: DiceExpression
-  ): CriticalProbabilities | null {
+  getCriticalProbabilities(expression: DiceExpression): CriticalProbabilities | null {
     // Only applicable if first group is d20
     if (expression.groups.length === 0 || getDiceGroupSides(expression.groups[0]) !== 20) {
       return null;
@@ -234,9 +229,10 @@ export class ProbabilityCalculator {
         count: 2,
         sides: 20,
         keepDrop: {
-          type: expression.advantage === AdvantageType.ADVANTAGE
-            ? KeepDropType.KEEP_HIGHEST
-            : KeepDropType.KEEP_LOWEST,
+          type:
+            expression.advantage === AdvantageType.ADVANTAGE
+              ? KeepDropType.KEEP_HIGHEST
+              : KeepDropType.KEEP_LOWEST,
           count: 1,
         },
       };
@@ -255,8 +251,10 @@ export class ProbabilityCalculator {
     // Resolve modifier to numeric value
     let resolvedModifier: number;
     try {
-      resolvedModifier = (this.diceRoller as any).resolveModifier(expression.modifier);
-    } catch (error) {
+      resolvedModifier = (
+        this.diceRoller as unknown as { resolveModifier(m: unknown): number }
+      ).resolveModifier(expression.modifier);
+    } catch {
       // If character modifier can't be resolved, default to 0
       resolvedModifier = 0;
     }
@@ -283,12 +281,7 @@ export class ProbabilityCalculator {
 
     if (group.keepDrop) {
       // Use keep/drop algorithm
-      return applyKeepDrop(
-        group.count,
-        sides,
-        group.keepDrop.type,
-        group.keepDrop.count
-      );
+      return applyKeepDrop(group.count, sides, group.keepDrop.type, group.keepDrop.count);
     } else {
       // Simple case: convolve multiple identical dice
       const singleDie = calculateDieDistribution(sides);
@@ -310,10 +303,7 @@ export class ProbabilityCalculator {
    * @param runs Number of simulation runs
    * @returns Distribution map (value -> probability)
    */
-  private calculateSimulation(
-    expression: DiceExpression,
-    runs: number
-  ): Map<number, number> {
+  private calculateSimulation(expression: DiceExpression, runs: number): Map<number, number> {
     const outcomes = new Map<number, number>();
 
     // Run simulations
@@ -347,7 +337,7 @@ export class ProbabilityCalculator {
   private getFromCache(key: string): ProbabilityResult | null {
     if (this.cache.has(key)) {
       // Move to end (most recently used)
-      this.cacheKeys = this.cacheKeys.filter(k => k !== key);
+      this.cacheKeys = this.cacheKeys.filter((k) => k !== key);
       this.cacheKeys.push(key);
       return this.cache.get(key)!;
     }
@@ -369,5 +359,4 @@ export class ProbabilityCalculator {
     this.cache.set(key, result);
     this.cacheKeys.push(key);
   }
-
 }

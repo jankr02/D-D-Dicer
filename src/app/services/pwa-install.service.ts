@@ -6,7 +6,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PwaInstallService {
   private deferredPrompt: BeforeInstallPromptEvent | null = null;
@@ -34,8 +34,9 @@ export class PwaInstallService {
   }
 
   private checkIfInstalled(): void {
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-      || (window.navigator as any).standalone === true;
+    const isStandalone =
+      window.matchMedia('(display-mode: standalone)').matches ||
+      (window.navigator as Navigator & { standalone?: boolean }).standalone === true;
 
     if (isStandalone) {
       this.isInstalled.set(true);

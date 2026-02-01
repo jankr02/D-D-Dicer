@@ -1,6 +1,6 @@
 {
   "name": "d-and-d-dicer",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "node node_modules/@angular/cli/bin/ng.js",
     "start": "node node_modules/@angular/cli/bin/ng.js serve",
@@ -10,7 +10,12 @@
     "build:i18n": "node node_modules/@angular/cli/bin/ng.js build --localize",
     "watch": "node node_modules/@angular/cli/bin/ng.js build --watch --configuration development",
     "test": "node node_modules/@angular/cli/bin/ng.js test",
-    "extract-i18n": "node node_modules/@angular/cli/bin/ng.js extract-i18n"
+    "test:ci": "node node_modules/@angular/cli/bin/ng.js test --watch=false --browsers=ChromeHeadless",
+    "test:coverage": "node node_modules/@angular/cli/bin/ng.js test --watch=false --browsers=ChromeHeadless --code-coverage",
+    "extract-i18n": "node node_modules/@angular/cli/bin/ng.js extract-i18n",
+    "lint": "node node_modules/@angular/cli/bin/ng.js lint",
+    "lint:fix": "node node_modules/@angular/cli/bin/ng.js lint --fix",
+    "prepare": "husky"
   },
   "prettier": {
     "printWidth": 100,
@@ -22,6 +27,14 @@
           "parser": "angular"
         }
       }
+    ]
+  },
+  "lint-staged": {
+    "*.{ts,html}": [
+      "eslint --fix"
+    ],
+    "*.{ts,html,scss,json,md}": [
+      "prettier --write"
     ]
   },
   "private": true,
@@ -41,19 +54,32 @@
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@angular-eslint/builder": "^20.7.0",
+    "@angular-eslint/eslint-plugin": "^20.7.0",
+    "@angular-eslint/eslint-plugin-template": "^20.7.0",
+    "@angular-eslint/schematics": "^20.7.0",
+    "@angular-eslint/template-parser": "^20.7.0",
     "@angular/build": "^20.3.7",
     "@angular/cli": "^20.3.7",
     "@angular/compiler-cli": "^20.3.0",
     "@angular/localize": "^20.3.16",
     "@types/jasmine": "~5.1.0",
     "@types/uuid": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
+    "angular-eslint": "^20.7.0",
+    "eslint": "^9.39.2",
+    "husky": "^9.1.7",
     "jasmine-core": "~5.9.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
     "sharp": "^0.34.5",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "typescript-eslint": "^8.54.0"
   }
 }
