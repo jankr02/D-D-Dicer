@@ -8,6 +8,42 @@
   border: 2px solid var(--border-primary);
   overflow: hidden;
 
+  // Compact mode for mobile
+  &.compact {
+    height: auto;
+    max-height: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+    .compact-header {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: linear-gradient(180deg, var(--tavern-wood-dark) 0%, var(--tavern-wood-medium) 100%);
+      border-bottom: 2px solid var(--border-primary);
+
+      .compact-title {
+        font-family: var(--font-heading);
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-light);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+
+    .compact-list {
+      padding: 0.75rem;
+      background: var(--parchment-light);
+    }
+
+    .compact-empty {
+      padding: 1.5rem;
+      text-align: center;
+      color: var(--text-secondary);
+      font-style: italic;
+    }
+  }
+
   .history-header {
     display: flex;
     justify-content: space-between;
@@ -23,6 +59,9 @@
       flex: 1;
 
       .tab-button {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
         padding: 0.7rem 1.4rem;
         background: linear-gradient(180deg, #5d4037 0%, #3e2723 100%);
         color: var(--text-light);
@@ -36,6 +75,18 @@
         transition: all 0.2s ease;
         cursor: pointer;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+
+        .tab-icon {
+          display: none;
+        }
+
+        .tab-label-short {
+          display: none;
+        }
+
+        .tab-label-full {
+          display: inline;
+        }
 
         &:hover {
           background: linear-gradient(180deg, #6d4c41 0%, #4e342e 100%);
@@ -53,6 +104,8 @@
     }
 
     .clear-button {
+      display: flex;
+      align-items: center;
       padding: 0.7rem 1.4rem;
       background: linear-gradient(180deg, #8b1a1a 0%, #5d0000 100%);
       color: var(--text-light);
@@ -117,6 +170,71 @@
       text-align: center;
       font-style: italic;
       line-height: 1.6;
+    }
+  }
+}
+
+// === Mobile Styles ===
+@media (max-width: 767px) {
+  .roll-history {
+    .history-header {
+      padding: 0.75rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+
+      .tab-navigation {
+        gap: 0.25rem;
+        width: 100%;
+        justify-content: space-between;
+
+        .tab-button {
+          flex: 1;
+          padding: 0.5rem 0.4rem;
+          font-size: 0.75rem;
+          letter-spacing: 0.5px;
+          justify-content: center;
+
+          .tab-icon {
+            display: inline;
+            font-size: 1rem;
+          }
+
+          .tab-label-short {
+            display: inline;
+          }
+
+          .tab-label-full {
+            display: none;
+          }
+        }
+      }
+
+      .clear-button {
+        width: 100%;
+        justify-content: center;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
+        box-shadow:
+          0 3px 0 #2d0000,
+          0 4px 6px rgba(0, 0, 0, 0.4),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+        .clear-label {
+          display: inline;
+        }
+      }
+    }
+
+    .history-list {
+      padding: 0.75rem;
+    }
+
+    .empty-state {
+      padding: 2rem 1rem;
+
+      p {
+        font-size: 1rem;
+      }
     }
   }
 }

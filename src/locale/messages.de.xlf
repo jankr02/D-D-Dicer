@@ -352,7 +352,7 @@
       </trans-unit>
       <trans-unit id="probability.label.successProbability" datatype="html">
         <source> Success Probability (≥ <x id="INTERPOLATION" equiv-text="{{ targetDC }}"/>) </source>
-        <target> Erfolgswahrscheinlichkeit (≥ <x id="INTERPOLATION" equiv-text="{{ targetDC }}"/>) </target>
+        <target> Erfolg (≥ <x id="INTERPOLATION" equiv-text="{{ targetDC }}"/>) </target>
       </trans-unit>
       <trans-unit id="probability.stat.expectedValue" datatype="html">
         <source>Expected Value</source>
@@ -414,6 +414,18 @@
         <source> Probabilities </source>
         <target> Chancen </target>
       </trans-unit>
+      <trans-unit id="rollHistory.tab.history.short" datatype="html">
+        <source>History</source>
+        <target>Verlauf</target>
+      </trans-unit>
+      <trans-unit id="rollHistory.tab.statistics.short" datatype="html">
+        <source>Stats</source>
+        <target>Stats</target>
+      </trans-unit>
+      <trans-unit id="rollHistory.tab.probabilities.short" datatype="html">
+        <source>Odds</source>
+        <target>Chancen</target>
+      </trans-unit>
       <trans-unit id="rollHistory.button.clearHistory" datatype="html">
         <source>Clear History</source>
         <target>Löschen</target>
@@ -421,6 +433,14 @@
       <trans-unit id="rollHistory.empty.noRolls" datatype="html">
         <source>No rolls yet. Start rolling some dice!</source>
         <target>Noch keine Würfe. Fang an zu würfeln!</target>
+      </trans-unit>
+      <trans-unit id="rollHistory.compact.title" datatype="html">
+        <source>Recent Rolls</source>
+        <target>Letzte Würfe</target>
+      </trans-unit>
+      <trans-unit id="rollHistory.compact.empty" datatype="html">
+        <source>Roll some dice!</source>
+        <target>Würfle los!</target>
       </trans-unit>
       <trans-unit id="modal.clearHistory.title" datatype="html">
         <source>Clear Roll History</source>

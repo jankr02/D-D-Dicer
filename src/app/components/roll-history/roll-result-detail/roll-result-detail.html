@@ -1,5 +1,5 @@
 @if (result) {
-  <div class="roll-result-detail">
+  <div class="roll-result-detail" [class.compact]="compact">
     <div class="result-header">
       <div class="notation">{{ result.notation }}</div>
       <div class="total"
@@ -9,34 +9,36 @@
       </div>
     </div>
 
-    <div class="result-breakdown">
-      <div class="dice-groups">
-        @for (group of result.groupResults; track $index) {
-          <div class="group">
-            <div class="group-label">Group {{ $index + 1 }}</div>
-            <div class="rolls">
-              @for (roll of group.rolls; track $index) {
-                <span class="roll"
-                      [class.dropped]="roll.isDropped">
-                  {{ roll.value }}
-                </span>
-              }
+    @if (!compact) {
+      <div class="result-breakdown">
+        <div class="dice-groups">
+          @for (group of result.groupResults; track $index) {
+            <div class="group">
+              <div class="group-label">Group {{ $index + 1 }}</div>
+              <div class="rolls">
+                @for (roll of group.rolls; track $index) {
+                  <span class="roll"
+                        [class.dropped]="roll.isDropped">
+                    {{ roll.value }}
+                  </span>
+                }
+              </div>
+              <div class="group-sum">Sum: {{ group.groupSum }}</div>
             </div>
-            <div class="group-sum">Sum: {{ group.groupSum }}</div>
+          }
+        </div>
+
+        @if (result.modifier !== 0) {
+          <div class="modifier">
+            <span class="label">Modifier:</span>
+            <span class="value">{{ result.modifier > 0 ? '+' : '' }}{{ result.modifier }}</span>
           </div>
         }
       </div>
 
-      @if (result.modifier !== 0) {
-        <div class="modifier">
-          <span class="label">Modifier:</span>
-          <span class="value">{{ result.modifier > 0 ? '+' : '' }}{{ result.modifier }}</span>
-        </div>
-      }
-    </div>
-
-    <div class="timestamp">
-      {{ result.timestamp | date:'short' }}
-    </div>
+      <div class="timestamp">
+        {{ result.timestamp | date:'short' }}
+      </div>
+    }
   </div>
 }

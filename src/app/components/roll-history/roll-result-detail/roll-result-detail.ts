@@ -20,6 +20,7 @@ import { RollResult } from '../../../models';
 })
 export class RollResultDetail {
   @Input() result!: RollResult;
+  @Input() compact = false;
 
   /**
    * Checks if a roll result represents a critical success (natural 20).

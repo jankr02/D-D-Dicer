@@ -412,6 +412,54 @@
   }
 }
 
+// === Mobile Sticky Roll Button ===
+@media (max-width: 767px) {
+  .dice-roller {
+    form {
+      padding-bottom: 0;
+
+      .roll-actions {
+        position: sticky;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: var(--parchment-light);
+        padding: 1rem 1.5rem;
+        margin: 0 -1.5rem;
+        border-top: 2px solid var(--border-primary);
+        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+        z-index: 10;
+      }
+
+      .roll-button {
+        padding: 1.2rem 1.5rem;
+        font-size: 1.3rem;
+
+        &::before,
+        &::after {
+          display: none;
+        }
+      }
+
+      .repeat-button {
+        padding: 0.8rem 1rem;
+        font-size: 0.95rem;
+        margin-top: 0.5rem;
+      }
+
+      .global-options {
+        flex-direction: column;
+
+        .form-field {
+          input[type="number"] {
+            max-width: none;
+          }
+        }
+      }
+    }
+  }
+}
+
 // === Dark Mode Anpassungen ===
 :root[data-theme="dark"] {
   .dice-roller {

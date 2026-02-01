@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Historie } from '../../services/historie';
 import { RollResult } from '../../models';
 import { RollResultDetail } from './roll-result-detail/roll-result-detail';
@@ -25,8 +26,13 @@ import { ModalService } from '../../services/modal.service';
   styleUrl: './roll-history.scss',
 })
 export class RollHistory implements OnInit {
+  @Input() compactMode = false;
+
   history$!: Observable<RollResult[]>;
+  compactHistory$!: Observable<RollResult[]>;
   activeTab: 'history' | 'statistics' | 'probabilities' = 'history';
+
+  private readonly COMPACT_LIMIT = 3;
 
   constructor(
     private historieService: Historie,
@@ -35,6 +41,9 @@ export class RollHistory implements OnInit {
 
   ngOnInit(): void {
     this.history$ = this.historieService.history$;
+    this.compactHistory$ = this.history$.pipe(
+      map(history => history.slice(0, this.COMPACT_LIMIT))
+    );
   }
 
   /**

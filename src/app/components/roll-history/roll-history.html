@@ -1,49 +1,78 @@
-<div class="roll-history">
-  <div class="history-header">
-    <div class="tab-navigation">
-      <button
-        class="tab-button"
-        [class.active]="activeTab === 'history'"
-        (click)="switchTab('history')"
-        i18n="@@rollHistory.tab.history">
-        Roll History
-      </button>
-      <button
-        class="tab-button"
-        [class.active]="activeTab === 'statistics'"
-        (click)="switchTab('statistics')"
-        i18n="@@rollHistory.tab.statistics">
-        Statistics
-      </button>
-      <button
-        class="tab-button"
-        [class.active]="activeTab === 'probabilities'"
-        (click)="switchTab('probabilities')"
-        i18n="@@rollHistory.tab.probabilities">
-        Probabilities
-      </button>
+<!-- Compact Mode (Mobile) -->
+@if (compactMode) {
+  <div class="roll-history compact">
+    <div class="compact-header">
+      <span class="compact-title" i18n="@@rollHistory.compact.title">Recent Rolls</span>
     </div>
 
-    <button class="clear-button" (click)="clearHistory()" i18n="@@rollHistory.button.clearHistory">Clear History</button>
-  </div>
-
-  @if (activeTab === 'history') {
-    @if (history$ | async; as history) {
+    @if (compactHistory$ | async; as history) {
       @if (history.length > 0) {
-        <div class="history-list">
+        <div class="compact-list">
           @for (result of history; track result.timestamp) {
-            <app-roll-result-detail [result]="result"></app-roll-result-detail>
+            <app-roll-result-detail [result]="result" [compact]="true"></app-roll-result-detail>
           }
         </div>
       } @else {
-        <div class="empty-state">
-          <p i18n="@@rollHistory.empty.noRolls">No rolls yet. Start rolling some dice!</p>
+        <div class="compact-empty">
+          <span i18n="@@rollHistory.compact.empty">Roll some dice!</span>
         </div>
       }
     }
-  } @else if (activeTab === 'statistics') {
-    <app-statistics-dashboard></app-statistics-dashboard>
-  } @else if (activeTab === 'probabilities') {
-    <app-probability-panel></app-probability-panel>
-  }
-</div>
+  </div>
+} @else {
+  <!-- Full Mode (Desktop / Stats Tab) -->
+  <div class="roll-history">
+    <div class="history-header">
+      <div class="tab-navigation">
+        <button
+          class="tab-button"
+          [class.active]="activeTab === 'history'"
+          (click)="switchTab('history')">
+          <span class="tab-icon">📜</span>
+          <span class="tab-label-short" i18n="@@rollHistory.tab.history.short">History</span>
+          <span class="tab-label-full" i18n="@@rollHistory.tab.history">Roll History</span>
+        </button>
+        <button
+          class="tab-button"
+          [class.active]="activeTab === 'statistics'"
+          (click)="switchTab('statistics')">
+          <span class="tab-icon">📊</span>
+          <span class="tab-label-short" i18n="@@rollHistory.tab.statistics.short">Stats</span>
+          <span class="tab-label-full" i18n="@@rollHistory.tab.statistics">Statistics</span>
+        </button>
+        <button
+          class="tab-button"
+          [class.active]="activeTab === 'probabilities'"
+          (click)="switchTab('probabilities')">
+          <span class="tab-icon">🎯</span>
+          <span class="tab-label-short" i18n="@@rollHistory.tab.probabilities.short">Odds</span>
+          <span class="tab-label-full" i18n="@@rollHistory.tab.probabilities">Probabilities</span>
+        </button>
+      </div>
+
+      <button class="clear-button" (click)="clearHistory()">
+        <span class="clear-label" i18n="@@rollHistory.button.clearHistory">Clear History</span>
+      </button>
+    </div>
+
+    @if (activeTab === 'history') {
+      @if (history$ | async; as history) {
+        @if (history.length > 0) {
+          <div class="history-list">
+            @for (result of history; track result.timestamp) {
+              <app-roll-result-detail [result]="result"></app-roll-result-detail>
+            }
+          </div>
+        } @else {
+          <div class="empty-state">
+            <p i18n="@@rollHistory.empty.noRolls">No rolls yet. Start rolling some dice!</p>
+          </div>
+        }
+      }
+    } @else if (activeTab === 'statistics') {
+      <app-statistics-dashboard></app-statistics-dashboard>
+    } @else if (activeTab === 'probabilities') {
+      <app-probability-panel></app-probability-panel>
+    }
+  </div>
+}

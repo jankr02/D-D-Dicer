@@ -1,4 +1,4 @@
-<div class="app-container">
+<div class="app-container" [class.mobile]="isMobile">
   <header>
     <div class="header-content">
       <h1>{{ title }}</h1>
@@ -9,8 +9,8 @@
     </div>
   </header>
 
-  <!-- Tab Navigation -->
-  <nav class="tab-navigation">
+  <!-- Desktop Tab Navigation -->
+  <nav class="tab-navigation desktop-only">
     <button
       class="tab-button"
       [class.active]="activeTab === 'dice'"
@@ -30,28 +30,64 @@
   </nav>
 
   <main class="content">
-    <!-- Dice Tab -->
-    <div *ngIf="activeTab === 'dice'" class="tab-content">
-      <div class="left-panel">
+    <!-- Desktop Layout -->
+    <ng-container *ngIf="!isMobile">
+      <!-- Dice Tab -->
+      <div *ngIf="activeTab === 'dice'" class="tab-content">
+        <div class="left-panel">
+          <app-dice-roller></app-dice-roller>
+          <app-preset-manager
+            (loadPreset)="onLoadPreset($event)"
+            (requestSave)="onSavePreset($event)">
+          </app-preset-manager>
+        </div>
+
+        <div class="right-panel">
+          <app-roll-history></app-roll-history>
+        </div>
+      </div>
+
+      <!-- Character Sheet Tab -->
+      <div *ngIf="activeTab === 'character'" class="tab-content character-tab">
+        <app-character-sheet></app-character-sheet>
+      </div>
+    </ng-container>
+
+    <!-- Mobile Layout -->
+    <ng-container *ngIf="isMobile">
+      <!-- Dice Tab (Mobile) -->
+      <div *ngIf="mobileTab === 'dice'" class="mobile-tab-content mobile-dice-tab">
         <app-dice-roller></app-dice-roller>
+        <app-roll-history [compactMode]="true"></app-roll-history>
+      </div>
+
+      <!-- Presets Tab (Mobile) -->
+      <div *ngIf="mobileTab === 'presets'" class="mobile-tab-content">
         <app-preset-manager
           (loadPreset)="onLoadPreset($event)"
           (requestSave)="onSavePreset($event)">
         </app-preset-manager>
       </div>
 
-      <div class="right-panel">
-        <app-roll-history></app-roll-history>
+      <!-- Stats Tab (Mobile) -->
+      <div *ngIf="mobileTab === 'stats'" class="mobile-tab-content">
+        <app-roll-history [compactMode]="false"></app-roll-history>
       </div>
-    </div>
 
-    <!-- Character Sheet Tab -->
-    <div *ngIf="activeTab === 'character'" class="tab-content character-tab">
-      <app-character-sheet></app-character-sheet>
-    </div>
+      <!-- Character Tab (Mobile) -->
+      <div *ngIf="mobileTab === 'character'" class="mobile-tab-content">
+        <app-character-sheet></app-character-sheet>
+      </div>
+    </ng-container>
   </main>
+
+  <!-- Mobile Bottom Tab Bar -->
+  <app-bottom-tab-bar
+    *ngIf="isMobile"
+    [activeTab]="mobileTab"
+    (tabChange)="switchMobileTab($event)">
+  </app-bottom-tab-bar>
 
   <app-toast-container></app-toast-container>
   <app-modal-container></app-modal-container>
 </div>
-

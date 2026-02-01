@@ -1,4 +1,4 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DiceRoller } from './components/dice-roller/dice-roller';
 import { RollHistory } from './components/roll-history/roll-history';
@@ -8,6 +8,7 @@ import { ThemeToggleComponent } from './components/theme-toggle/theme-toggle.com
 import { ToastContainerComponent } from './components/toast/toast-container.component';
 import { ModalContainerComponent } from './components/modal/modal-container.component';
 import { LanguageSwitcherComponent } from './components/language-switcher/language-switcher';
+import { BottomTabBarComponent, MobileTab } from './components/bottom-tab-bar/bottom-tab-bar.component';
 import { DiceExpression } from './models';
 import { Settings } from './services/settings';
 import { ToastService } from './services/toast.service';
@@ -23,7 +24,8 @@ import { ToastService } from './services/toast.service';
     ThemeToggleComponent,
     ToastContainerComponent,
     ModalContainerComponent,
-    LanguageSwitcherComponent
+    LanguageSwitcherComponent,
+    BottomTabBarComponent
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss'
@@ -31,6 +33,10 @@ import { ToastService } from './services/toast.service';
 export class App implements OnInit {
   title = 'D&D Dice Roller';
   activeTab: 'dice' | 'character' = 'dice';
+  mobileTab: MobileTab = 'dice';
+  isMobile = false;
+
+  private readonly MOBILE_BREAKPOINT = 768;
 
   constructor(
     _settings: Settings,
@@ -41,7 +47,16 @@ export class App implements OnInit {
   }
 
   ngOnInit(): void {
-    // Component initialization
+    this.checkMobile();
+  }
+
+  @HostListener('window:resize')
+  onResize(): void {
+    this.checkMobile();
+  }
+
+  private checkMobile(): void {
+    this.isMobile = window.innerWidth < this.MOBILE_BREAKPOINT;
   }
 
   @ViewChild(DiceRoller) diceRoller!: DiceRoller;
@@ -76,9 +91,22 @@ export class App implements OnInit {
   }
 
   /**
-   * Switches between tabs.
+   * Switches between tabs (desktop).
    */
   switchTab(tab: 'dice' | 'character'): void {
     this.activeTab = tab;
+  }
+
+  /**
+   * Switches between mobile tabs.
+   */
+  switchMobileTab(tab: MobileTab): void {
+    this.mobileTab = tab;
+    // Sync with desktop tabs where applicable
+    if (tab === 'character') {
+      this.activeTab = 'character';
+    } else {
+      this.activeTab = 'dice';
+    }
   }
 }

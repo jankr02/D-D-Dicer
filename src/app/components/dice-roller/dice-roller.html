@@ -86,16 +86,18 @@
       }
     </div>
 
-    <button type="submit" class="roll-button" [disabled]="diceForm.invalid" i18n="@@diceRoller.button.roll">Roll Dice</button>
+    <div class="roll-actions">
+      <button type="submit" class="roll-button" [disabled]="diceForm.invalid" i18n="@@diceRoller.button.roll">Roll Dice</button>
 
-    <button
-      type="button"
-      class="repeat-button"
-      (click)="repeatLastRoll()"
-      [disabled]="!hasLastRoll()"
-      i18n="@@diceRoller.button.repeatLast"
-    >
-      🔄 Repeat Last Roll
-    </button>
+      <button
+        type="button"
+        class="repeat-button"
+        (click)="repeatLastRoll()"
+        [disabled]="!hasLastRoll()"
+        i18n="@@diceRoller.button.repeatLast"
+      >
+        🔄 Repeat Last Roll
+      </button>
+    </div>
   </form>
 </div>

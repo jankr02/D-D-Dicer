@@ -177,3 +177,59 @@
     }
   }
 }
+
+// === Mobile Layout (< 768px) ===
+@media (max-width: 767px) {
+  .app-container {
+    // Hide desktop tab navigation on mobile
+    .tab-navigation.desktop-only {
+      display: none;
+    }
+
+    header {
+      padding: 0.75rem 1rem;
+
+      .header-content {
+        gap: 0.5rem;
+      }
+
+      h1 {
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+
+        &::before,
+        &::after {
+          display: none;
+        }
+      }
+
+      .header-controls {
+        gap: 0.5rem;
+      }
+    }
+
+    .content {
+      padding: 0.75rem;
+      padding-bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+
+      .mobile-tab-content {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 100%;
+
+        &.mobile-dice-tab {
+          // Dice roller takes available space, history at bottom
+          app-dice-roller {
+            flex: 1;
+            min-height: 0;
+          }
+
+          app-roll-history {
+            flex-shrink: 0;
+          }
+        }
+      }
+    }
+  }
+}
